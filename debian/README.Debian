@@ -1,0 +1,34 @@
+usb-modeswitch for Debian
+-------------------------
+
+In Debian, usb-modeswitch is provided with two ways of making stuff "just
+work".
+
+1) The Automatic Way - udev
+
+	/etc/udev/rules.d/usb_modeswitch.rules is a "rules" file generated from
+	/etc/usb_modeswitch.conf (see below). It has one uncommented rule for
+	each device ID.
+
+	These rules are installed and will act when you plug your device in. If
+	your device fails to work automagically, you will have to dig using the
+	manual way.
+
+2) The Manual Way
+
+	/etc/usb_modeswitch.conf that contains the configuration values for the
+	supported devices.
+	
+	You can either:
+		a) feed the right values to usb_modeswitch itself each time you
+		   plug your device (hint: use a script!).
+		b) modify the configuration file /etc/usb_modeswitch.conf and
+		   uncomment (i.e. remove the ";") the part corresponding to
+		   your device. usb_modeswitch will then work without needing to
+		   enter the right values each time.
+
+	Once you have found the correct entry for your device, you can alter
+	/etc/udev/rules.d/usb_modeswitch.rules to ensure that the correct line
+	is uncommented (and the only one for your device ID).
+	
+ -- Didier Raboud <didier@raboud.com>  Fri, 13 Feb 2009 11:58:53 +01

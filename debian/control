@@ -1,0 +1,25 @@
+Source: usb-modeswitch
+Section: comm
+Priority: extra
+Maintainer: Didier Raboud <didier@raboud.com>
+Build-Depends: debhelper (>= 7), libusb-dev, docbook-to-man, python
+Standards-Version: 3.8.1
+Homepage: http://www.draisberghof.de/usb_modeswitch/
+
+Package: usb-modeswitch
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: gcom, wvdial
+Description: mode switching tool for controlling "flip flop" USB devices
+ Several new USB devices have their proprietary Windows drivers onboard,
+ especially WAN dongles. When plugged in for the first time, they act
+ like a flash storage and start installing the driver from there. If
+ the driver is already installed, the storage device vanishes and
+ a new device, such as an USB modem, shows up. This is called the
+ "ZeroCD" feature.
+ .
+ On Debian, this is not needed, since the driver is included as a
+ Linux kernel module, such as "usbserial". However, the device still
+ shows up as "usb-storage" by default. usb-modeswitch solves that
+ issue by sending the command which actually performs the switching
+ of the device from "usb-storage" to "usbserial".

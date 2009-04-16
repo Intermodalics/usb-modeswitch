@@ -1,0 +1,46 @@
+usb-modeswitch (0.9.7-1) unstable; urgency=low
+
+  * 0.9.7 new upstream release.
+    "Updated SonyMode, MD 400 now stable; automatic default endpoint detection
+     from Andrew Bird."
+    - Sony Ericsson MD400 now working
+    - Automatic bulk endpoint detection
+  * debian/copyright
+    - Point to GPL version 2, thanks to lintian --pedantic.
+
+ -- Didier Raboud <didier@raboud.com>  Thu, 16 Apr 2009 11:34:47 +0200
+
+usb-modeswitch (0.9.7~beta1-1) experimental; urgency=low
+
+  * 0.9.7beta new upstream release.
+    "Major code clean up, optional success control (both suggested by Daniel
+     Cooper), new devices"
+  * New build system (not used in Debian yet).
+  * New option to enable success control (--success)
+    - Manpage updated
+  * New devices
+    - Option iCON 210,401
+    - Vodafone K3760
+    - ZTE MF636 (aka "Telstra / BigPond 7.2 Mobile Card")
+    - Sierra Wireless Compass 597
+    - MobiData MBD-200HU
+    - Hyundai Mobile MB-810
+  * Bump Standards to 3.8.1. No changes needed.
+
+ -- Didier Raboud <didier@raboud.com>  Mon, 30 Mar 2009 19:44:55 +0200
+
+usb-modeswitch (0.9.6-2) unstable; urgency=low
+
+  * debian/copyright: Make clear that the packaging is GPLv2+, as
+    usb-modeswitch itself
+  * debian/mkrules.py: Generate udev rules based on /etc/usb-modeswitch.conf
+  * Add gcom and wvdial to Suggests.
+
+ -- Didier Raboud <didier@raboud.com>  Sat, 14 Feb 2009 12:32:43 +0100
+
+usb-modeswitch (0.9.6-1) unstable; urgency=low
+
+  * Initial release (Closes: #453732)
+  * Description taken from the ITP, thanks to Aurélien GÉRÔME.
+
+ -- Didier Raboud <didier@raboud.com>  Tue, 03 Feb 2009 14:11:19 +0100
