@@ -1,3 +1,12 @@
+usb-modeswitch (0.9.7-2) UNRELEASED; urgency=low
+
+  * Fix "Broken generated udev rules for Huawei devices." by adding patch
+    01_correct_broken_huawei_conf.patch (Closes: #530788).
+    - Thus adding quilt to Build-Depends and tweak debian/rules accordingly.
+    - Thanks Stephen Depooter.
+
+ -- Didier Raboud <didier@raboud.com>  Thu, 28 May 2009 09:27:55 +0200
+
 usb-modeswitch (0.9.7-1) unstable; urgency=low
 
   * 0.9.7 new upstream release.

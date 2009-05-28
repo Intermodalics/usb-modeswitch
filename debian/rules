@@ -33,27 +33,30 @@ build: build-stamp
 
 build-stamp: configure-stamp  
 	dh_testdir
-
+	
+	dh_quilt_patch
+	
 	$(CC) $(CFLAGS) -o usb_modeswitch usb_modeswitch.c -lusb
-
+	
 	docbook-to-man debian/usb_modeswitch.sgml > usb_modeswitch.1
-
+	
 	/usr/bin/env python debian/mkrules.py usb_modeswitch.conf > usb_modeswitch.rules
-
+	
 	touch $@
 
 clean: 
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
-
+	
 	# Delete the generated binary	
 	rm -f usb_modeswitch
 	# Delete the generated manpage
 	rm -f usb_modeswitch.1
 	# Delete the generated udev rule
 	rm -f usb_modeswitch.rules
-
+	
+	dh_quilt_unpatch
 	dh_clean 
 
 install: build

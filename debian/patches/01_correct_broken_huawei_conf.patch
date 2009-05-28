@@ -1,0 +1,26 @@
+Correct broken entries in usb_modeswitch.conf.
+
+Thanks to Stephen Depooter for the accurate bugreport with this patch.
+
+Index: usb-modeswitch/usb_modeswitch.conf
+===================================================================
+--- usb-modeswitch.orig/usb_modeswitch.conf	2009-05-28 09:26:39.000000000 +0200
++++ usb-modeswitch/usb_modeswitch.conf	2009-05-28 09:26:55.000000000 +0200
+@@ -350,7 +350,7 @@
+ #
+ # Contributor: Hans Kurent, Denis Sutter
+ 
+-;DefaultVendor=  0x12d1;
++;DefaultVendor=  0x12d1
+ ;DefaultProduct= 0x1003
+ 
+ # choose one of these:
+@@ -363,7 +363,7 @@
+ #
+ # Contributor: Dale Lane
+ 
+-;DefaultVendor=  0x12d1;
++;DefaultVendor=  0x12d1
+ ;DefaultProduct= 0x1001
+ 
+ # choose one of these:

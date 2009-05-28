@@ -2,7 +2,7 @@ Source: usb-modeswitch
 Section: comm
 Priority: extra
 Maintainer: Didier Raboud <didier@raboud.com>
-Build-Depends: debhelper (>= 7), libusb-dev, docbook-to-man, python
+Build-Depends: debhelper (>= 7), libusb-dev, docbook-to-man, python, quilt
 Standards-Version: 3.8.1
 Homepage: http://www.draisberghof.de/usb_modeswitch/
 
