@@ -8,6 +8,8 @@ usb-modeswitch (0.9.7-2) UNRELEASED; urgency=low
     - Thus bump Build-Depends on debhelper to > 7.0.50.
     - Use upstream's build system.
     - Add patch 02_umconf_is_no_exec.patch.
+    - Add patch 03_build_system_to_policy.patch to accept DEB_BUILD_OPTIONS
+      (noopt, nostrip).
 
  -- Didier Raboud <didier@raboud.com>  Thu, 28 May 2009 09:27:55 +0200
 

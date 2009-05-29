@@ -1,2 +1,3 @@
 01_correct_broken_huawei_conf.patch
 02_umconf_is_no_exec.patch
+03_build_system_to_policy.patch
