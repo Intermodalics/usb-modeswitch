@@ -1,44 +1,28 @@
 Make the Makefile behave on a smarter way within Debian policy requirements (4.9.1).
 
+ * Don't strip the binary here (done by dh_strip)
+ * s/CCFLAGS/CFLAGS/g : Let dpkg-buildpackage define CFLAGS.
+
 Index: usb-modeswitch/Makefile
 ===================================================================
---- usb-modeswitch.orig/Makefile	2009-05-29 16:23:31.000000000 +0200
-+++ usb-modeswitch/Makefile	2009-05-29 16:23:41.000000000 +0200
-@@ -2,25 +2,34 @@
+--- usb-modeswitch.orig/Makefile	2009-05-29 16:34:07.000000000 +0200
++++ usb-modeswitch/Makefile	2009-05-29 16:35:42.000000000 +0200
+@@ -2,7 +2,7 @@
  VERS        = 0.9.7
  STRIP	    = strip
  CC          = gcc
 -CCFLAGS     = -l usb
-+CCFLAGS     = -Wall -g -l usb
++CFLAGS     += -l usb
  RM          = /bin/rm -f
  OBJS        = usb_modeswitch.c
  PREFIX	    = $(DESTDIR)/usr
- ETCDIR	    = $(DESTDIR)/etc
- SBINDIR	    = $(PREFIX)/sbin
- 
-+ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-+    CCFLAGS += -O0
-+else
-+    CCFLAGS += -O2
-+endif
-+
-+ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
-+    INSTALL_OPTS = -s
-+endif
-+
+@@ -12,8 +12,7 @@
  .PHONY:     clean
  all:        $(PROG)
  $(PROG):    $(OBJS)
- 	      $(CC) $(CCFLAGS) -o $(PROG) $(OBJS)
+-	      $(CC) $(CCFLAGS) -o $(PROG) $(OBJS)
 -	      $(STRIP) $(PROG)
++	      $(CC) $(CFLAGS) -o $(PROG) $(OBJS)
  
  clean:
  	      $(RM) ./usb_modeswitch
- 
- install: all
- 	mkdir -p $(SBINDIR)
--	install ./usb_modeswitch $(SBINDIR)
-+	install $(INSTALL_OPTS) ./usb_modeswitch $(SBINDIR)
- 	mkdir -p $(ETCDIR)
- 	install --mode=644 ./usb_modeswitch.conf $(ETCDIR)
- 
