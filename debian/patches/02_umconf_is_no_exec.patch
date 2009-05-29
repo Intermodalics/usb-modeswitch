@@ -1,0 +1,13 @@
+Index: usb-modeswitch/Makefile
+===================================================================
+--- usb-modeswitch.orig/Makefile	2009-05-29 15:12:25.000000000 +0200
++++ usb-modeswitch/Makefile	2009-05-29 15:13:25.000000000 +0200
+@@ -22,7 +22,7 @@
+ 	mkdir -p $(SBINDIR)
+ 	install ./usb_modeswitch $(SBINDIR)
+ 	mkdir -p $(ETCDIR)
+-	install ./usb_modeswitch.conf $(ETCDIR)
++	install --mode=644 ./usb_modeswitch.conf $(ETCDIR)
+ 
+ uninstall: clean
+ 	$(RM) /usr/sbin/usb_modeswitch

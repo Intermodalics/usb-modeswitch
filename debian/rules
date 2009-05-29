@@ -1,115 +1,23 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
-# Sample debian/rules that uses debhelper.
-# This file was originally written by Joey Hess and Craig Small.
-# As a special exception, when this file is copied by dh-make into a
-# dh-make output file, you may use that output file without restriction.
-# This special exception was added by Craig Small in version 0.37 of dh-make.
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+%:
+	dh --with quilt $@
 
-CC = gcc
-CFLAGS = -g -Wall # sane warning options vary between programs
-LDFLAGS = # none
+## Create and install manpage ##
 
-ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-    CFLAGS += -O0
-else
-    CFLAGS += -O2
-endif
-
-
-
-configure: configure-stamp
-configure-stamp:
-	dh_testdir
-	# Add here commands to configure the package.
-
-	touch configure-stamp
-
-
-build: build-stamp
-
-build-stamp: configure-stamp  
-	dh_testdir
-	
-	dh_quilt_patch
-	
-	$(CC) $(CFLAGS) -o usb_modeswitch usb_modeswitch.c -lusb
-	
+override_dh_auto_build:
+	dh_auto_build
 	docbook-to-man debian/usb_modeswitch.sgml > usb_modeswitch.1
-	
 	/usr/bin/env python debian/mkrules.py usb_modeswitch.conf > usb_modeswitch.rules
-	
-	touch $@
 
-clean: 
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp configure-stamp
-	
-	# Delete the generated binary	
-	rm -f usb_modeswitch
-	# Delete the generated manpage
+override_dh_clean:
+	dh_clean
 	rm -f usb_modeswitch.1
-	# Delete the generated udev rule
 	rm -f usb_modeswitch.rules
-	
-	dh_quilt_unpatch
-	dh_clean 
 
-install: build
-	dh_testdir
-	dh_testroot
-	dh_prep  
-	dh_installdirs
-	
-	dh_install usb_modeswitch /usr/sbin
-	dh_install usb_modeswitch.conf /etc
-	dh_install usb_modeswitch.rules /etc/udev/rules.d	
-
-# Build architecture-independent files here.
-binary-indep: install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs 
-	dh_installdocs
-	dh_installexamples
-#	dh_install
-#	dh_installmenu
-#	dh_installdebconf
-#	dh_installlogrotate
-#	dh_installemacsen
-#	dh_installpam
-#	dh_installmime
-#	dh_python
-#	dh_installinit
-#	dh_installcron
-#	dh_installinfo
+override_dh_installman:
 	dh_installman usb_modeswitch.1
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-#	dh_perl
-#	dh_makeshlibs
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
 
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
-
-# Path to the debian directory
-# DEBIAN_DIR := $(shell echo ${MAKEFILE_LIST} | awk '{print $$1}' | xargs dirname )
-# UPSTREAM_VERSION ?=$(shell uscan --dehs | sed -n 's/.*<upstream-version>\(.*\)<\/upstream-version>.*/\1/p')
-# 
-# get-orig-source:
-#	cd ${DEBIAN_DIR}/.. && uscan --force-download --repack
+override_dh_install:
+	dh_install
+	dh_install usb_modeswitch.rules /etc/udev/rules.d/
