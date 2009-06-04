@@ -1,0 +1,12 @@
+usb-modeswitch (1.0.0-1) UNRELEASED; urgency=low
+
+  For the 1.0.0 release, the command line options have changed in two ways from
+  their behavior in the 0.9.* versions:
+   * On/off flags don't require arguments anymore (e.g. '-H' instead of '-H 1')
+   * long option names changed to standard format (e.g. --huawei-mode instead
+     of --HuaweiMode).
+
+  The old options are _not_ recognised and _will_ make usb_modeswitch fail. So
+  check your scripts and everything that might be using these command lines.
+
+ -- Didier Raboud <didier@raboud.com>  Thu, 04 Jun 2009 15:16:55 +0200

@@ -11,6 +11,9 @@ usb-modeswitch (1.0.0-1) UNRELEASED; urgency=low
     - Code cleanup
     - Added device inquiry
     - Send and response endpoints now autoselected
+  * Fix manpage accordingly.
+  * Update mkrules.py accordingly.
+  * Add debian/NEWS with a clear warning about the command line changes.
   * Fix "Broken generated udev rules for Huawei devices." by adding patch
     01_correct_broken_huawei_conf.patch (Closes: #530788).
     - Thus adding quilt to Build-Depends and tweak debian/rules accordingly.
@@ -21,8 +24,6 @@ usb-modeswitch (1.0.0-1) UNRELEASED; urgency=low
     - Add patch 02_umconf_is_no_exec.patch.
     - Add patch 03_build_system_to_policy.patch to accept DEB_BUILD_OPTIONS
       (noopt, nostrip).
-  * Fix manpage accordingly.
-  * Update mkrules.py accordingly.
 
  -- Didier Raboud <didier@raboud.com>  Thu, 04 Jun 2009 15:03:54 +0200
 
