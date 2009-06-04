@@ -47,12 +47,12 @@ print '''### /etc/udev/rules.d/usb_modeswitch.rules ###
 #
 
 '''
-def um_comAdd(indic, indivConfig, toggle=False):
+def um_comAdd(indic, indivConfig, commandLineIndic, toggle=False):
 	if indic in indivConfig:
 		if not toggle:
-			return ' --' + indic + ' ' + indivConfig[indic]
+			return ' --' + commandLineIndic + ' ' + indivConfig[indic]
 		else:
-			return ' --' + indic + ' 1'
+			return ' --' + commandLineIndic
 	else:
 		return ''
 
@@ -66,14 +66,14 @@ for indivConfig in configList:
 		print '# Vendor:Product id =',uniqId
 
 		um_commandline  = '/usr/sbin/usb_modeswitch'
-		um_commandline += um_comAdd('DefaultVendor',indivConfig)
-		um_commandline += um_comAdd('DefaultProduct',indivConfig)
-		um_commandline += um_comAdd('MessageEndpoint', indivConfig)
+		um_commandline += um_comAdd('DefaultVendor',indivConfig,'default-vendor')
+		um_commandline += um_comAdd('DefaultProduct',indivConfig,'default-product')
+		um_commandline += um_comAdd('MessageEndpoint', indivConfig,'message-endpoint')
 		if 'MessageContent' in indivConfig:
-			um_commandline += ' --MessageContent ' + indivConfig['MessageContent'][1:-1]
-		um_commandline += um_comAdd('ResponseEndpoint', indivConfig)
-		um_commandline += um_comAdd('DetachStorageOnly', indivConfig, True)
-		um_commandline += um_comAdd('Interface', indivConfig)
+			um_commandline += ' --message-content ' + indivConfig['MessageContent'][1:-1]
+		um_commandline += um_comAdd('ResponseEndpoint', indivConfig,'response-endpoint')
+		um_commandline += um_comAdd('DetachStorageOnly', indivConfig, 'detach-only', True)
+		um_commandline += um_comAdd('Interface', indivConfig,'interface')
 
 		ruleLine  = 'SUBSYSTEM=="usb", '
 		ruleLine += 'SYSFS{idVendor}=="' + indivConfig['DefaultVendor'][2:] +'", '

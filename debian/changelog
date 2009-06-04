@@ -22,6 +22,7 @@ usb-modeswitch (1.0.0-1) UNRELEASED; urgency=low
     - Add patch 03_build_system_to_policy.patch to accept DEB_BUILD_OPTIONS
       (noopt, nostrip).
   * Fix manpage accordingly.
+  * Update mkrules.py accordingly.
 
  -- Didier Raboud <didier@raboud.com>  Thu, 04 Jun 2009 15:03:54 +0200
 
