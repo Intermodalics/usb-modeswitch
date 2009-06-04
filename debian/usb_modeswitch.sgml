@@ -90,70 +90,70 @@
 
       <varlistentry>
         <term><option>-v</option>
-          <option>--DefaultVendor [nr]</option>
+          <option>--default-vendor [nr]</option>
         </term>
         <listitem>
-          <para>Set Vendor number to look for.</para>
+          <para>Vendor ID to look for (mandatory).</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><option>-p</option>
-          <option>--DefaultProduct [nr]</option>
+          <option>--default-product [nr]</option>
         </term>
         <listitem>
-          <para>Set Model number to look for.</para>
+          <para>Product ID to look for (mandatory).</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><option>-V</option>
-          <option>--TargetVendor [nr]</option>
+          <option>--target-vendor [nr]</option>
         </term>
         <listitem>
-          <para>Target Vendor; needed for success check.</para>
+          <para>Target Vendor (optional, for success check).</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><option>-P</option>
-          <option>--TargetProduct [nr]</option>
+          <option>--target-product [nr]</option>
         </term>
         <listitem>
-          <para>Target Model; needed for success check.</para>
+          <para>Target Model (optional, for success check).</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><option>-C</option>
-          <option>--TargetClass [nr]</option>
+          <option>--target-class [nr]</option>
         </term>
         <listitem>
-          <para>Target Device Class; if found, quit</para>
+          <para>Target Device Class</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><option>-m</option>
-          <option>--MessageEndpoint [nr]</option>
+          <option>--message-endpoint [nr]</option>
         </term>
         <listitem>
-          <para>Where to direct command sequence</para>
+          <para>Where to direct the message</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><option>-M</option>
-          <option>--MessageContent [nr]</option>
+          <option>--message-content [nr]</option>
         </term>
         <listitem>
-          <para>Command sequence to send</para>
+          <para>Command to send (hex as string)</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><option>-r</option>
-          <option>--ResponseEndPoint [nr]</option>
+          <option>--response-endpoint [nr]</option>
         </term>
         <listitem>
           <para>If given, read response from there</para>
@@ -162,7 +162,7 @@
 
      <varlistentry>
         <term><option>-d</option>
-          <option>--DetachStorageOnly [1|0]</option>
+          <option>--detach-only</option>
         </term>
         <listitem>
           <para>Whether to just detach the storage driver</para>
@@ -171,7 +171,7 @@
 
      <varlistentry>
         <term><option>-H</option>
-          <option>--HuaweiMode [1|0]</option>
+          <option>--huawei-mode</option>
         </term>
         <listitem>
           <para>Whether to just apply the Huawei mode</para>
@@ -180,7 +180,7 @@
 
      <varlistentry>
         <term><option>-S</option>
-          <option>--SierraMode [1|0]</option>
+          <option>--sierraMode</option>
         </term>
         <listitem>
           <para>Whether to just apply the Sierra mode</para>
@@ -189,7 +189,7 @@
 
      <varlistentry>
         <term><option>-O</option>
-          <option>--SonyMode [1|0]</option>
+          <option>--sonyMode</option>
         </term>
         <listitem>
           <para>Whether to just apply the Sony mode</para>
@@ -198,7 +198,7 @@
 
      <varlistentry>
         <term><option>-R</option>
-          <option>--ResetUSB [1|0]</option>
+          <option>--resetUSB</option>
         </term>
         <listitem>
           <para>Whether to reset the device in the end</para>
@@ -243,6 +243,16 @@
       </varlistentry>
 
      <varlistentry>
+
+     <varlistentry>
+        <term><option>-I</option>
+          <option>--no-inquire</option>
+        </term>
+        <listitem>
+          <para>do not get device details (default on)</para>
+        </listitem>
+      </varlistentry>
+
         <term><option>-i</option>
           <option>--Interface</option>
         </term>
