@@ -10,15 +10,16 @@ What it is
 USB_ModeSwitch is (surprise!) a small mode switching tool for controlling
 "flip flop" (multiple device) USB gear
 
-Several new USB devices (especially high-speed WAN stuff, they're expensive
-anyway) have their MS Windows drivers onboard; when plugged in for the first
-time they act like a flash storage and start installing the driver from there.
+Several new USB devices (especially high-speed WAN stuff, they use cell phone
+chipsets which can switch access modes) have their MS Windows drivers onboard;
+when plugged in for the first time they act like a flash storage and start
+installing the driver from there.
 After that (and on every consecutive plugging) this driver switches the mode
 internally, the storage device vanishes (in most cases), and a new device (like
-an USB modem) shows up. Some call that feature "ZeroCD".
+an USB modem) shows up. The modem maker Option calls that feature "ZeroCD".
 
-Of course, nothing of this is documented in any form and there is hardly any
-Linux driver available.
+Of course, first there was no documentation in any form and even now there are
+only few producers who care for Linux users.
 On the good side, most of the known devices work out of the box with the
 available Linux modules like "usb-storage" or "usbserial". That leaves the
 problem of the mode switching from storage to whatever the thing is supposed to
@@ -39,7 +40,7 @@ manual call of "lsusb" to note any changes after execution.
 How to install
 ==============
 
-A x86 binary is included (compiled on Pentium M, Ubuntu 8.10).
+A x86 binary is included (compiled on Pentium M, Ubuntu 9.04).
 
 If you want to compile it for yourself, just delete the binary and run "make".
 
@@ -126,14 +127,23 @@ More contributors are listed in the config file.
 History
 =======
 
+Version 1.0.0, 2009/06/03
+    Attention: possible incompatibilities for command line control!
+    On/off flags don't require arguments anymore (-H, -S, -O, -d, -R,
+    -n, new: -I), meaning "-R 0" does a reset like "-R 1" or "-R";
+    long option names changed to standard format (e.g. --HuaweiMode to
+    --huawei-mode); added device inquiry, for future help with device
+    identification; catch error -19 as possible success; send and response
+    endpoints now autoselected (consequently NeedResponse is back);
+    code cleanup; new devices
 Version 0.9.7, 2009/04/15
-	Updated SonyMode, MD 400 now stable; automatic default endpoint
-	detection from Andrew Bird
+    Updated SonyMode, MD 400 now stable; automatic default endpoint
+    detection from Andrew Bird
 Version 0.9.7beta, 2009/03/15
-	Major code clean up, optional success control (both suggested
-	by Daniel Cooper), new devices
+    Major code clean up, optional success control (both suggested
+    by Daniel Cooper), new devices
 Version 0.9.6, 2009/01/08
-	Special modes added for Sierra and Sony Ericsson, new devices
+    Special modes added for Sierra and Sony Ericsson, new devices
 Version 0.9.5, 2008/10/27
     New options for USB tuning (jokedst), lots of new devices, clean up
 Version 0.9.4, 2008/06/09
@@ -178,4 +188,4 @@ Or find it as the file COPYING in this folder.
 
 
 
-Last revised: 2009-04-15, Josua Dietze
+Last revised: 2009-06-03, Josua Dietze
