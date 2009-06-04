@@ -1,8 +1,16 @@
 usb-modeswitch (1.0.0-1) UNRELEASED; urgency=low
 
-  * New Upstream Version
-    - New device: EpiValley SEC-7089 (featured by Alegro and Starcomms / iZAP)
-    - New device: ST Mobile Connect HSUPA USB Modem
+  * New 1.0.0 Upstream Version
+    - New devices:
+      + EpiValley SEC-7089 (featured by Alegro and Starcomms / iZAP)
+      + ST Mobile Connect HSUPA USB Modem
+    - The command line options have changed:
+      + On/off flags don't require arguments anymore
+      + long option names changed to standard format (e.g. --HuaweiMode to
+        --huawei-mode)
+    - Code cleanup
+    - Added device inquiry
+    - Send and response endpoints now autoselected
   * Fix "Broken generated udev rules for Huawei devices." by adding patch
     01_correct_broken_huawei_conf.patch (Closes: #530788).
     - Thus adding quilt to Build-Depends and tweak debian/rules accordingly.
