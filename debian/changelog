@@ -1,5 +1,8 @@
-usb-modeswitch (0.9.7-2) UNRELEASED; urgency=low
+usb-modeswitch (1.0.0-1) UNRELEASED; urgency=low
 
+  * New Upstream Version
+    - New device: EpiValley SEC-7089 (featured by Alegro and Starcomms / iZAP)
+    - New device: ST Mobile Connect HSUPA USB Modem
   * Fix "Broken generated udev rules for Huawei devices." by adding patch
     01_correct_broken_huawei_conf.patch (Closes: #530788).
     - Thus adding quilt to Build-Depends and tweak debian/rules accordingly.
@@ -11,7 +14,7 @@ usb-modeswitch (0.9.7-2) UNRELEASED; urgency=low
     - Add patch 03_build_system_to_policy.patch to accept DEB_BUILD_OPTIONS
       (noopt, nostrip).
 
- -- Didier Raboud <didier@raboud.com>  Thu, 28 May 2009 09:27:55 +0200
+ -- Didier Raboud <didier@raboud.com>  Thu, 04 Jun 2009 15:03:54 +0200
 
 usb-modeswitch (0.9.7-1) unstable; urgency=low
 
