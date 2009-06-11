@@ -1,6 +1,6 @@
-usb-modeswitch (1.0.0-1) UNRELEASED; urgency=low
+usb-modeswitch (1.0.2-1) UNRELEASED; urgency=low
 
-  * New 1.0.0 Upstream Version
+  * New 1.0.2 Upstream Version
     - New devices:
       + EpiValley SEC-7089 (featured by Alegro and Starcomms / iZAP)
       + ST Mobile Connect HSUPA USB Modem
@@ -25,7 +25,7 @@ usb-modeswitch (1.0.0-1) UNRELEASED; urgency=low
     - Add patch 03_build_system_to_policy.patch to accept DEB_BUILD_OPTIONS
       (noopt, nostrip).
 
- -- Didier Raboud <didier@raboud.com>  Thu, 04 Jun 2009 15:03:54 +0200
+ -- Didier Raboud <didier@raboud.com>  Thu, 11 Jun 2009 16:57:49 +0200
 
 usb-modeswitch (0.9.7-1) unstable; urgency=low
 
