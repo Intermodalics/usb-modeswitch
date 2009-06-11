@@ -24,6 +24,8 @@ usb-modeswitch (1.0.2-1) UNRELEASED; urgency=low
     - Add patch 02_umconf_is_no_exec.patch.
     - Add patch 03_build_system_to_policy.patch to accept DEB_BUILD_OPTIONS
       (noopt, nostrip).
+  * Switch packaging to git under Alioth's collab-maint
+    - Add Vcs-{Git,Browser} to debian/control.
 
  -- Didier Raboud <didier@raboud.com>  Thu, 11 Jun 2009 16:57:49 +0200
 
