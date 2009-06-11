@@ -9,6 +9,25 @@ configIndex = -1
 
 configList = [{}]
 
+optionMap = {
+	'DefaultVendor': ' --default-vendor ',
+	'DefaultProduct': ' --default-product ',
+	'TargetVendor': ' --target-vendor ',
+	'TargetProduct': ' --target-product ',
+	'TargetClass': ' --target-class ',
+	'MessageEndpoint': ' --message-endpoint ',
+	'MessageContent': ' --message-content ',
+	'ResponseEndpoint': ' --response-endpoint ',
+	'DetachStorageOnly': ' --detach-storage-only ',
+	'HuaweiMode': ' --huawei-mode ',
+	'SierraMode': ' --sierra-mode ',
+	'SonyMode': ' --sony-mode ',
+	'ResetUSB': ' --reset-usb ',
+	'Interface': ' --interface ',
+	'Configuration': ' --configuration ',
+	'AltSetting': ' --altsetting '
+}
+
 # Go through the whole file
 for line in fileinput.input():
         # Take widely commented lines 
@@ -47,12 +66,12 @@ print '''### /etc/udev/rules.d/usb_modeswitch.rules ###
 #
 
 '''
-def um_comAdd(indic, indivConfig, commandLineIndic, toggle=False):
+def um_comAdd(indic, indivConfig, toggle=False):
 	if indic in indivConfig:
 		if not toggle:
-			return ' --' + commandLineIndic + ' ' + indivConfig[indic]
+			return optionMap[indic] + indivConfig[indic]
 		else:
-			return ' --' + commandLineIndic
+			return optionMap[indic]
 	else:
 		return ''
 
@@ -66,14 +85,14 @@ for indivConfig in configList:
 		print '# Vendor:Product id =',uniqId
 
 		um_commandline  = '/usr/sbin/usb_modeswitch'
-		um_commandline += um_comAdd('DefaultVendor',indivConfig,'default-vendor')
-		um_commandline += um_comAdd('DefaultProduct',indivConfig,'default-product')
-		um_commandline += um_comAdd('MessageEndpoint', indivConfig,'message-endpoint')
+		um_commandline += um_comAdd('DefaultVendor',indivConfig)
+		um_commandline += um_comAdd('DefaultProduct',indivConfig)
+		um_commandline += um_comAdd('MessageEndpoint', indivConfig)
 		if 'MessageContent' in indivConfig:
-			um_commandline += ' --message-content ' + indivConfig['MessageContent'][1:-1]
-		um_commandline += um_comAdd('ResponseEndpoint', indivConfig,'response-endpoint')
-		um_commandline += um_comAdd('DetachStorageOnly', indivConfig, 'detach-only', True)
-		um_commandline += um_comAdd('Interface', indivConfig,'interface')
+			um_commandline += optionMap['MessageContent'] +  indivConfig['MessageContent'][1:-1]
+		um_commandline += um_comAdd('ResponseEndpoint', indivConfig)
+		um_commandline += um_comAdd('DetachStorageOnly', indivConfig, True)
+		um_commandline += um_comAdd('Interface', indivConfig)
 
 		ruleLine  = 'SUBSYSTEM=="usb", '
 		ruleLine += 'SYSFS{idVendor}=="' + indivConfig['DefaultVendor'][2:] +'", '
