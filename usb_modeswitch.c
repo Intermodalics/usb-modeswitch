@@ -1,6 +1,6 @@
 /*
   Mode switching tool for controlling flip flop (multiple device) USB gear
-  Version 1.0.0, 2009/06/03
+  Version 1.0.2, 2009/06/10
 
   Copyright (C) 2007, 2008, 2009 Josua Dietze (mail to "usb_admin" at the
   domain from the README; please do not post the complete address to The Net!
@@ -24,9 +24,9 @@
 
   Code, fixes and ideas from:
     Aki Makkonen
-    Denis Sutter 
-    Lucas Benedicic 
-    Roman Laube 
+    Denis Sutter
+    Lucas Benedicic
+    Roman Laube
     Vincent Teoh
     Tommy Cheng
     Daniel Cooper
@@ -53,6 +53,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//#include <locale.h>
 #include <assert.h>
 #include <signal.h>
 #include <ctype.h>
@@ -276,8 +277,10 @@ int main(int argc, char **argv) {
 	int numDefaults = 0, specialMode = 0, sonySuccess = 0;
 
 	printf("\n * usb_modeswitch: tool for controlling \"flip flop\" mode USB devices\n");
-   	printf(" * Version 0.9.8 (C) Josua Dietze 2009\n");
+   	printf(" * Version 1.0.2 (C) Josua Dietze 2009\n");
    	printf(" * Works with libusb 0.1.12 and probably other versions\n\n");
+
+//	setlocale(LC_ALL,"");
 
 	/*
 	 * Parameter parsing, USB preparation/diagnosis, plausibility checks
@@ -399,6 +402,9 @@ int main(int argc, char **argv) {
 			SHOW_PROGRESS("Not a storage device, skipping SCSI inquiry\n");
 	}
 
+	if (show_progress)
+		deviceDescription();
+
 	// Some scenarios are exclusive, so check for unwanted combinations
 	specialMode = DetachStorageOnly + HuaweiMode + SierraMode + SonyMode;
 	if ( specialMode > 1 ) {
@@ -477,6 +483,45 @@ int main(int argc, char **argv) {
 	}
 }
 
+/* Print descriptor strings if available (identification details) */
+deviceDescription () {
+	int i, ret;
+
+	printf("\nDevice description data (identification)\n");
+	printf("-------------------------\n");
+
+	if (dev->descriptor.iManufacturer) {
+		ret = usb_get_string_simple(devh, dev->descriptor.iManufacturer, buffer, BUF_SIZE);
+		if (ret < 0)
+			fprintf(stderr, "Error: could not get description string \"manufacturer\"\n");
+		printf("Manufacturer: ");
+		for (i = 0; i < ret; i++) printf("%c",buffer[i]);
+		printf("\n");
+	} else
+		printf("Manufacturer: not provided\n");
+
+	if (dev->descriptor.iProduct) {
+		ret = usb_get_string_simple(devh, dev->descriptor.iProduct, buffer, BUF_SIZE);
+		if (ret < 0)
+			fprintf(stderr, "Error: could not get description string \"product\"\n");
+		printf("     Product: ");
+		for (i = 0; i < ret; i++) printf("%c",buffer[i]);
+		printf("\n");
+	} else
+		printf("     Product: not provided\n");
+
+	if (dev->descriptor.iSerialNumber) {
+		ret = usb_get_string_simple(devh, dev->descriptor.iSerialNumber, buffer, BUF_SIZE);
+		if (ret < 0)
+			fprintf(stderr, "Error: could not get description string \"serial number\"\n");
+		printf("  Serial No.: ");
+		for (i = 0; i < ret; i++) printf("%c",buffer[i]);
+		printf("\n");
+	} else
+		printf("  Serial No.: not provided\n");
+
+	printf("-------------------------\n");
+}
 
 /* Print result of SCSI command INQUIRY (identification details) */
 int deviceInquire () {
@@ -490,11 +535,6 @@ int deviceInquire () {
 	char *command;
 	char data[36];
 	int i, ret;
-
-//	usb_clear_halt(devh, MessageEndpoint);
-	ret = usb_claim_interface(devh, Interface);
-	if (ret != 0)
-		return 1;
 
 	command = malloc(31);
 	if (command == NULL) {
@@ -524,8 +564,7 @@ int deviceInquire () {
 
 	i = usb_bulk_read(devh, ResponseEndpoint, command, 13, 0);
 
-	printf("\n");
-	printf("Received inquiry data (detailed identification)\n");
+	printf("\nReceived inquiry data (detailed identification)\n");
 	printf("-------------------------\n");
 
 	printf("  Vendor String: ");
@@ -775,8 +814,8 @@ int detachDriver() {
 	ret = usb_detach_kernel_driver_np(devh, Interface);
 	if (ret == 0) {
 		SHOW_PROGRESS(" OK, driver \"%s\" detached\n", buffer);
-		usb_clear_halt(devh, MessageEndpoint);
-		usb_clear_halt(devh, ResponseEndpoint);
+//		usb_clear_halt(devh, MessageEndpoint);
+//		usb_clear_halt(devh, ResponseEndpoint);
 	} else
 		SHOW_PROGRESS(" Driver \"%s\" detach failed with error %d. Trying to continue\n", buffer, ret);
 	return 1;
