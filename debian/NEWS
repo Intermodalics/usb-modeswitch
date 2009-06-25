@@ -1,4 +1,4 @@
-usb-modeswitch (1.0.2-1) UNRELEASED; urgency=low
+usb-modeswitch (1.0.2-1) unstable; urgency=low
 
   For the 1.0.0 release, the command line options have changed in two ways from
   their behavior in the 0.9.* versions:
