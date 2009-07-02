@@ -2,6 +2,7 @@ usb-modeswitch (1.0.2-2) UNRELEASED; urgency=low
 
   * Add the standalone configuration options in mkrules.py (Closes: #535445).
     - Add patch 04_correct_help_options.patch to correct the output of --help
+    - Change the manpage accordingly.
     - Thanks to Matej Zagiba for the clear report.
 
  -- Didier Raboud <didier@raboud.com>  Thu, 02 Jul 2009 11:18:17 +0200

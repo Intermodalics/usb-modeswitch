@@ -180,7 +180,7 @@
 
      <varlistentry>
         <term><option>-S</option>
-          <option>--sierraMode</option>
+          <option>--sierra-mode</option>
         </term>
         <listitem>
           <para>Whether to just apply the Sierra mode</para>
@@ -189,7 +189,7 @@
 
      <varlistentry>
         <term><option>-O</option>
-          <option>--sonyMode</option>
+          <option>--sony-mode</option>
         </term>
         <listitem>
           <para>Whether to just apply the Sony mode</para>
