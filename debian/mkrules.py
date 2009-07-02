@@ -94,6 +94,11 @@ for indivConfig in configList:
 		um_commandline += um_comAdd('DetachStorageOnly', indivConfig, True)
 		um_commandline += um_comAdd('Interface', indivConfig)
 
+		# Add the possible options
+		um_commandline += um_comAdd('HuaweiMode', indivConfig, True)
+		um_commandline += um_comAdd('SierraMode', indivConfig, True)
+		um_commandline += um_comAdd('SonyMode', indivConfig, True)
+
 		ruleLine  = 'SUBSYSTEM=="usb", '
 		ruleLine += 'SYSFS{idVendor}=="' + indivConfig['DefaultVendor'][2:] +'", '
 		ruleLine += 'SYSFS{idProduct}=="' + indivConfig['DefaultProduct'][2:] + '", '
