@@ -1,6 +1,11 @@
-Correct broken entries in usb_modeswitch.conf.
-
-Thanks to Stephen Depooter for the accurate bugreport with this patch.
+Description: Correct broken entries in usb_modeswitch.conf.
+ Thanks to Stephen Depooter for the accurate bugreport with this patch.
+Origin: other
+Bug: http://bugs.debian.org/530778
+Forwarded: http://www.draisberghof.de/usb_modeswitch/bb/viewtopic.php?t=172
+Author: Stephen Depooter <stephend@xandros.com>
+Reviewed-by: Didier Raboud <didier@raboud.com>
+Last-Update: 2009-07-02
 
 Index: usb-modeswitch/usb_modeswitch.conf
 ===================================================================

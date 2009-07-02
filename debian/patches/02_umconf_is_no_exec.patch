@@ -1,4 +1,8 @@
-Makes the configuration file install correctly (it is no binary).
+Description: Makes the configuration file install correctly (it is no binary).
+Origin: other
+Forwarded: http://www.draisberghof.de/usb_modeswitch/bb/viewtopic.php?t=173
+Author: Didier Raboud <didier@raboud.com>
+Last-Update: 2009-07-02
 
 Index: usb-modeswitch/Makefile
 ===================================================================

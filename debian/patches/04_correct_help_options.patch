@@ -2,7 +2,8 @@ Description: Correct the output of --help falsely pointing to wrong long options
 Origin: other
 Author: Didier Raboud <didier@raboud.com>
 Bug: http://bugs.debian.org/535445
-Last-Update: 2009-07-02 
+Forwarded: http://www.draisberghof.de/usb_modeswitch/bb/viewtopic.php?p=873
+Last-Update: 2009-07-02
 Index: usb-modeswitch.git/usb_modeswitch.c
 ===================================================================
 --- usb-modeswitch.git.orig/usb_modeswitch.c	2009-07-02 11:16:39.000000000 +0200

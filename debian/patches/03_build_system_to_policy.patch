@@ -1,7 +1,10 @@
-Make the Makefile behave on a smarter way within Debian policy requirements (4.9.1).
-
+Description: Make upstream buildsystem smarter with Debian policy.
+ Make the Makefile behave on a smarter way within Debian policy requirements (4.9.1).
  * Don't strip the binary here (done by dh_strip)
  * s/CCFLAGS/CFLAGS/g : Let dpkg-buildpackage define CFLAGS.
+Origin: other
+Author: Didier Raboud <didier@raboud.com>
+Last-Update: 2009-07-02
 
 Index: usb-modeswitch/Makefile
 ===================================================================
