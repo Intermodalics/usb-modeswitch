@@ -5,6 +5,8 @@ usb-modeswitch (1.0.2-2) UNRELEASED; urgency=low
     - Change the manpage accordingly.
     - Thanks to Matej Zagiba for the clear report.
   * Update all patches to cope with DEP-3 Patch Tagging Guidelines.
+  * Add patch 05_convert_umconf_to_unicode.patch to get everything in utf-8.
+    - Thanks to W. Martin Borgert for the hint.
 
  -- Didier Raboud <didier@raboud.com>  Thu, 02 Jul 2009 11:18:17 +0200
 

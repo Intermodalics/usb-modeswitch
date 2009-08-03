@@ -1,0 +1,35 @@
+Description: Convert the configuration file to utf-8 by tweaking the only 3 errors
+Author: Didier Raboud <didier@raboud.com>
+Last-Update: 2009-08-02
+
+Index: usb-modeswitch.git/usb_modeswitch.conf
+===================================================================
+--- usb-modeswitch.git.orig/usb_modeswitch.conf	2009-08-02 13:18:15.000000000 +0200
++++ usb-modeswitch.git/usb_modeswitch.conf	2009-08-02 13:21:03.000000000 +0200
+@@ -191,7 +191,7 @@
+ ########################################################
+ # Option GlobeTrotter GT MAX 3.6 (aka "T-Mobile Web'n'walk Card Compact II")
+ #
+-# Contributor: Bernd Holzmüller
++# Contributor: Bernd HolzmÃ¼ller
+ 
+ ;DefaultVendor=  0x05c6
+ ;DefaultProduct= 0x1000
+@@ -446,7 +446,7 @@
+ #
+ # Probably works with DetachStorageOnly too
+ #
+-# Contributor: Flávio Moringa
++# Contributor: FlÃ¡vio Moringa
+ 
+ ;DefaultVendor=  0x19d2
+ ;DefaultProduct= 0x2000
+@@ -983,7 +983,7 @@
+ #
+ # Recommended init command: ATE0V1&D2&C1S0=0
+ #
+-# Contributor: Jérôme Oufella
++# Contributor: JÃ©rÃ´me Oufella
+ 
+ ;DefaultVendor=  0x1004
+ ;DefaultProduct= 0x1000
