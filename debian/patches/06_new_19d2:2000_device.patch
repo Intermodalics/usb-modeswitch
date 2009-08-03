@@ -1,0 +1,24 @@
+Index: usb-modeswitch.git/usb_modeswitch.conf
+===================================================================
+--- usb-modeswitch.git.orig/usb_modeswitch.conf	2009-08-03 15:44:18.000000000 +0200
++++ usb-modeswitch.git/usb_modeswitch.conf	2009-08-03 15:47:58.000000000 +0200
+@@ -543,8 +543,17 @@
+ 
+ ;MessageContent="55534243123456782000000080000c85010101180101010101000000000000"
+ 
+-# if that command doesn't work, try the other ("eject")
+-;MessageContent="5553424312345678000000000000061b000000030000000000000000000000"
++#######################################################
++# ZTE MF636 (Other version ?)
++#
++# Contributor: Cleber Santz
++
++;DefaultVendor= 0x19d2
++;DefaultProduct= 0x2000
++
++;MessageContent="5553424312345678000000000000061b000000020000000000000000000000"
++
++;ResetUSB= 1
+ 
+ 
+ ########################################################

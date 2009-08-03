@@ -7,6 +7,9 @@ usb-modeswitch (1.0.2-2) UNRELEASED; urgency=low
   * Update all patches to cope with DEP-3 Patch Tagging Guidelines.
   * Add patch 05_convert_umconf_to_unicode.patch to get everything in utf-8.
     - Thanks to W. Martin Borgert for the hint.
+  * Add patch 06_new_19d2:2000_device.patch to support the Onda ZTE MF636
+    correctly. (LP: #388109)
+    - Thanks to Cleber Santz for the precise bugreport.
 
  -- Didier Raboud <didier@raboud.com>  Thu, 02 Jul 2009 11:18:17 +0200
 
