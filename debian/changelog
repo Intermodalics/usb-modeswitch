@@ -10,6 +10,7 @@ usb-modeswitch (1.0.2-2) UNRELEASED; urgency=low
   * Add patch 06_new_19d2:2000_device.patch to support the Onda ZTE MF636
     correctly. (LP: #388109)
     - Thanks to Cleber Santz for the precise bugreport.
+  * In debian/mkrules.py, handle ResetUSB configuration values.
 
  -- Didier Raboud <didier@raboud.com>  Thu, 02 Jul 2009 11:18:17 +0200
 

@@ -98,6 +98,7 @@ for indivConfig in configList:
 		um_commandline += um_comAdd('HuaweiMode', indivConfig, True)
 		um_commandline += um_comAdd('SierraMode', indivConfig, True)
 		um_commandline += um_comAdd('SonyMode', indivConfig, True)
+		um_commandline += um_comAdd('ResetUSB', indivConfig, True)
 
 		ruleLine  = 'SUBSYSTEM=="usb", '
 		ruleLine += 'SYSFS{idVendor}=="' + indivConfig['DefaultVendor'][2:] +'", '
