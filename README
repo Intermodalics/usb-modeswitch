@@ -4,6 +4,18 @@ For up-to-date and more detailed information (plus a friendly forum) visit
 http://www.draisberghof.de/usb_modeswitch
 
 
+NEW !! SENSATIONAL AUTOMATED DEVICE HANDLING !! A MUST SEE !!
+.
+.
+.
+.
+.
+uhm, working partially and needing more input ...
+
+See "How to install 2" and "Known working hardware" for specifics.
+Note: online documentation not updated yet.
+
+
 What it is
 ==========
 
@@ -17,8 +29,8 @@ After that (and on every consecutive plugging) this driver switches the mode
 internally, the storage device vanishes (in most cases), and a new device (like
 an USB modem) shows up. Some call that feature "ZeroCD".
 
-Of course, nothing of this is documented in any form and there is hardly any
-Linux driver available.
+In the beginning, nothing of this was documented in any form and there was
+hardly any Linux support available.
 On the good side, most of the known devices work out of the box with the
 available Linux modules like "usb-storage" or "usbserial". That leaves the
 problem of the mode switching from storage to whatever the thing is supposed to
@@ -35,9 +47,13 @@ cation stuff, with heavy help from "libusb".
 Starting from version 0.9.7 it has an optional success check which spares the
 manual call of "lsusb" to note any changes after execution.
 
+We have already collected a wide range of information on how to switch all sorts of
+devices. If you run into a new one that is unknown yet, don't despair: we can find
+out what you need!
 
-How to install
-==============
+
+How to install 1 (semi-automatic use)
+===================================
 
 A x86 binary is included (compiled on Pentium M, Ubuntu 8.10).
 
@@ -66,10 +82,31 @@ Important: libusb stuff - like this tool - needs to be run as root!
 For details how to automate the process visit the homepage (see above).
 
 
+How to install 2 (fully automatic use)
+===================================
+
+New in version 1.0.3: a fully automatic system integration that will be able
+to identify every known device without user interaction.
+
+If you want this, use this line at the shell:
+
+> make integrated_install
+
+This installs a config file folder "/etc/usb_modeswitch.d", two scripts, an "udev"
+rules file and a slightly changed binary.
+
+Important: you need "tcl" for this to work; if you enter "tclsh" and you get a "%"
+prompt, you are set. The "tcl" package is part of all distributions I know.
+
+
 Known working hardware
 ======================
 
 For details and specific setup see the homepage and the config file.
+The automatic installation is in alpha stage and needs your participation,
+especially if you own a ZTE made device. There is still not enough
+information to tell models and model versions apart. See the announcement of
+1.0.3 !!
 
 
 Contribute
@@ -126,6 +163,10 @@ More contributors are listed in the config file.
 History
 =======
 
+Version 1.0.3, 2009/08/20
+    Success check improved; experimental system integration (fully automated),
+    optional; new parameter "TargetProductList" needed for this; other necessary
+    small adaptations; more devices
 Version 1.0.2, 2009/06/10
     Output bugs fixed
 Version 1.0.1, 2009/06/08
@@ -191,4 +232,4 @@ Or find it as the file COPYING in this folder.
 
 
 
-Last revised: 2009-06-10, Josua Dietze
+Last revised: 2009-08-20, Josua Dietze

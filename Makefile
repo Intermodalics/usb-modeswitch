@@ -1,5 +1,5 @@
 PROG        = usb_modeswitch
-VERS        = 0.9.7
+VERS        = 1.0.3
 STRIP	    = strip
 CC          = gcc
 CCFLAGS     = -l usb
@@ -22,10 +22,17 @@ install: all
 	mkdir -p $(SBINDIR)
 	install ./usb_modeswitch $(SBINDIR)
 	mkdir -p $(ETCDIR)
-	install ./usb_modeswitch.conf $(ETCDIR)
+	install --mode=644 ./usb_modeswitch.conf $(ETCDIR)
 
 uninstall: clean
 	$(RM) /usr/sbin/usb_modeswitch
 	$(RM) /etc/usb_modeswitch.conf
 
 .PHONY:     clean install uninstall
+
+integrated:
+	make -f Makefile.integrated
+
+integrated_install:
+	make -f Makefile.integrated install
+

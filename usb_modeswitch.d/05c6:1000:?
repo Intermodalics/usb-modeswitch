@@ -1,0 +1,21 @@
+########################################################
+# Samsung SGH-Z810 USB (with microSD card)
+#
+# This ID gets an "Option" treatment by newer kernels.
+# Use module option "option_zero_cd=2" with usb-storage.
+# A kernel patch to fix the problem is pending
+#
+# Contributor: A Friend
+
+DefaultVendor=  0x05c6
+DefaultProduct= 0x1000
+
+TargetVendor=   0x04e8
+TargetProduct=  0x6601
+
+# only for reference
+# MessageEndpoint=0x05
+
+MessageContent="55534243123456780000000000000616000000000000000000000000000000"
+
+

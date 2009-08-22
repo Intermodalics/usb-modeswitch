@@ -1,0 +1,17 @@
+###################################################### 
+# Option iCON 401
+#
+# Contributor: Vincent Teoh
+
+DefaultVendor=  0x0af0
+DefaultProduct= 0x7401
+
+TargetClass=    0xff
+
+CheckSuccess=20
+
+MessageContent="55534243785634120100000080000601000000000000000000000000000000"
+
+NeedResponse=1
+
+
