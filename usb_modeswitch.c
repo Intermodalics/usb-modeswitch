@@ -1,6 +1,6 @@
 /*
   Mode switching tool for controlling flip flop (multiple device) USB gear
-  Version 1.0.2, 2009/06/10
+  Version 1.0.3, 2009/08/20
 
   Copyright (C) 2007, 2008, 2009 Josua Dietze (mail to "usb_admin" at the
   domain from the README; please do not post the complete address to The Net!
@@ -58,11 +58,17 @@
 #include <signal.h>
 #include <ctype.h>
 #include <getopt.h>
+
+#ifdef USE_SYSLOG
+#include <syslog.h>
+#endif
+
 #include <usb.h>
 #include "usb_modeswitch.h"
 
 #define LINE_DIM 1024
 #define BUF_SIZE 4096
+#define DESCR_MAX 129
 
 #define SHOW_PROGRESS if (show_progress) printf
 
@@ -80,11 +86,15 @@ struct usb_dev_handle *devh;
 int DefaultVendor=0, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;
 int MessageEndpoint=0, ResponseEndpoint=0, defaultClass=0;
 int targetDeviceCount=0;
+int devnum=-1, busnum=-1;
 int ret;
 
 char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0;
 char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;
 char NeedResponse=0, InquireDevice=1;
+char *TargetProductList=NULL;
+
+char imanufact[DESCR_MAX], iproduct[DESCR_MAX], iserial[DESCR_MAX];
 
 char MessageContent[LINE_DIM];
 char ByteString[LINE_DIM/2];
@@ -126,6 +136,8 @@ void readConfigFile(const char *configFilename)
 	if(verbose) printf("Reading config file: %s\n", configFilename);
 	ParseParamHex(configFilename, TargetVendor);
 	ParseParamHex(configFilename, TargetProduct);
+	if (!TargetProduct)
+		ParseParamString(configFilename, TargetProductList);
 	ParseParamHex(configFilename, TargetClass);
 	ParseParamHex(configFilename, DefaultVendor);
 	ParseParamHex(configFilename, DefaultProduct);
@@ -139,7 +151,7 @@ void readConfigFile(const char *configFilename)
 	ParseParamHex(configFilename, ResponseEndpoint);
 	ParseParamHex(configFilename, ResetUSB);
 	ParseParamHex(configFilename, InquireDevice);
-	ParseParamHex(configFilename, CheckSuccess);
+	ParseParamInt(configFilename, CheckSuccess);
 	ParseParamHex(configFilename, Interface);
 	ParseParamHex(configFilename, Configuration);
 	ParseParamHex(configFilename, AltSetting);
@@ -189,7 +201,7 @@ void printConfig()
 	else
 		printf ("\nInquireDevice disabled\n");
 	if ( CheckSuccess )
-		printf ("Success check enabled, settle time %d seconds\n", CheckSuccess);
+		printf ("Success check enabled, max. wait time %d seconds\n", CheckSuccess);
 	else
 		printf ("Success check disabled\n");
 	printf ("\n");
@@ -249,9 +261,9 @@ int readArguments(int argc, char **argv)
 				printf (" -r, --response-endpoint [nr]  where from read the response (optional)\n");
 				printf (" -d, --detach-only             just detach the storage driver\n");
 				printf (" -H, --huawei-mode             apply a special procedure\n");
-				printf (" -S, --sierraMode              apply a special procedure\n");
-				printf (" -O, --sonyMode                apply a special procedure\n");
-				printf (" -R, --resetUSB                reset the device in the end\n");
+				printf (" -S, --sierra-mode             apply a special procedure\n");
+				printf (" -O, --sony-mode               apply a special procedure\n");
+				printf (" -R, --reset-usb               reset the device in the end\n");
 				printf (" -c, --config [filename]       load different config file\n");
 				printf (" -Q, --quiet                   don't show progress or error messages\n");
 				printf (" -W, --verbose                 print all settings before running\n");
@@ -276,10 +288,6 @@ int readArguments(int argc, char **argv)
 int main(int argc, char **argv) {
 	int numDefaults = 0, specialMode = 0, sonySuccess = 0;
 
-	printf("\n * usb_modeswitch: tool for controlling \"flip flop\" mode USB devices\n");
-   	printf(" * Version 1.0.2 (C) Josua Dietze 2009\n");
-   	printf(" * Works with libusb 0.1.12 and probably other versions\n\n");
-
 //	setlocale(LC_ALL,"");
 
 	/*
@@ -294,6 +302,12 @@ int main(int argc, char **argv) {
 		default:					// one or more arguments except -W, -q or -s 
 			if (!config_read)		// if arguments contain -c, the config file was already processed
 				if(verbose) printf("Taking all parameters from the command line\n\n");
+	}
+
+	if (show_progress) {
+		printf("\n * usb_modeswitch: tool for controlling \"flip flop\" mode USB devices\n");
+		printf(" * Version 1.0.3 (C) Josua Dietze 2009\n");
+		printf(" * Works with libusb 0.1.12 and probably other versions\n\n");
 	}
 
 	if(verbose)
@@ -327,13 +341,13 @@ int main(int argc, char **argv) {
 		}
 	}
 	if (show_progress)
-		if (CheckSuccess && !(TargetVendor && TargetProduct) && !TargetClass)
+		if (CheckSuccess && !(TargetVendor || TargetProduct) && !TargetClass)
 			printf("Note: target parameter missing; success check limited\n");
 
 	// Count existing target devices (remember for success check)
-	if ((TargetVendor && TargetProduct) || TargetClass) {
+	if (TargetVendor || TargetClass) {
 		SHOW_PROGRESS("Looking for target devices ...\n");
-		search_devices(&targetDeviceCount, TargetVendor, TargetProduct, TargetClass);
+		search_devices(&targetDeviceCount, TargetVendor, TargetProduct, TargetProductList, TargetClass);
 		if (targetDeviceCount) {
 			SHOW_PROGRESS(" Found devices in target mode or class (%d)\n", targetDeviceCount);
 		} else
@@ -342,10 +356,10 @@ int main(int argc, char **argv) {
 
 	// Count default devices, return the last one found
 	SHOW_PROGRESS("Looking for default devices ...\n");
-	dev = search_devices(&numDefaults, DefaultVendor, DefaultProduct, TargetClass);
+	dev = search_devices(&numDefaults, DefaultVendor, DefaultProduct, NULL, TargetClass);
 	if (numDefaults) {
 		SHOW_PROGRESS(" Found default devices (%d)\n", numDefaults);
-		if (TargetClass && !(TargetVendor && TargetProduct)) {
+		if (TargetClass && !(TargetVendor || TargetProduct)) {
 			if ( dev != NULL ) {
 				SHOW_PROGRESS(" Found a default device NOT in target class mode\n");
 			} else {
@@ -355,8 +369,9 @@ int main(int argc, char **argv) {
 		}
 	}
 	if (dev != NULL) {
-		SHOW_PROGRESS("Accessing device %03d on bus %03d ...\n", \
-				dev->devnum, (int)strtol(dev->bus->dirname,NULL,10));
+		devnum = dev->devnum;
+		busnum = (int)strtol(dev->bus->dirname,NULL,10);
+		SHOW_PROGRESS("Accessing device %03d on bus %03d ...\n", devnum, busnum);
 		devh = usb_open(dev);
 	} else {
 		SHOW_PROGRESS(" No default device found. Is it connected? Bye.\n\n");
@@ -402,8 +417,15 @@ int main(int argc, char **argv) {
 			SHOW_PROGRESS("Not a storage device, skipping SCSI inquiry\n");
 	}
 
-	if (show_progress)
-		deviceDescription();
+	deviceDescription();
+	if (show_progress) {
+		printf("\nDevice description data (identification)\n");
+		printf("-------------------------\n");
+		printf("Manufacturer: %s\n", imanufact);
+		printf("     Product: %s\n", iproduct);
+		printf("  Serial No.: %s\n", iserial);
+		printf("-------------------------\n");
+	}
 
 	// Some scenarios are exclusive, so check for unwanted combinations
 	specialMode = DetachStorageOnly + HuaweiMode + SierraMode + SonyMode;
@@ -418,6 +440,12 @@ int main(int argc, char **argv) {
 	/*
 	 * The switching actions
 	 */
+
+#ifdef USE_SYSLOG
+	openlog("usb_modeswitch", 0, LOG_SYSLOG);
+//	syslog(LOG_NOTICE, "v1.0.3 (C) 2009 Josua Dietze");
+	syslog(LOG_NOTICE, "switching %04x:%04x (%s: %s)", DefaultVendor, DefaultProduct, imanufact, iproduct);
+#endif
 
 	if (DetachStorageOnly) {
 		SHOW_PROGRESS("Only detaching storage driver for switching ...\n");
@@ -466,61 +494,93 @@ int main(int argc, char **argv) {
 
 	if (CheckSuccess) {
 		signal(SIGTERM, release_usb_device);
-		if (checkSuccess(dev))
+		if (checkSuccess()) {
+			if (!show_progress)
+				printf("ok:%04x:%04x\n", TargetVendor, TargetProduct);
+			else {
+#ifdef USE_SYSLOG
+				printf("ok:%04x:%04x\n", TargetVendor, TargetProduct);
+#endif
+			}
 			exit(0);
-		else
+		} else{
+			if (!show_progress)
+				printf("fail:\n");
+			else {
+#ifdef USE_SYSLOG
+				printf("fail:\n");
+#endif
+			}
 			exit(1);
+		}
 	} else {
 		if (SonyMode)
 			if (sonySuccess) {
-				SHOW_PROGRESS("-> device should be stable now. Bye.\n\n");
+				if (!show_progress)
+					printf("ok:\n"); // ACM device, no driver action
+				else {
+					printf("-> device should be stable now. Bye.\n\n");
+#ifdef USE_SYSLOG
+					printf("ok:\n");
+#endif
+				}
 			} else {
-				SHOW_PROGRESS("-> switching was not completed. Bye.\n\n");
+				if (!show_progress)
+					printf("fail:\n");
+				else {
+					printf("-> switching was not completed. Bye.\n\n");
+#ifdef USE_SYSLOG
+					printf("ok:\n");
+#endif
+				}
 			}
 		else
 			SHOW_PROGRESS("-> Run lsusb to note any changes. Bye.\n\n");
+#ifdef USE_SYSLOG
+		closelog();
+#endif
 		exit(0);
 	}
 }
 
-/* Print descriptor strings if available (identification details) */
+/* Get descriptor strings if available (identification details) */
 deviceDescription () {
 	int i, ret;
-
-	printf("\nDevice description data (identification)\n");
-	printf("-------------------------\n");
+	char* c;
+	memset (imanufact, ' ', DESCR_MAX);
+	memset (iproduct, ' ', DESCR_MAX);
+	memset (iserial, ' ', DESCR_MAX);
 
 	if (dev->descriptor.iManufacturer) {
-		ret = usb_get_string_simple(devh, dev->descriptor.iManufacturer, buffer, BUF_SIZE);
+		ret = usb_get_string_simple(devh, dev->descriptor.iManufacturer, imanufact, DESCR_MAX);
 		if (ret < 0)
 			fprintf(stderr, "Error: could not get description string \"manufacturer\"\n");
-		printf("Manufacturer: ");
-		for (i = 0; i < ret; i++) printf("%c",buffer[i]);
-		printf("\n");
 	} else
-		printf("Manufacturer: not provided\n");
+		strcpy(imanufact, "not provided");
+	c = strstr(imanufact, "    ");
+	if (c)
+		memset((void*)c, '\0', 1);
 
 	if (dev->descriptor.iProduct) {
-		ret = usb_get_string_simple(devh, dev->descriptor.iProduct, buffer, BUF_SIZE);
+		ret = usb_get_string_simple(devh, dev->descriptor.iProduct, iproduct, DESCR_MAX);
 		if (ret < 0)
 			fprintf(stderr, "Error: could not get description string \"product\"\n");
-		printf("     Product: ");
-		for (i = 0; i < ret; i++) printf("%c",buffer[i]);
-		printf("\n");
 	} else
-		printf("     Product: not provided\n");
+		strcpy(iproduct, "not provided");
+	c = strstr(iproduct, "    ");
+	if (c)
+		memset((void*)c, '\0', 1);
 
 	if (dev->descriptor.iSerialNumber) {
-		ret = usb_get_string_simple(devh, dev->descriptor.iSerialNumber, buffer, BUF_SIZE);
+		ret = usb_get_string_simple(devh, dev->descriptor.iSerialNumber, iserial, DESCR_MAX);
 		if (ret < 0)
 			fprintf(stderr, "Error: could not get description string \"serial number\"\n");
-		printf("  Serial No.: ");
-		for (i = 0; i < ret; i++) printf("%c",buffer[i]);
-		printf("\n");
 	} else
-		printf("  Serial No.: not provided\n");
+		strcpy(iserial, "not provided");
+	c = strstr(iserial, "    ");
+	if (c)
+		memset((void*)c, '\0', 1);
 
-	printf("-------------------------\n");
 }
 
 /* Print result of SCSI command INQUIRY (identification details) */
@@ -549,6 +609,7 @@ int deviceInquire () {
 		SHOW_PROGRESS(" Could not claim interface (error %d). Skipping device inquiry\n", ret);
 		goto out;
 	}
+	usb_clear_halt(devh, MessageEndpoint);
 
 	ret = usb_bulk_write(devh, MessageEndpoint, (char *)command, 31, 0);
 	if (ret < 0) {
@@ -571,7 +632,7 @@ int deviceInquire () {
 	for (i = 8; i < 16; i++) printf("%c",data[i]);
 	printf("\n");
 
-	printf(" Product String: ");
+	printf("   Model String: ");
 	for (i = 16; i < 32; i++) printf("%c",data[i]);
 	printf("\n");
 
@@ -582,6 +643,7 @@ int deviceInquire () {
 
 out:
 	if (strlen(MessageContent) == 0)
+		usb_clear_halt(devh, MessageEndpoint);
 		usb_release_interface(devh, Interface);
 	free(command);
 	return ret;
@@ -626,7 +688,7 @@ int switchSendMessage () {
 			return 0;
 		}
 	}
-//	usb_clear_halt(devh, MessageEndpoint);
+	usb_clear_halt(devh, MessageEndpoint);
 	SHOW_PROGRESS("Trying to send the message to endpoint 0x%02x ...\n", MessageEndpoint);
 	fflush(stdout);
 
@@ -740,7 +802,7 @@ int switchSonyMode () {
 		if ( i > 5 ) {
 			usb_find_busses();
 			usb_find_devices();
-			dev = search_devices(&found, DefaultVendor, DefaultProduct, TargetClass);
+			dev = search_devices(&found, DefaultVendor, DefaultProduct, NULL, TargetClass);
 		}
 		if ( dev != NULL )
 			break;
@@ -821,43 +883,93 @@ int detachDriver() {
 	return 1;
 }
 
-int checkSuccess(struct usb_device *dev) {
-	int ret;
+int checkSuccess() {
+	int i, ret, present=1;
+	char report[128];
+	int newTargetCount, success = 0;
 	
-	SHOW_PROGRESS("Checking for mode switch after %d seconds settling time ...\n", CheckSuccess);
-	sleep(CheckSuccess);
+	SHOW_PROGRESS("\nChecking for mode switch (max. %d times, once per second) ...\n", CheckSuccess);
 
-	// Test if default device still can be accessed; positive result does
-    // not necessarily mean failure
-	devh = usb_open(dev);
-	ret = usb_claim_interface(devh, Interface);
-	if (ret < 0) {
-		SHOW_PROGRESS(" Original device can't be accessed anymore. Good.\n");
-	} else {
-		SHOW_PROGRESS(" Original device can still be accessed. Hmm.\n");
-		usb_release_interface(devh, Interface);
-	}
 
-	// Recount target devices (compare with previous count) if target data is given
-	int newTargetCount;
-	if ((TargetVendor && TargetProduct) || TargetClass) {
-		usb_find_devices();
-		search_devices(&newTargetCount, TargetVendor, TargetProduct, TargetClass);
-		if (newTargetCount > targetDeviceCount) {
-			SHOW_PROGRESS(" Found a new device in target mode or class\n\nMode switch succeeded. Bye.\n\n");
-			return 1;
-		} else {
-			SHOW_PROGRESS(" No new devices in target mode or class found\n\nMode switch has failed. Bye.\n\n");
-			return 0;
+	for (i=0; i < CheckSuccess; i++) {
+		sleep(1);
+
+		// Test if default device still can be accessed; positive result does
+		// not necessarily mean failure
+		if (present) {
+			devh = usb_open(dev);
+			ret = usb_claim_interface(devh, Interface);
+			if (ret < 0) {
+				SHOW_PROGRESS(" Original device can't be accessed anymore. Good.\n");
+				present = 0;
+			} else {
+				SHOW_PROGRESS(" Original device can still be accessed. Hmm.\n");
+				usb_release_interface(devh, Interface);
+			}
+			usb_close(devh);
 		}
-	} else {
-		SHOW_PROGRESS("For a better success check provide target IDs or class. Bye.\n\n");
-		if (ret < 0)
-			return 1;
-		else
-			return 0;
+
+		// Recount target devices (compare with previous count) if target data is given.
+		// Target device on the same bus with higher device number is returned,
+		// description is read for syslog message
+		if ( (TargetVendor && (TargetProduct || TargetProductList)) || TargetClass) {
+			usb_find_devices();
+			dev = search_devices(&newTargetCount, TargetVendor, TargetProduct, TargetProductList, TargetClass);
+			if (dev && (newTargetCount > targetDeviceCount)) {
+				devh = usb_open(dev);
+				deviceDescription();
+				usb_close(devh);
+				if (show_progress) {
+					printf("\nFound target device %03d on bus %03d\n", \
+					dev->devnum, (int)strtol(dev->bus->dirname,NULL,10));
+					printf("\nTarget device description data\n");
+					printf("-------------------------\n");
+					printf("Manufacturer: %s\n", imanufact);
+					printf("     Product: %s\n", iproduct);
+					printf("  Serial No.: %s\n", iserial);
+					printf("-------------------------\n");
+				}
+				strcpy(report, " Found correct target device\n\nMode switch succeeded. Bye.\n\n");
+				success = 2;
+				break;
+			} else {
+				strcpy(report, " No new devices in target mode or class found\n\nMode switch has failed. Bye.\n\n");
+			}
+		} else {
+		// No target data given, rely on the vanished device
+			SHOW_PROGRESS("For a better success check provide target IDs or class\n");
+			if (ret < 0) {
+				strcpy(report, "Mode switch most likely succeeded. Bye.\n\n");
+				success = 1;
+				break;
+			} else
+				strcpy(report, "Mode switch most likely failed. Bye.\n\n");
+		}
 	}
+
+	SHOW_PROGRESS("%s", report);
+	switch (success) {
+		case 2: 
+#ifdef USE_SYSLOG
+			syslog(LOG_NOTICE, "switched to %04x:%04x (%s: %s)", TargetVendor, TargetProduct, imanufact, iproduct);
+#endif
+			success = 1;
+			break;
+		case 1:
+#ifdef USE_SYSLOG
+			syslog(LOG_NOTICE, "device seems to have switched");
+#endif
+		default:
+			;
+	}
+
+#ifdef USE_SYSLOG
+	closelog();
+#endif
+	return success;
+
 }
+
 
 int write_bulk(int endpoint, char *message, int length) {
 	int ret;
@@ -866,7 +978,7 @@ int write_bulk(int endpoint, char *message, int length) {
 		SHOW_PROGRESS(" OK, message successfully sent\n");
 	} else
 		if (ret == -19) {
-			SHOW_PROGRESS(" Device seems to have vanished after sending. Good.\n");
+			SHOW_PROGRESS(" Device seems to have vanished right after sending. Good.\n");
 		} else
 			SHOW_PROGRESS(" Sending the message returned error %d. Trying to continue\n", ret);
 	return ret;
@@ -891,35 +1003,85 @@ void release_usb_device(int dummy) {
 	SHOW_PROGRESS("Program cancelled by system. Bye.\n\n");
 	usb_release_interface(devh, Interface);
 	usb_close(devh);
+#ifdef USE_SYSLOG
+	closelog();
+#endif
 	exit(0);
 }
 
 
 // iterates over busses and devices, counts the ones found and returns the last one of them
 
-struct usb_device* search_devices( int *numFound, int vendor, int product, int targetClass) {
+struct usb_device* search_devices( int *numFound, int vendor, int product, char* productList, int targetClass) {
 	struct usb_bus *bus;
-	int devClass;
+	char *listcopy, *token, buffer[2];
+	int devClass, product_match = 0;
 	struct usb_device* right_dev = NULL;
 	
-	if ( targetClass && !(vendor && product) ) {
+	if ( targetClass && !(vendor || product) ) {
 		vendor = DefaultVendor;
 		product = DefaultProduct;
 	}
 	*numFound = 0;
+	if (!vendor || (!product && productList==NULL))
+		return NULL;
+	if (productList != NULL)
+		listcopy = malloc(strlen(productList)+1);
+
 	for (bus = usb_get_busses(); bus; bus = bus->next) {
 		struct usb_device *dev;
 		for (dev = bus->devices; dev; dev = dev->next) {
-			if (dev->descriptor.idVendor == vendor && dev->descriptor.idProduct == product) {
-				(*numFound)++;
-				devClass = dev->descriptor.bDeviceClass;
-				if (devClass == 0)
-					devClass = dev->config[0].interface[0].altsetting[0].bInterfaceClass;
-				if (devClass != targetClass || targetClass == 0)
-					right_dev = dev;
-			}
+			// product list given
+			if (productList != NULL) {
+				strcpy(listcopy, productList);
+				token = strtok(listcopy, ",");
+				while (token != NULL) {
+					if (strlen(token) != 4) {
+						SHOW_PROGRESS("Error: entry in product ID list has wrong length: %s. Ignoring\n", token);
+						goto NextToken;
+					}
+					if ( hexstr2bin(token, buffer, strlen(token)/2) == -1) {
+						SHOW_PROGRESS("Error: entry in product ID list is not a hex string: %s. Ignoring\n", token);
+						goto NextToken;
+					}
+					product = 0;
+					product |= (char)buffer[0];
+					product <<= 8;
+					product |= (char)buffer[1];
+					if (dev->descriptor.idVendor == vendor && product == dev->descriptor.idProduct) {
+						(*numFound)++;
+						if (busnum == -1)
+							right_dev = dev;
+						else
+							if (dev->devnum >= devnum && (int)strtol(dev->bus->dirname,NULL,10) == busnum) {
+								right_dev = dev;
+								TargetProduct = dev->descriptor.idProduct;
+								break;
+							}
+					}
+
+					NextToken:
+					token = strtok(NULL, ",");
+				}
+			// product is given
+			} else
+				if (dev->descriptor.idVendor == vendor && product == dev->descriptor.idProduct) {
+					(*numFound)++;
+					devClass = dev->descriptor.bDeviceClass;
+					if (devClass == 0)
+						devClass = dev->config[0].interface[0].altsetting[0].bInterfaceClass;
+					if (busnum == -1) {
+						if (devClass != targetClass || targetClass == 0)
+							right_dev = dev;
+					} else
+						if (devClass == targetClass)
+							if (dev->devnum >= devnum && (int)strtol(dev->bus->dirname,NULL,10) == busnum)
+								right_dev = dev;
+				}
 		}
 	}
+	if (productList != NULL)
+		free(listcopy);
 	return right_dev;
 }
 
@@ -1021,7 +1183,6 @@ char* ReadParseParam(const char* FileName, char *VariableName) {
 		}
 		Equal+=Pos;
 
-//		printf("%s=%s\n", VarName, Equal);
 		if (strcmp(VarName, VariableName)==0) {		// Found it
 			fclose(file);
 			return Equal;
@@ -1053,10 +1214,10 @@ int hex2byte(const char *hex)
 	int a, b;
 	a = hex2num(*hex++);
 	if (a < 0)
-	return -1;
+		return -1;
 	b = hex2num(*hex++);
 	if (b < 0)
-	return -1;
+		return -1;
 	return (a << 4) | b;
 }
 

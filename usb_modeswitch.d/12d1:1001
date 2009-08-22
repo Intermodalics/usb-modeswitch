@@ -1,0 +1,9 @@
+########################################################
+# Huawei E169
+#
+# Contributor: Dale Lane
+
+DefaultVendor=  0x12d1;
+DefaultProduct= 0x1001
+
+HuaweiMode=1
