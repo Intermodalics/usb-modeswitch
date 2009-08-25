@@ -1,18 +1,35 @@
-usb-modeswitch (1.0.2-2) UNRELEASED; urgency=low
+usb-modeswitch (1.0.3-1) UNRELEASED; urgency=low
 
-  * Add the standalone configuration options in mkrules.py (Closes: #535445).
-    - Add patch 04_correct_help_options.patch to correct the output of --help
-    - Change the manpage accordingly.
-    - Thanks to Matej Zagiba for the clear report.
-  * Update all patches to cope with DEP-3 Patch Tagging Guidelines.
-  * Add patch 05_convert_umconf_to_unicode.patch to get everything in utf-8.
-    - Thanks to W. Martin Borgert for the hint.
-  * Add patch 06_new_19d2:2000_device.patch to support the Onda ZTE MF636
-    correctly. (LP: #388109)
-    - Thanks to Cleber Santz for the precise bugreport.
-  * In debian/mkrules.py, handle ResetUSB configuration values.
+  * New 1.0.3 upstream version
+    Quoting upstream:
+        "Success check improved; experimental system integration (fully
+         automated), optional; new parameter "TargetProductList" needed
+         for this; other necessary small adaptations; more devices"
+    In short:
+        - Configurations are now stored in independent files under
+          /etc/usb_modeswitch.d/
+        - The devices detection is greatly improved by having a broader set of
+          detection fields.
+        - Two new binaries: usb_modeswitch_sh and usb_modeswitch_tcl
 
- -- Didier Raboud <didier@raboud.com>  Thu, 02 Jul 2009 11:18:17 +0200
+  * Adaptation to new upstream:
+    - Add tclsh to Depends.
+    - Drop mkrules.py and thus python B-D (Closes: #535445).
+
+  * Patches:
+    - 01_correct_broken_huawei_conf.patch : refresh. 
+    - 02_umconf_is_no_exec.patch          : remove, merged upstream.
+    - 03_build_system_to_policy.patch     : refresh.
+    - 04_convert_umconf_to_unicode.patch  : Add to get everything in utf-8.
+                                            Thanks to W. Martin Borgert.
+    - Add headers to make them all comply to DEP-3 Patch Tagging Guidelines.
+
+  * Bump Standards-Version to 3.8.3
+    - Add README.source.
+
+  * Document the major changes in NEWS.Debian
+
+ -- Didier Raboud <didier@raboud.com>  Sat, 22 Aug 2009 14:35:32 +0200
 
 usb-modeswitch (1.0.2-1) unstable; urgency=low
 

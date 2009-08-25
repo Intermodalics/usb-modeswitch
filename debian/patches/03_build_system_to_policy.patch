@@ -6,12 +6,12 @@ Origin: other
 Author: Didier Raboud <didier@raboud.com>
 Last-Update: 2009-07-02
 
-Index: usb-modeswitch/Makefile
+Index: usb-modeswitch.git/Makefile
 ===================================================================
---- usb-modeswitch.orig/Makefile	2009-05-29 16:34:07.000000000 +0200
-+++ usb-modeswitch/Makefile	2009-05-29 16:35:42.000000000 +0200
+--- usb-modeswitch.git.orig/Makefile	2009-08-23 21:08:20.000000000 +0200
++++ usb-modeswitch.git/Makefile	2009-08-23 21:09:38.000000000 +0200
 @@ -2,7 +2,7 @@
- VERS        = 0.9.7
+ VERS        = 1.0.3
  STRIP	    = strip
  CC          = gcc
 -CCFLAGS     = -l usb
@@ -29,3 +29,26 @@ Index: usb-modeswitch/Makefile
  
  clean:
  	      $(RM) ./usb_modeswitch
+Index: usb-modeswitch.git/Makefile.integrated
+===================================================================
+--- usb-modeswitch.git.orig/Makefile.integrated	2009-08-23 21:09:40.000000000 +0200
++++ usb-modeswitch.git/Makefile.integrated	2009-08-23 21:09:50.000000000 +0200
+@@ -2,7 +2,7 @@
+ VERS        = 1.0.3
+ STRIP       = strip
+ CC          = gcc
+-CCFLAGS     = -l usb -DUSE_SYSLOG
++CFLAGS     += -l usb -DUSE_SYSLOG
+ RM          = /bin/rm -f
+ OBJS        = usb_modeswitch.c
+ PREFIX      = $(DESTDIR)/usr
+@@ -14,8 +14,7 @@
+ all:        clean $(PROG)
+ 
+ $(PROG): $(OBJS)
+-	$(CC) $(CCFLAGS) -o $(PROG) $(OBJS)
+-	$(STRIP) $(PROG)
++	$(CC) $(CFLAGS) -o $(PROG) $(OBJS)
+ 
+ clean:
+ 	$(RM) ./usb_modeswitch

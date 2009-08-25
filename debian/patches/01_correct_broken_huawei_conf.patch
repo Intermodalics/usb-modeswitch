@@ -7,11 +7,11 @@ Author: Stephen Depooter <stephend@xandros.com>
 Reviewed-by: Didier Raboud <didier@raboud.com>
 Last-Update: 2009-07-02
 
-Index: usb-modeswitch/usb_modeswitch.conf
+Index: usb-modeswitch.git/usb_modeswitch.conf
 ===================================================================
---- usb-modeswitch.orig/usb_modeswitch.conf	2009-06-11 16:57:48.000000000 +0200
-+++ usb-modeswitch/usb_modeswitch.conf	2009-06-11 17:36:56.000000000 +0200
-@@ -388,7 +388,7 @@
+--- usb-modeswitch.git.orig/usb_modeswitch.conf	2009-08-22 14:35:30.000000000 +0200
++++ usb-modeswitch.git/usb_modeswitch.conf	2009-08-23 20:57:06.000000000 +0200
+@@ -394,7 +394,7 @@
  #
  # Contributor: Hans Kurent, Denis Sutter, Vincent Teoh
  
@@ -20,7 +20,7 @@ Index: usb-modeswitch/usb_modeswitch.conf
  ;DefaultProduct= 0x1003
  
  # choose one of these:
-@@ -401,7 +401,7 @@
+@@ -407,7 +407,7 @@
  #
  # Contributor: Dale Lane
  
@@ -29,3 +29,16 @@ Index: usb-modeswitch/usb_modeswitch.conf
  ;DefaultProduct= 0x1001
  
  # choose one of these:
+Index: usb-modeswitch.git/usb_modeswitch.d/12d1:1003
+===================================================================
+--- usb-modeswitch.git.orig/usb_modeswitch.d/12d1:1003	2009-08-23 20:58:45.000000000 +0200
++++ usb-modeswitch.git/usb_modeswitch.d/12d1:1003	2009-08-23 20:58:55.000000000 +0200
+@@ -7,7 +7,7 @@
+ #
+ # Contributor: Hans Kurent, Denis Sutter, Vincent Teoh
+ 
+-DefaultVendor=  0x12d1;
++DefaultVendor=  0x12d1
+ DefaultProduct= 0x1003
+ 
+ HuaweiMode=1

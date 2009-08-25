@@ -1,3 +1,33 @@
+usb-modeswitch (1.0.3-1) UNRELEASED; urgency=low
+
+  Upstream version 1.0.3 introduces two major changes.
+   
+  * The devices configuration is splitted:
+    - /etc/usb_modeswitch.conf is dropped in favor of files in
+      /etc/usb_modeswitch.d/
+    - This means that the customisation or new devices that were defined in 
+      /etc/usb_modeswitch.conf will be _LOST_.
+    + Normally, there no need anymore to play with comments and such to only
+      get the correct devices switched.
+
+  * The detection of devices is greatly improved:
+    - /etc/udev/rules.d/usb_modeswitch.rules (Debian-specific) is dropped in 
+      favor of /etc/udev/rules.d/80-usb_modeswitch.rules (from upstream).
+      These rules call /usr/share/usb_modeswitch/usb_modeswitch.{sh,tcl} to 
+      handle the automagical detection and switching of the devices.
+    - This means that any device selection done by comment-tweak in the
+      Debian-specific .rules file will be lost.
+    + But it is normally replaced by a superior and more universal device
+      detection.
+
+  Finally, if you had modified /etc/usb_modeswitch.conf to insert home-brewn 
+  tweaks, you will need to migrate these tweaks to /etc/usb_modeswitch.d/*
+  files. But if you had only selected alternative devices in 
+  /etc/udev/usb_modeswitch.rules, you should normally have nothing to do, as
+  these alternatives should now be detected.
+ 
+ -- Didier Raboud <didier@raboud.com>  Tue, 25 Aug 2009 11:52:01 +0200
+
 usb-modeswitch (1.0.2-1) unstable; urgency=low
 
   For the 1.0.0 release, the command line options have changed in two ways from
