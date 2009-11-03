@@ -1,6 +1,5 @@
 #######################################################
 # Older Option devices
-#
 
 DefaultVendor=  0x05c6
 DefaultProduct= 0x1000

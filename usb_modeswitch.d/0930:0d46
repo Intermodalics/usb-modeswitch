@@ -1,7 +1,5 @@
 ########################################################
 # Toshiba G450
-#
-# Contributor: Mijail Anton
 
 DefaultVendor=  0x0930
 DefaultProduct= 0x0d46

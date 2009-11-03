@@ -1,13 +1,9 @@
 ########################################################
-# Huawei E220 (aka "Vodafone EasyBox II", aka "T-Mobile wnw Box Micro")
-# Huawei E230
-# Huawei E270
-# Huawei E870
-# and probably most other Huawei devices (just adapt product ID)
-#
-# Contributor: Hans Kurent, Denis Sutter, Vincent Teoh
+# Huawei E220, E230, E270, E870
 
-DefaultVendor=  0x12d1;
+DefaultVendor=  0x12d1
 DefaultProduct= 0x1003
+
+CheckSuccess=20
 
 HuaweiMode=1

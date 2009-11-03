@@ -1,7 +1,5 @@
 ########################################################
-# UTStarcom UM175 (distributor "Alltel")
-#
-# Contributor: Mark A. Ziesemer
+# UTStarcom UM175
 
 DefaultVendor=  0x106c
 DefaultProduct= 0x3b03

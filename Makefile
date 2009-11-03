@@ -1,5 +1,5 @@
 PROG        = usb_modeswitch
-VERS        = 1.0.3
+VERS        = 1.0.4
 STRIP	    = strip
 CC          = gcc
 CCFLAGS     = -l usb

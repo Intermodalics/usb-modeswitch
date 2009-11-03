@@ -1,7 +1,5 @@
 ########################################################
-# C-motech CGU-628 (aka "Franklin Wireless CGU-628A" aka "4G Systems XS Stick W12")
-#
-# Contributor: Mathias Picker
+# C-motech CGU-628
 
 DefaultVendor=  0x16d8
 DefaultProduct= 0xf000
