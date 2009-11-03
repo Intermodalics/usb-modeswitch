@@ -1,0 +1,174 @@
+Index: usb-modeswitch.git/80-usb_modeswitch.rules
+===================================================================
+--- usb-modeswitch.git.orig/80-usb_modeswitch.rules	2009-08-24 11:16:51.000000000 +0200
++++ usb-modeswitch.git/80-usb_modeswitch.rules	2009-08-24 11:16:57.000000000 +0200
+@@ -10,103 +10,103 @@
+ LABEL="modeswitch_rules_begin"
+ 
+ # Samsung SGH-Z810 (WE NEED ID INFO!), AnyDATA ADU-500A, ADU-510A, ADU-510L, ADU-520A, older Option devices
+-SYSFS{idVendor}=="05c6", SYSFS{idProduct}=="1000", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="05c6", SYSFS{idProduct}=="1000", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Toshiba G450
+-SYSFS{idVendor}=="0930", SYSFS{idProduct}=="0d46", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="0930", SYSFS{idProduct}=="0d46", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Option GlobeSurfer Icon 7.2, new firmware (HSO driver)
+-SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="6911", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="6911", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Option iCON 225 HSDPA
+-SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="6971", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="6971", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Option GlobeTrotter HSUPA
+-SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="7011", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="7011", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Option iCON 401
+-SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="7401", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="7401", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Vodafone K3760
+-SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="7501", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="7501", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # AT&T USBConnect Quicksilver
+-SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="d033", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="0af0", SYSFS{idProduct}=="d033", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Sony Ericsson MD400
+-SYSFS{idVendor}=="0fce", SYSFS{idProduct}=="d0e1", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="0fce", SYSFS{idProduct}=="d0e1", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # LG LDU-1900D EV-DO (Rev. A)
+-SYSFS{idVendor}=="1004", SYSFS{idProduct}=="1000", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1004", SYSFS{idProduct}=="1000", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Huawei E630
+-SYSFS{idVendor}=="1033", SYSFS{idProduct}=="0035", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1033", SYSFS{idProduct}=="0035", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # UTStarcom UM175
+-SYSFS{idVendor}=="106c", SYSFS{idProduct}=="3b03", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="106c", SYSFS{idProduct}=="3b03", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Sierra Wireless Compass 597, Sierra Wireless AirCard 881U (most likely 880U too)
+-SYSFS{idVendor}=="1199", SYSFS{idProduct}=="0fff", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1199", SYSFS{idProduct}=="0fff", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Huawei E169
+-SYSFS{idVendor}=="12d1", SYSFS{idProduct}=="1001", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="12d1", SYSFS{idProduct}=="1001", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Huawei E220
+-SYSFS{idVendor}=="12d1", SYSFS{idProduct}=="1003", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="12d1", SYSFS{idProduct}=="1003", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Huawei E180
+-SYSFS{idVendor}=="12d1", SYSFS{idProduct}=="1414", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="12d1", SYSFS{idProduct}=="1414", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Novatel Wireless Ovation MC950D HSUPA, Novatel U727
+-SYSFS{idVendor}=="1410", SYSFS{idProduct}=="5010", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1410", SYSFS{idProduct}=="5010", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Novatel MC990D
+-SYSFS{idVendor}=="1410", SYSFS{idProduct}=="5020", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1410", SYSFS{idProduct}=="5020", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Novatel U760
+-SYSFS{idVendor}=="1410", SYSFS{idProduct}=="5030", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1410", SYSFS{idProduct}=="5030", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # C-motech D-50 (aka "CDU-680")
+-SYSFS{idVendor}=="16d8", SYSFS{idProduct}=="6803", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="16d8", SYSFS{idProduct}=="6803", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # C-motech CGU-628 (aka "Franklin Wireless CGU-628A" aka "4G Systems XS Stick W12")
+-SYSFS{idVendor}=="16d8", SYSFS{idProduct}=="f000", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="16d8", SYSFS{idProduct}=="f000", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # ZTE MF620, ZTE MF622, ZTE MF626 and others (WE NEED MORE ID INFO!), ONDA MT505UP (most likely a ZTE model)
+-SYSFS{idVendor}=="19d2", SYSFS{idProduct}=="2000", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="19d2", SYSFS{idProduct}=="2000", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # ZTE AC8710
+-SYSFS{idVendor}=="19d2", SYSFS{idProduct}=="fff5", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="19d2", SYSFS{idProduct}=="fff5", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # ZTE AC8710
+-SYSFS{idVendor}=="19d2", SYSFS{idProduct}=="fff6", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="19d2", SYSFS{idProduct}=="fff6", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # BandLuxe C120
+-SYSFS{idVendor}=="1a8d", SYSFS{idProduct}=="1000", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1a8d", SYSFS{idProduct}=="1000", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Hummer DTM5731
+-SYSFS{idVendor}=="1ab7", SYSFS{idProduct}=="5700", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1ab7", SYSFS{idProduct}=="5700", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Alcatel X200
+-SYSFS{idVendor}=="1bbb", SYSFS{idProduct}=="f000", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1bbb", SYSFS{idProduct}=="f000", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Alcatel One Touch X series
+-SYSFS{idVendor}=="1c9e", SYSFS{idProduct}=="1001", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1c9e", SYSFS{idProduct}=="1001", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # MyWave SW006 Sport Phone/Modem Combination
+-SYSFS{idVendor}=="1c9e", SYSFS{idProduct}=="9200", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1c9e", SYSFS{idProduct}=="9200", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # MobiData MBD-200HU, ST Mobile Connect
+-SYSFS{idVendor}=="1c9e", SYSFS{idProduct}=="f000", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1c9e", SYSFS{idProduct}=="f000", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Solomon S3Gm-660
+-SYSFS{idVendor}=="1dd6", SYSFS{idProduct}=="1000", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1dd6", SYSFS{idProduct}=="1000", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Option iCON 210, PROLiNK PHS100, Hyundai MB-810, A-Link 3GU
+-SYSFS{idVendor}=="1e0e", SYSFS{idProduct}=="f000", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1e0e", SYSFS{idProduct}=="f000", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ # Cricket A600
+-SYSFS{idVendor}=="1f28", SYSFS{idProduct}=="0021", RUN+="/usr/sbin/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
++SYSFS{idVendor}=="1f28", SYSFS{idProduct}=="0021", RUN+="/usr/share/usb_modeswitch/usb_modeswitch.sh '%b/%k/%s{idVendor}/%s{idProduct}/%s{manufacturer}/%s{product}/%s{serial}'"
+ 
+ 
+ LABEL="modeswitch_rules_end"
+Index: usb-modeswitch.git/Makefile.integrated
+===================================================================
+--- usb-modeswitch.git.orig/Makefile.integrated	2009-08-24 11:16:57.000000000 +0200
++++ usb-modeswitch.git/Makefile.integrated	2009-08-24 11:17:36.000000000 +0200
+@@ -9,6 +9,7 @@
+ ETCDIR      = $(DESTDIR)/etc
+ RULESDIR    = $(DESTDIR)/etc/udev/rules.d
+ SBINDIR     = $(PREFIX)/sbin
++SHAREDIR    = $(PREFIX)/share/usb_modeswitch
+ 
+ .PHONY:     clean
+ all:        clean $(PROG)
+@@ -21,9 +22,10 @@
+ 
+ install: all
+ 	mkdir -p $(SBINDIR)
++	mkdir -p $(SHAREDIR)
+ 	install --mode=754 ./usb_modeswitch $(SBINDIR)
+-	install --mode=754 ./usb_modeswitch.tcl $(SBINDIR)
+-	install --mode=754 ./usb_modeswitch.sh $(SBINDIR)
++	install --mode=754 ./usb_modeswitch.tcl $(SHAREDIR)
++	install --mode=754 ./usb_modeswitch.sh $(SHAREDIR)
+ 	install -d $(ETCDIR)/usb_modeswitch.d
+ 	install --mode=644 -t $(ETCDIR)/usb_modeswitch.d ./usb_modeswitch.d/*
+ 	mkdir -p $(RULESDIR)
+Index: usb-modeswitch.git/usb_modeswitch.sh
+===================================================================
+--- usb-modeswitch.git.orig/usb_modeswitch.sh	2009-08-24 11:16:51.000000000 +0200
++++ usb-modeswitch.git/usb_modeswitch.sh	2009-08-24 11:16:57.000000000 +0200
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-/usr/sbin/usb_modeswitch.tcl "$1" &
++/usr/share/usb_modeswitch/usb_modeswitch.tcl "$1" &

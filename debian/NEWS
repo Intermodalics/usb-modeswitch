@@ -1,8 +1,8 @@
 usb-modeswitch (1.0.3-1) UNRELEASED; urgency=low
 
-  Upstream version 1.0.3 introduces two major changes.
+  UPSTREAM: Version 1.0.3 introduces two major changes.
    
-  * The devices configuration is splitted:
+  * The devices configuration is split:
     - /etc/usb_modeswitch.conf is dropped in favor of files in
       /etc/usb_modeswitch.d/
     - This means that the customisation or new devices that were defined in 
@@ -24,8 +24,20 @@ usb-modeswitch (1.0.3-1) UNRELEASED; urgency=low
   tweaks, you will need to migrate these tweaks to /etc/usb_modeswitch.d/*
   files. But if you had only selected alternative devices in 
   /etc/udev/usb_modeswitch.rules, you should normally have nothing to do, as
-  these alternatives should now be detected.
- 
+  these alternatives should now be detected (read below).
+
+  DEBIAN: Version 1.0.3-1 now makes the rules "opt-in"
+
+  * udev (from version 146-1) now ships a modem-modeswitch program that does
+    what usb-modeswitch used to do. To ensure that the transition to this udev
+    facility is smooth for everyone, the usb-modeswitch program is kept, but
+    with an opt-in /etc/udev/rules.d/80-usb_modeswitch.rules.
+  * Thus if modem-modeswitch from udev (>= 146-1) works for your device, you
+    can uninstall usb-modeswitch.
+  * A contrario, if modem-modeswitch doesn't switch your device, please file a
+    bug against udev and edit /etc/udev/rules.d/80-usb_modeswitch.rules to
+    enable it.
+
  -- Didier Raboud <didier@raboud.com>  Tue, 25 Aug 2009 11:52:01 +0200
 
 usb-modeswitch (1.0.2-1) unstable; urgency=low

@@ -11,23 +11,22 @@ usb-modeswitch (1.0.3-1) UNRELEASED; urgency=low
         - The devices detection is greatly improved by having a broader set of
           detection fields.
         - Two new binaries: usb_modeswitch_sh and usb_modeswitch_tcl
-
   * Adaptation to new upstream:
     - Add tclsh to Depends.
     - Drop mkrules.py and thus python B-D (Closes: #535445).
-
   * Patches:
     - 01_correct_broken_huawei_conf.patch : refresh. 
     - 02_umconf_is_no_exec.patch          : remove, merged upstream.
     - 03_build_system_to_policy.patch     : refresh.
     - 04_convert_umconf_to_unicode.patch  : Add to get everything in utf-8.
                                             Thanks to W. Martin Borgert.
+    - 05_disables_rules.patch             : Add to get the udev rules "opt-in"
+                                            (See NEWS.Debian)
     - Add headers to make them all comply to DEP-3 Patch Tagging Guidelines.
-
   * Bump Standards-Version to 3.8.3
     - Add README.source.
-
   * Document the major changes in NEWS.Debian
+  * Switch to source format 3.0 (quilt). Drop quilt Build-Dep and dh snippet.
 
  -- Didier Raboud <didier@raboud.com>  Sat, 22 Aug 2009 14:35:32 +0200
 
