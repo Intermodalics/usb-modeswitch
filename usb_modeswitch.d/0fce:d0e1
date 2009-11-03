@@ -1,6 +1,5 @@
 ########################################################
 # Sony Ericsson MD400
-#
 
 DefaultVendor=  0x0fce 
 DefaultProduct= 0xd0e1

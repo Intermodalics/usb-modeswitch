@@ -1,10 +1,5 @@
 ########################################################
 # C-motech D-50 (aka "CDU-680")
-#
-# Interesting notes about the device in the forum post at
-# http://www.draisberghof.de/usb_modeswitch/bb/viewtopic.php?t=69
-#
-# Contributor: Alexander Czigler
 
 DefaultVendor=  0x16d8
 DefaultProduct= 0x6803

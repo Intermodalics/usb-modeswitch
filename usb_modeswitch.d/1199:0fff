@@ -1,13 +1,11 @@
 ########################################################
-# Sierra Wireless Compass 597
-#
-# Contributor: Vincent Teoh
+# Sierra Wireless Compass 597, AirCard 881U (most likely 880U too)
 
 DefaultVendor=  0x1199
 DefaultProduct= 0x0fff
 
 TargetVendor=   0x1199
-TargetProduct=  0x0023
+TargetProductList="6856,0023"
 
 CheckSuccess=20
 

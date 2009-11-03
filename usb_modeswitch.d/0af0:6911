@@ -1,18 +1,12 @@
 #######################################################
-# Option GlobeSurfer Icon 7.2, new firmware (HSO driver)
-#
-# Vendor/ProductID don't change when switching, only the device
-# class does. Most new Option devices work with this. Just adapt IDs!
-# HSO driver support is available at Pharscape (www.pharscape.org)
-#
-# Contributor: Paul Hardwick
+# Option GlobeSurfer Icon 7.2 (HSO driver)
 
 DefaultVendor=  0x0af0
 DefaultProduct= 0x6911
 
 TargetClass=    0xff
 
-CheckSuccess=20
+CheckSuccess=10
 
 MessageContent="55534243123456780000000000000601000000000000000000000000000000"
 

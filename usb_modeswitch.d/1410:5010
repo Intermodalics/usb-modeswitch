@@ -1,21 +1,14 @@
 ########################################################
-# Novatel Wireless Ovation MC950D HSUPA
-# Novatel Wireless Merlin XU950D
-# Novatel Wireless Ovation 930D
-#
-# Contributor: Razvan Dragomirescu, Mike Kirk
+# Novatel Wireless devices
 
 DefaultVendor=  0x1410
 DefaultProduct= 0x5010
 
 TargetVendor=   0x1410
-TargetProduct=  0x4400
+TargetProductList="4400,4100"
 
-# only for reference
-# MessageEndpoint=0x09
+CheckSuccess=20
 
 MessageContent="5553424312345678000000000000061b000000020000000000000000000000"
-
-# Note: detaching the storage driver might work as well
 
 

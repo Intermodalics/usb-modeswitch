@@ -85,7 +85,7 @@ For details how to automate the process visit the homepage (see above).
 How to install 2 (fully automatic use)
 ===================================
 
-New in version 1.0.3: a fully automatic system integration that will be able
+New since version 1.0.3: a fully automatic system integration that will be able
 to identify every known device without user interaction.
 
 If you want this, use this line at the shell:
@@ -103,7 +103,7 @@ Known working hardware
 ======================
 
 For details and specific setup see the homepage and the config file.
-The automatic installation is in alpha stage and needs your participation,
+The automatic installation is in alpha stage and requires your participation,
 especially if you own a ZTE made device. There is still not enough
 information to tell models and model versions apart. See the announcement of
 1.0.3 !!
@@ -163,6 +163,11 @@ More contributors are listed in the config file.
 History
 =======
 
+Version 1.0.5, 2009/08/26
+    More changes and fixes regarding success check; "--version" option;
+    config "database" updated
+Version 1.0.4, 2009/08/23
+    Success check bugs (and others) fixed
 Version 1.0.3, 2009/08/20
     Success check improved; experimental system integration (fully automated),
     optional; new parameter "TargetProductList" needed for this; other necessary
@@ -232,4 +237,4 @@ Or find it as the file COPYING in this folder.
 
 
 
-Last revised: 2009-08-20, Josua Dietze
+Last revised: 2009-08-26, Josua Dietze
