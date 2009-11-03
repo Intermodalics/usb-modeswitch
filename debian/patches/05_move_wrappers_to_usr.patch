@@ -1,3 +1,7 @@
+Description: Puts the specific .sh and .tcl wrappers in an adhoc subdirectory in /usr/share
+Origin:      vendor
+Author:      Didier Raboud <didier@raboud.com>
+Last-Update: 2009-11-03
 Index: usb-modeswitch.git/80-usb_modeswitch.rules
 ===================================================================
 --- usb-modeswitch.git.orig/80-usb_modeswitch.rules	2009-08-24 11:16:51.000000000 +0200
