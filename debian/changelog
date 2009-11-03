@@ -4,7 +4,7 @@ usb-modeswitch (1.0.5-1) unstable; urgency=low
     - Configurations are now stored in independent files under
       /etc/usb_modeswitch.d/
     - The devices detection is greatly improved by having a broader set of
-      detection fields.
+      detection fields (Closes: #527122).
     - Two new binaries: usb_modeswitch_sh and usb_modeswitch_tcl.
   * Adaptation to new upstream:
     - Add tclsh to Depends.
