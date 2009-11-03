@@ -1,4 +1,4 @@
-usb-modeswitch (1.0.5-1) UNRELEASED; urgency=low
+usb-modeswitch (1.0.5-1) unstable; urgency=low
 
   * New 1.0.5 upstream version
     - Configurations are now stored in independent files under
@@ -26,7 +26,7 @@ usb-modeswitch (1.0.5-1) UNRELEASED; urgency=low
   * Document the major changes in NEWS.Debian
   * Switch to source format 3.0 (quilt). Drop quilt Build-Dep and dh snippet.
 
- -- Didier Raboud <didier@raboud.com>  Tue, 03 Nov 2009 10:36:21 +0100
+ -- Didier Raboud <didier@raboud.com>  Tue, 03 Nov 2009 11:02:31 +0100
 
 usb-modeswitch (1.0.2-1) unstable; urgency=low
 
