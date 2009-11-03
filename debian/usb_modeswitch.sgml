@@ -89,6 +89,15 @@
       </varlistentry>
 
       <varlistentry>
+        <term><option>-e</option>
+          <option>--version</option>
+        </term>
+        <listitem>
+          <para>Print version number and exit.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term><option>-v</option>
           <option>--default-vendor [nr]</option>
         </term>
