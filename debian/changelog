@@ -1,16 +1,11 @@
 usb-modeswitch (1.0.5-1) UNRELEASED; urgency=low
 
   * New 1.0.5 upstream version
-    Quoting upstream:
-        "Success check improved; experimental system integration (fully
-         automated), optional; new parameter "TargetProductList" needed
-         for this; other necessary small adaptations; more devices"
-    In short:
-        - Configurations are now stored in independent files under
-          /etc/usb_modeswitch.d/
-        - The devices detection is greatly improved by having a broader set of
-          detection fields.
-        - Two new binaries: usb_modeswitch_sh and usb_modeswitch_tcl
+    - Configurations are now stored in independent files under
+      /etc/usb_modeswitch.d/
+    - The devices detection is greatly improved by having a broader set of
+      detection fields.
+    - Two new binaries: usb_modeswitch_sh and usb_modeswitch_tcl.
   * Adaptation to new upstream:
     - Add tclsh to Depends.
     - Drop mkrules.py and thus python B-D (Closes: #535445).
@@ -21,7 +16,9 @@ usb-modeswitch (1.0.5-1) UNRELEASED; urgency=low
     - 03_build_system_to_policy.patch     : refresh.
     - 04_convert_umconf_to_unicode.patch  : Add to get everything in utf-8.
                                             Thanks to W. Martin Borgert.
-    - 05_disables_rules.patch             : Add to get the udev rules "opt-in"
+    - 05_move_wrappers_to_usr.patch       : Add. Moves wrappers to specific
+                                            /usr/share/usb_modeswitch
+    - 06_disables_rules.patch             : Add to get the udev rules "opt-in"
                                             (See NEWS.Debian)
     - Add headers to make them all comply to DEP-3 Patch Tagging Guidelines.
   * Bump Standards-Version to 3.8.3
