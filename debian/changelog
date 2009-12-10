@@ -1,3 +1,11 @@
+usb-modeswitch (1.0.5-2) UNRELEASED; urgency=low
+
+  * Patches:
+    - 07_SYSFS_to_ATTRS.patch : Add to fix "later udev versions output loads
+                                of syslog warnings" (Closes: #560250)
+
+ -- Didier Raboud <didier@raboud.com>  Thu, 10 Dec 2009 12:07:02 +0100
+
 usb-modeswitch (1.0.5-1) unstable; urgency=low
 
   * New 1.0.5 upstream version

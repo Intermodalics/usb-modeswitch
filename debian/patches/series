@@ -3,3 +3,4 @@
 04_convert_umconf_to_unicode.patch
 05_move_wrappers_to_usr.patch
 06_disables_rules.patch
+07_SYSFS_to_ATTRS.patch
