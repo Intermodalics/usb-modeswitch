@@ -12,7 +12,7 @@ usb-modeswitch (1.0.7-1) UNRELEASED; urgency=low
     - 06_disables_rules.patch             : Removed.
     - 07_SYSFS_to_ATTRS.patch : Add to fix "later udev versions output loads
                                 of syslog warnings" (Closes: #560250)
-  * Add a preinst to delete configuration files forgotten in -1.
+  * Add a preinst to delete configuration files forgotten in previous releases.
 
  -- Didier Raboud <didier@raboud.com>  Tue, 12 Jan 2010 10:33:21 +0100
 
