@@ -4,8 +4,8 @@ Author:      Didier Raboud <didier@raboud.com>
 Last-Update: 2010-01-12
 Index: usb-modeswitch.git/80-usb_modeswitch.rules
 ===================================================================
---- usb-modeswitch.git.orig/80-usb_modeswitch.rules	2010-01-12 11:43:53.000000000 +0100
-+++ usb-modeswitch.git/80-usb_modeswitch.rules	2010-01-12 11:44:42.000000000 +0100
+--- usb-modeswitch.git.orig/80-usb_modeswitch.rules	2010-01-12 13:52:47.000000000 +0100
++++ usb-modeswitch.git/80-usb_modeswitch.rules	2010-01-12 14:05:28.000000000 +0100
 @@ -12,258 +12,258 @@
  LABEL="modeswitch_rules_begin"
  
@@ -352,11 +352,11 @@ Index: usb-modeswitch.git/80-usb_modeswitch.rules
  LABEL="modeswitch_rules_end"
 Index: usb-modeswitch.git/Makefile.integrated
 ===================================================================
---- usb-modeswitch.git.orig/Makefile.integrated	2010-01-12 11:44:39.000000000 +0100
-+++ usb-modeswitch.git/Makefile.integrated	2010-01-12 11:44:42.000000000 +0100
+--- usb-modeswitch.git.orig/Makefile.integrated	2010-01-12 14:05:28.000000000 +0100
++++ usb-modeswitch.git/Makefile.integrated	2010-01-12 14:05:28.000000000 +0100
 @@ -9,6 +9,7 @@
  ETCDIR      = $(DESTDIR)/etc
- RULESDIR    = $(DESTDIR)/lib/udev/rules.d
+ RULESDIR    = $(DESTDIR)/etc/udev/rules.d
  SBINDIR     = $(PREFIX)/sbin
 +SHAREDIR    = $(PREFIX)/share/usb_modeswitch
  
@@ -377,8 +377,8 @@ Index: usb-modeswitch.git/Makefile.integrated
  	mkdir -p $(RULESDIR)
 Index: usb-modeswitch.git/usb_modeswitch.sh
 ===================================================================
---- usb-modeswitch.git.orig/usb_modeswitch.sh	2010-01-12 11:43:53.000000000 +0100
-+++ usb-modeswitch.git/usb_modeswitch.sh	2010-01-12 11:44:42.000000000 +0100
+--- usb-modeswitch.git.orig/usb_modeswitch.sh	2010-01-12 13:52:47.000000000 +0100
++++ usb-modeswitch.git/usb_modeswitch.sh	2010-01-12 14:05:28.000000000 +0100
 @@ -1,2 +1,2 @@
  #!/bin/sh
 -/usr/sbin/usb_modeswitch.tcl "$1" &

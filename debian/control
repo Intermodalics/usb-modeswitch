@@ -10,7 +10,7 @@ Vcs-Browser: http://git.debian.org/?p=collab-maint/usb-modeswitch.git
 
 Package: usb-modeswitch
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, tcl | tclsh
+Depends: ${shlibs:Depends}, ${misc:Depends}, tcl | tclsh, usb-modeswitch-data (>= 20100110-1)
 Suggests: gcom, wvdial
 Description: mode switching tool for controlling "flip flop" USB devices
  Several new USB devices have their proprietary Windows drivers onboard,
@@ -25,3 +25,5 @@ Description: mode switching tool for controlling "flip flop" USB devices
  shows up as "usb-storage" by default. usb-modeswitch solves that
  issue by sending the command which actually performs the switching
  of the device from "usb-storage" to "usbserial".
+ .
+ This package contains the binaries and the brother scripts.

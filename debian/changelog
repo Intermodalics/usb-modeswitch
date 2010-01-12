@@ -2,25 +2,21 @@ usb-modeswitch (1.0.7-1) UNRELEASED; urgency=low
 
   * New 1.0.7 upstream version (Closes: #563527).
     - Update the manpage
-  * Remove the "opt-in" patch to get the rules included again.
-    - See http://bugs.debian.org/557610#19
-    - Add a note about it in NEWS.Debian
+    - Split source in binary and data packages.
   * Patches:
     - 01_correct_broken_huawei_conf.patch
-        Removed (patches a file not in the binary package).
+        Removed.
     + 03_build_system_to_policy.patch
-        Refreshed and moved the 80-usb_modeswitch.rules to the correct place.
+        Refreshed.
     - 04_convert_umconf_to_unicode.patch
-        Removed (patches a file not in the binary package).
+        Removed.
     + 05_move_wrappers_to_usr.patch
         Refreshed.
     - 06_disables_rules.patch
         Removed.
-    + 07_SYSFS_to_ATTRS.patch
-        Add to fix "later udev versions output loads of syslog warnings"
-        (Closes: #560250)
   * Add a preinst to delete configuration files forgotten in previous releases
     - Also delete /etc/udev/rules.d/80-usb_modeswitch.rules.
+  * Update README.Debian.
 
  -- Didier Raboud <didier@raboud.com>  Tue, 12 Jan 2010 10:33:21 +0100
 
