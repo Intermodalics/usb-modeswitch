@@ -3,6 +3,7 @@ usb-modeswitch (1.0.7-1) UNRELEASED; urgency=low
   * New 1.0.7 upstream version (Closes: #563527).
   * Remove the "opt-in" patch to get the rules included again.
     - See http://bugs.debian.org/557610#19
+    - Add a note about it in NEWS.Debian
   * Patches:
     - 01_correct_broken_huawei_conf.patch : Refreshed. 
     - 03_build_system_to_policy.patch     : Refreshed.
