@@ -8,8 +8,8 @@ Last-Update: 2010-01-12
 
 Index: usb-modeswitch.git/Makefile
 ===================================================================
---- usb-modeswitch.git.orig/Makefile	2010-01-12 10:29:18.000000000 +0100
-+++ usb-modeswitch.git/Makefile	2010-01-12 10:46:08.000000000 +0100
+--- usb-modeswitch.git.orig/Makefile	2010-01-12 11:19:32.000000000 +0100
++++ usb-modeswitch.git/Makefile	2010-01-12 11:33:32.000000000 +0100
 @@ -2,7 +2,7 @@
  VERS        = 1.0.7
  STRIP	    = strip
@@ -31,9 +31,9 @@ Index: usb-modeswitch.git/Makefile
  	      $(RM) ./usb_modeswitch
 Index: usb-modeswitch.git/Makefile.integrated
 ===================================================================
---- usb-modeswitch.git.orig/Makefile.integrated	2010-01-12 10:29:18.000000000 +0100
-+++ usb-modeswitch.git/Makefile.integrated	2010-01-12 10:46:25.000000000 +0100
-@@ -2,7 +2,7 @@
+--- usb-modeswitch.git.orig/Makefile.integrated	2010-01-12 11:19:32.000000000 +0100
++++ usb-modeswitch.git/Makefile.integrated	2010-01-12 11:35:32.000000000 +0100
+@@ -2,20 +2,19 @@
  VERS        = 1.0.7
  STRIP       = strip
  CC          = gcc
@@ -42,7 +42,12 @@ Index: usb-modeswitch.git/Makefile.integrated
  RM          = /bin/rm -f
  OBJS        = usb_modeswitch.c
  PREFIX      = $(DESTDIR)/usr
-@@ -14,8 +14,7 @@
+ ETCDIR      = $(DESTDIR)/etc
+-RULESDIR    = $(DESTDIR)/etc/udev/rules.d
++RULESDIR    = $(DESTDIR)/lib/udev/rules.d
+ SBINDIR     = $(PREFIX)/sbin
+ 
+ .PHONY:     clean
  all:        clean $(PROG)
  
  $(PROG): $(OBJS)

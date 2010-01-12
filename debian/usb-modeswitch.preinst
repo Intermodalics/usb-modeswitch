@@ -27,6 +27,7 @@ install|upgrade)
     if dpkg --compare-versions "$2" le "1.0.7-1"; then
         rm_conffile usb-modeswitch "/etc/usb_modeswitch.conf"
         rm_conffile usb-modeswitch "/etc/udev/rules.d/usb_modeswitch.rules"
+        rm_conffile usb-modeswitch "/etc/udev/rules.d/80-usb_modeswitch.rules"
     fi
 esac
 
