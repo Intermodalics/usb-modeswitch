@@ -206,6 +206,15 @@
       </varlistentry>
 
      <varlistentry>
+        <term><option>-G</option>
+          <option>--gct-mode</option>
+        </term>
+        <listitem>
+          <para>Whether to just apply the GCT mode</para>
+        </listitem>
+      </varlistentry>
+
+     <varlistentry>
         <term><option>-R</option>
           <option>--resetUSB</option>
         </term>
@@ -263,7 +272,7 @@
       </varlistentry>
 
         <term><option>-i</option>
-          <option>--Interface</option>
+          <option>--interface [nr]</option>
         </term>
         <listitem>
           <para>Select initial USB interface (default: 0)</para>
@@ -272,7 +281,7 @@
 
      <varlistentry>
         <term><option>-u</option>
-          <option>--Configuration</option>
+          <option>--configuration [nr]</option>
         </term>
         <listitem>
           <para>Select USB configuration</para>
@@ -281,7 +290,7 @@
 
      <varlistentry>
         <term><option>-a</option>
-          <option>--AltSetting</option>
+          <option>--altsetting [nr]</option>
         </term>
         <listitem>
           <para>Select alternative USB interface setting</para>
