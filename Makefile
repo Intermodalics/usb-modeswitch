@@ -1,8 +1,8 @@
 PROG        = usb_modeswitch
-VERS        = 1.0.4
+VERS        = 1.0.7
 STRIP	    = strip
 CC          = gcc
-CCFLAGS     = -l usb
+CCFLAGS     = -l usb -Wall
 RM          = /bin/rm -f
 OBJS        = usb_modeswitch.c
 PREFIX	    = $(DESTDIR)/usr
@@ -35,4 +35,7 @@ integrated:
 
 integrated_install:
 	make -f Makefile.integrated install
+
+integrated_uninstall:
+	make -f Makefile.integrated uninstall
 

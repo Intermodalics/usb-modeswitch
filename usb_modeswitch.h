@@ -2,7 +2,7 @@
   This file is part of usb_modeswitch, a mode switching tool for controlling
   flip flop (multiple device) USB gear
 
-  Copyright (C) 2007, 2008  Josua Dietze
+  Copyright (C) 2007, 2008, 2009  Josua Dietze
 
   Created with help from usbsnoop2libusb.pl (http://iki.fi/lindi/usb/usbsnoop2libusb.pl)
 
@@ -26,6 +26,34 @@
 
 #include <stdlib.h>
 #include <usb.h>
+
+void readConfigFile(const char *configFilename);
+void printConfig();
+int switchSendMessage();
+int switchConfiguration();
+int switchAltSetting();
+void switchHuaweiMode();
+void switchSierraMode();
+void switchGCTMode();
+int switchSonyMode();
+int detachDriver();
+int checkSuccess();
+int write_bulk(int endpoint, char *message, int length);
+int read_bulk(int endpoint, char *buffer, int length);
+void release_usb_device(int dummy);
+struct usb_device* search_devices( int *numFound, int vendor, int product, char* productList, int targetClass);
+int find_first_bulk_output_endpoint(struct usb_device *dev);
+int find_first_bulk_input_endpoint(struct usb_device *dev);
+char* ReadParseParam(const char* FileName, char *VariableName);
+int hex2num(char c);
+int hex2byte(const char *hex);
+int hexstr2bin(const char *hex, char *buffer, int len);
+void printVersion();
+int readArguments(int argc, char **argv);
+void deviceDescription();
+int deviceInquire();
+void resetUSB();
+
 
 // Boolean
 #define  and     &&
