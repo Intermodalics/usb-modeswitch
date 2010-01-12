@@ -1,6 +1,6 @@
 usb-modeswitch (1.0.7-1) UNRELEASED; urgency=low
 
-  * New 1.0.7 upstream version
+  * New 1.0.7 upstream version (Closes: #563527).
   * Remove the "opt-in" patch to get the rules included again.
     - See http://bugs.debian.org/557610#19
   * Patches:
