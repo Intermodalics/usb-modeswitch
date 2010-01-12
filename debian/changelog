@@ -2,6 +2,7 @@ usb-modeswitch (1.0.7-1) UNRELEASED; urgency=low
 
   * New 1.0.7 upstream version
   * Patches:
+    - 01_correct_broken_huawei_conf.patch : Refreshed. 
     - 07_SYSFS_to_ATTRS.patch : Add to fix "later udev versions output loads
                                 of syslog warnings" (Closes: #560250)
   * Add a preinst to delete configuration files forgotten in -1.
