@@ -6,9 +6,11 @@
 # Does ID check on hotplugged USB devices and calls the
 # mode switching program with the matching parameter file
 # from /etc/usb_modeswitch.d
+#
+# Version 1.0.7
 
 
-# (C) Josua Dietze 2009
+# (C) Josua Dietze 2009, 2010
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -58,32 +60,69 @@ set match(uSe) usb(serial)
 
 set argList [split [lindex $argv 0] /]
 
-# arg 0: the bus id for the device (udev: %b)
-# arg 1: the "kernel name" for the device (udev: %k)
-#
-# Both together give the top directory where the path
-# to the SCSI attributes can be determined (further down)
-
-set devdir /sys/bus/usb/devices/[lindex $argList 0]
-
 # The "ready-to-eat" values from the udev command
+# Update: Ubuntu Karmic udev substitution is quirky.
+# Read the values directly from sysfs
 
-set usb(VID) [lindex $argList 2]
-set usb(PID) [lindex $argList 3]
-set usb(manufacturer) [lindex $argList 4]
-set usb(product) [lindex $argList 5]
-set usb(serial) [lindex $argList 6]
+set usb(idVendor) ""
+set usb(idProduct) ""
+set usb(manufacturer) ""
+set usb(product) ""
+set usb(serial) ""
 
-# We don't know these yet
+# We don't know these yet either
 
 set scsi(vendor) ""
 set scsi(model) ""
 set scsi(rev) ""
 
-Log "----------------\nUSB values from udev:"
+# arg 0: the bus id for the device (udev: %b)
+# arg 1: the "kernel name" for the device (udev: %k)
+#
+# Both together give the top directory where the path
+# to the SCSI attributes can be determined (further down)
+# Addendum: older kernel/udev version seem to differ in
+# providing these attributes - or not. So more probing
+# is needed
+
+if {[string length [lindex $argList 0]] == 0} {
+	if {[string length [lindex $argList 1]] == 0} {
+		Log "No device number values given from udev! Exiting"
+		SafeExit
+	} else {
+		Log "Bus ID for device not given by udev."
+		Log " Trying to determine it from kernel name ([lindex $argList 1]) ..."
+		if {![regexp {^(\d-\d):} [lindex $argList 1] d dev_top]} {
+			Log "Could not determine top device dir from udev values! Exiting"
+			SafeExit
+		}
+	}
+} else {
+	set dev_top [lindex $argList 0]
+}
+
+set devdir /sys/bus/usb/devices/$dev_top
+if {![file isdirectory $devdir]} {
+	Log "Top sysfs directory (bus ID) for device not found! Exiting"
+	SafeExit
+}
+
+# Now reading the USB attributes
+
+foreach attr {idVendor idProduct manufacturer product serial} {
+	if [file exists $devdir/$attr] {
+		set rc [open $devdir/$attr r]
+		set usb($attr) [read -nonewline $rc]
+		close $rc
+	}
+}
+
+Log "----------------\nUSB values from sysfs:"
 foreach attr {manufacturer product serial} {
 	Log "  $attr\t$usb($attr)"
 }
+Log "----------------"
+
 
 # Getting the SCSI values via libusb results in a detached
 # usb-storage driver. Not good for devices that want to be
@@ -128,7 +167,7 @@ while {$counter < 20} {
 			regexp {.*target(.*)} $sysdir d subdir
 			if {[set dirList [glob -nocomplain $sysdir/$subdir*]] != ""} {
 				set sysdir [lindex $dirList 0]
-				if [file isdirectory $sysdir/block] {
+				if [file exists $sysdir/vendor] {
 					# Finally SCSI structure is ready, get the values
 					ReadStrings $sysdir
 					Log "SCSI values read"
@@ -138,17 +177,23 @@ while {$counter < 20} {
 		}
 	}
 }
-
-Log "----------------\nSCSI values from sysfs:"
-foreach attr {vendor model rev} {
-	Log " $attr\t$scsi($attr)"
+if {$counter == 20 && [string length $scsi(vendor)] == 0} {
+	Log "SCSI tree not found; you may want to check if this path/file exists:"
+	Log "$sysdir/vendor\n"
+} else {
+	Log "----------------\nSCSI values from sysfs:"
+	foreach attr {vendor model rev} {
+		Log " $attr\t$scsi($attr)"
+	}
+	Log "----------------"
 }
 
-# If no storage driver is active, we try and get the values
-# from a (nonswitching) call of usb_modeswitch
+# If SCSI tree in sysfs was not identified, try and get the values
+# from a (nonswitching) call of usb_modeswitch; this detaches the
+# storage driver, so it's just the last resort
 
 if {$scsi(vendor)==""} {
-	set testSCSI [exec $bindir/usb_modeswitch -v 0x$usb(VID) -p 0x$usb(PID)]
+	set testSCSI [exec $bindir/usb_modeswitch -v 0x$usb(idVendor) -p 0x$usb(idProduct)]
 	regexp {  Vendor String: (.*?)\n} $testSCSI d scsi(vendor)
 	regexp {   Model String: (.*?)\n} $testSCSI d scsi(model)
 	regexp {Revision String: (.*?)\n} $testSCSI d scsi(rev)
@@ -163,15 +208,22 @@ if {$scsi(vendor)==""} {
 
 # Time to check for a matching config file.
 # Matching itself is done by MatchDevice
+#
+# Sorting the configuration file names reverse so that
+# the ones with matching additions are tried first; the
+# common configs without matching are used at the end and
+# provide a kind of fallback
 
 set report {}
-set configList [glob -nocomplain $dbdir/$usb(VID):$usb(PID)*]
-foreach configuration $configList {
+set configList [glob -nocomplain $dbdir/$usb(idVendor):$usb(idProduct)*]
+foreach configuration [lsort -decreasing $configList] {
 	Log "checking config: $configuration"
 	if [MatchDevice $configuration] {
-		set devList1 [glob -nocomplain /dev/ttyUSB* /dev/ttyACM*]
-		Log "! matched, now switching ..."
+		set switch_config $configuration
+		set devList1 [glob -nocomplain /dev/ttyUSB* /dev/ttyACM* /dev/ttyHS*]
+		Log "! matched, now switching"
 		if $logging {
+			Log " (running command: $bindir/usb_modeswitch -I -W -c $configuration)"
 			set report [exec $bindir/usb_modeswitch -I -W -c $configuration 2>@ stdout]
 		} else {
 			set report [exec $bindir/usb_modeswitch -I -Q -c $configuration]
@@ -180,9 +232,10 @@ foreach configuration $configList {
 		Log "--------------------------------"
 		Log $report
 		Log "--------------------------------"
+		Log "(end of usb_modeswitch output)\n"
 		break
 	} else {
-		Log "* no match, not switching"
+		Log "* no match, not switching with this config"
 	}
 }
 
@@ -194,10 +247,11 @@ foreach configuration $configList {
 
 if [regexp {ok:} $report] {
 	# some settle time in ms
+	Log "Now checking for new serial devices (driver bound?) ..."
 	after 500
-	set devList2 [glob -nocomplain /dev/ttyUSB* /dev/ttyACM*]
+	set devList2 [glob -nocomplain /dev/ttyUSB* /dev/ttyACM* /dev/ttyHS*]
 	if {[llength $devList1] >= [llength $devList2]} {
-		Log " no new serial devices found"
+		Log " no new serial devices found, check driver"
 		if [regexp {ok:(\w{4}):(\w{4})} $report d vend prod] {
 			set idfile /sys/bus/usb-serial/drivers/option1/new_id
 			if {![file exists $idfile]} {
@@ -226,6 +280,8 @@ if [regexp {ok:} $report] {
 				}
 			}
 		}
+	} else {
+		Log " no new serial devices found"
 	}
 }
 

@@ -4,27 +4,19 @@ For up-to-date and more detailed information (plus a friendly forum) visit
 http://www.draisberghof.de/usb_modeswitch
 
 
-NEW !! SENSATIONAL AUTOMATED DEVICE HANDLING !! A MUST SEE !!
-.
-.
-.
-.
-.
-uhm, working partially and needing more input ...
-
-See "How to install 2" and "Known working hardware" for specifics.
-Note: online documentation not updated yet.
+NEW AUTOMATED DEVICE HANDLING - NO USER CONFIG NEEDED (once it works ;-))
 
 
 What it is
 ==========
 
 USB_ModeSwitch is (surprise!) a small mode switching tool for controlling
-"flip flop" (multiple device) USB gear
+"flip flop" (multiple device) USB gear.
 
-Several new USB devices (especially high-speed WAN stuff, they're expensive
-anyway) have their MS Windows drivers onboard; when plugged in for the first
-time they act like a flash storage and start installing the driver from there.
+Several new USB devices (especially high-speed WAN stuff, based on cell phone
+chipsets containing that feature) have their MS Windows drivers onboard; when
+plugged in for the first time they act like a flash storage and start installing
+the driver from there.
 After that (and on every consecutive plugging) this driver switches the mode
 internally, the storage device vanishes (in most cases), and a new device (like
 an USB modem) shows up. Some call that feature "ZeroCD".
@@ -32,7 +24,7 @@ an USB modem) shows up. Some call that feature "ZeroCD".
 In the beginning, nothing of this was documented in any form and there was
 hardly any Linux support available.
 On the good side, most of the known devices work out of the box with the
-available Linux modules like "usb-storage" or "usbserial". That leaves the
+available Linux modules like "usb-storage" or serial USB drivers. That leaves the
 problem of the mode switching from storage to whatever the thing is supposed to
 do.
 
@@ -52,7 +44,25 @@ devices. If you run into a new one that is unknown yet, don't despair: we can fi
 out what you need!
 
 
-How to install 1 (semi-automatic use)
+How to install 1 (fully automatic use)
+===================================
+
+New since version 1.0.3: a fully automatic system integration that will be able
+to identify every known device without user interaction. I really recommend using
+this if your device is on the "known" list.
+
+To install, unpack and in the new directory use this line at the shell (as root):
+
+> make integrated_install
+
+This installs a config file folder "/etc/usb_modeswitch.d", two scripts, an "udev"
+rules file and a slightly changed binary.
+
+Important: you need "tcl" for this to work; if you enter "tclsh" and you get a "%"
+prompt, you are set. The "tcl" package is part of all distributions I know.
+
+
+How to install 2 (semi-automatic use)
 ===================================
 
 A x86 binary is included (compiled on Pentium M, Ubuntu 8.10).
@@ -72,31 +82,21 @@ archive) and put it into your path (preferably "/sbin" or "/usr/sbin").
 Put "usb_modeswitch.conf" into "/etc" and edit it according to your hardware.
 It's heavily commented and should tell you what to do.
 
-Alternatively you can use the command line to tell USB_ModeSwitch the things
-it needs to know; try "usb_modeswitch -h" to list the parameters.
+Once your device switches fine you can add a rule entry to one of the rules
+in /etc/udev/rules.d to run usb_modeswitch as soon as the default IDs are
+found (when the device is plugged).
+
+For manual use you can also use the command line to tell USB_ModeSwitch the
+things it needs to know; try "usb_modeswitch -h" to list the parameters.
 This way you can handle multiple configurations. If any command line parameters
 except -W and -q are used, the default config file is NOT read.
 
-Important: libusb stuff - like this tool - needs to be run as root!
 
-For details how to automate the process visit the homepage (see above).
+##########
+Important: libusb programs - like this tool - need to be run as root!
+##########
 
-
-How to install 2 (fully automatic use)
-===================================
-
-New since version 1.0.3: a fully automatic system integration that will be able
-to identify every known device without user interaction.
-
-If you want this, use this line at the shell:
-
-> make integrated_install
-
-This installs a config file folder "/etc/usb_modeswitch.d", two scripts, an "udev"
-rules file and a slightly changed binary.
-
-Important: you need "tcl" for this to work; if you enter "tclsh" and you get a "%"
-prompt, you are set. The "tcl" package is part of all distributions I know.
+For details regarding "semi-automation" visit the homepage (see above).
 
 
 Known working hardware
@@ -148,14 +148,15 @@ Hexstr2bin function borrowed from:
 
 Code, fixes and ideas from:
  Aki Makkonen
- Denis Sutter 
- Lucas Benedicic 
- Roman Laube 
+ Denis Sutter
+ Lucas Benedicic
+ Roman Laube
  Luigi Iotti
  Vincent Teoh
  Tommy Cheng
  Daniel Cooper
  Andrew Bird
+ Yaroslav Levandovskiy
 
 More contributors are listed in the config file.
 
@@ -163,6 +164,14 @@ More contributors are listed in the config file.
 History
 =======
 
+Version 1.0.7, 2010/01/06
+    Bug fixed for Sony mode, thanks to "centosette"; fix for parameter
+    substitution in newer udev versions, fix for bad bug in wrapper script
+    practically disabling automatic mode
+Version 1.0.6, 2009/12/21
+    New "GCT Mode", fixes for device quirks (NXP Dragonfly), fix for multiple
+    Huawei devices, cleanups, loads of new devices in config file and database,
+    minor tcl script changes
 Version 1.0.5, 2009/08/26
     More changes and fixes regarding success check; "--version" option;
     config "database" updated
@@ -237,4 +246,4 @@ Or find it as the file COPYING in this folder.
 
 
 
-Last revised: 2009-08-26, Josua Dietze
+Last revised: 2009-12-21, Josua Dietze

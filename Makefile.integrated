@@ -1,8 +1,8 @@
 PROG        = usb_modeswitch
-VERS        = 1.0.3
+VERS        = 1.0.7
 STRIP       = strip
 CC          = gcc
-CCFLAGS     = -l usb -DUSE_SYSLOG
+CCFLAGS     = -Wall -l usb -DUSE_SYSLOG
 RM          = /bin/rm -f
 OBJS        = usb_modeswitch.c
 PREFIX      = $(DESTDIR)/usr
@@ -34,6 +34,7 @@ install: all
 	elif [ `which udevcontrol 2>/dev/null` ]; then \
 		`which udevcontrol` reload_rules; \
 	fi
+# TODO: some versions of udevadm take "--reload_rules" ...
 
 uninstall: clean
 	$(RM) $(PREFIX)/sbin/usb_modeswitch
@@ -42,4 +43,4 @@ uninstall: clean
 	$(RM) $(RULESDIR)/80-usb_modeswitch.rules
 	$(RM) -R $(ETCDIR)/usb_modeswitch.d
 
-.PHONY:     clean install uninstall
+.PHONY:    clean install uninstall
