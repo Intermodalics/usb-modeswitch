@@ -1,4 +1,4 @@
-usb-modeswitch (1.0.7-1) UNRELEASED; urgency=low
+usb-modeswitch (1.0.7-1) unstable; urgency=low
 
   * New 1.0.7 upstream version (Closes: #563527).
     - Update the manpage
@@ -19,7 +19,7 @@ usb-modeswitch (1.0.7-1) UNRELEASED; urgency=low
     - Delete only the data files not included in the -data upload
   * Update README.Debian.
 
- -- Didier Raboud <didier@raboud.com>  Tue, 12 Jan 2010 10:33:21 +0100
+ -- Didier Raboud <didier@raboud.com>  Tue, 12 Jan 2010 15:58:14 +0100
 
 usb-modeswitch (1.0.5-1) unstable; urgency=low
 
