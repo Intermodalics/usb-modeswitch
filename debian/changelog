@@ -1,3 +1,12 @@
+usb-modeswitch (1.1.0-1) UNRELEASED; urgency=low
+
+  The "All your base are belong to us" release.
+
+  * New 1.1.0 upstream version.
+
+
+ -- Didier Raboud <didier@raboud.com>  Mon, 25 Jan 2010 10:34:05 +0100
+
 usb-modeswitch (1.0.7-1) unstable; urgency=low
 
   * New 1.0.7 upstream version (Closes: #563527).
