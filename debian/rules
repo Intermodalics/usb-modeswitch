@@ -2,19 +2,3 @@
 
 %:
 	dh $@
-
-## Create and install manpage ##
-
-override_dh_auto_build:
-	dh_auto_build -- -f Makefile.integrated
-	docbook-to-man debian/usb_modeswitch.sgml > usb_modeswitch.1
-
-override_dh_clean:
-	dh_clean
-	rm -f usb_modeswitch.1
-
-override_dh_installman:
-	dh_installman usb_modeswitch.1
-
-override_dh_auto_install:
-	dh_auto_install --destdir=debian/tmp/ -- -f Makefile.integrated

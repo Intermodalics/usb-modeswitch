@@ -3,6 +3,7 @@ usb-modeswitch (1.1.0-1) UNRELEASED; urgency=low
   The "All your base are belong to us" release.
 
   * New 1.1.0 upstream version.
+    - Debian manpage got included.
   * Patches:
     - 03_build_system_to_policy.patch
        Merged upstream.
