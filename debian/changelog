@@ -1,6 +1,7 @@
 usb-modeswitch (1.1.0-1) UNRELEASED; urgency=low
 
-  The "All your base are belong to us" release.
+  The "All your base are belong to us" release. It was great to collaborate 
+  with upstream on that release. Thanks Josh!
 
   * New 1.1.0 upstream version.
     - Debian manpage got included.
