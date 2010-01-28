@@ -5,6 +5,7 @@ usb-modeswitch (1.1.0-1) UNRELEASED; urgency=low
 
   * New 1.1.0 upstream version.
     - Debian manpage got included.
+    - Merge the two wrappers and put them in /lib/udev/.
   * Patches:
     - 03_build_system_to_policy.patch
        Merged upstream.

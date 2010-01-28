@@ -1,2 +1,3 @@
 usr/sbin/usb_modeswitch
-usr/share/usb_modeswitch/*
+lib/udev/*
+usr/share/man/*

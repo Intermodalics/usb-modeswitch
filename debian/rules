@@ -2,3 +2,7 @@
 
 %:
 	dh $@
+
+# This allows to select what I want instead of deleting what I don't
+override_dh_auto_install:
+	dh_auto_install --destdir=debian/tmp/
