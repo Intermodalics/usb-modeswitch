@@ -1,4 +1,4 @@
-usb-modeswitch (1.1.0-1) UNRELEASED; urgency=low
+usb-modeswitch (1.1.0-1) unstable; urgency=low
 
   The "All your base are belong to us" release. It was great to collaborate 
   with upstream on that release. Thanks Josh!
@@ -21,7 +21,7 @@ usb-modeswitch (1.1.0-1) UNRELEASED; urgency=low
     - 05_move_wrappers_to_usr.patch
        Merged upstream.
 
- -- Didier Raboud <didier@raboud.com>  Mon, 25 Jan 2010 10:34:05 +0100
+ -- Didier Raboud <didier@raboud.com>  Thu, 28 Jan 2010 12:00:23 +0100
 
 usb-modeswitch (1.0.7-1) unstable; urgency=low
 
