@@ -13,7 +13,7 @@ usb-modeswitch (1.1.0-1) UNRELEASED; urgency=low
          - Ensures that the directories are created before accessing them
          - Disables the udev rules reload
     + 02_mp_correct_hyphens.patch
-      Add to correct hyphens-as-minus on the manpage.
+      Add to correct hyphen-used-as-minus-sign on the manpage.
     - 03_build_system_to_policy.patch
        Merged upstream.
     - 05_move_wrappers_to_usr.patch

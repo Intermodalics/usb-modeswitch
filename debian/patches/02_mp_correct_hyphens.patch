@@ -1,7 +1,12 @@
+Description: Fix the I:hyphen-used-as-minus-sign lintian warning
+Author: Didier Raboud <didier@raboud.com>
+Origin: vendor
+Forwarded: yes (private mail)
+Last-Update: 2009-01-28
 Index: usb-modeswitch.git/usb_modeswitch.1
 ===================================================================
---- usb-modeswitch.git.orig/usb_modeswitch.1	2010-01-25 11:02:28.000000000 +0100
-+++ usb-modeswitch.git/usb_modeswitch.1	2010-01-25 11:03:24.000000000 +0100
+--- usb-modeswitch.git.orig/usb_modeswitch.1	2010-01-28 11:05:47.000000000 +0100
++++ usb-modeswitch.git/usb_modeswitch.1	2010-01-28 11:06:38.000000000 +0100
 @@ -23,84 +23,84 @@
  These programs follow the usual GNU command line syntax, 
  with long options starting with two dashes ('--').  A summary of 
@@ -24,7 +29,8 @@ Index: usb-modeswitch.git/usb_modeswitch.1
 -.IP "\fB-V\fP \fB\-\-target-vendor NUM\fP         " 10 
 +.IP "\fB\-V\fP \fB\-\-target-vendor NUM\fP         " 10 
  Target vendor ID. When given will be searched for and detected initially
- for information purposes. If success checking (option -s) is active, 
+-for information purposes. If success checking (option -s) is active, 
++for information purposes. If success checking (option \-s) is active, 
  providing target IDs (vendor/product) or target class is recommended
 -.IP "\fB-P\fP \fB\-\-target-product NUM\fP         " 10 
 +.IP "\fB\-P\fP \fB\-\-target-product NUM\fP         " 10 
@@ -50,7 +56,8 @@ Index: usb-modeswitch.git/usb_modeswitch.1
 -.IP "\fB-r\fP \fB\-\-response-endpoint NUM\fP         " 10 
 +.IP "\fB\-r\fP \fB\-\-response-endpoint NUM\fP         " 10 
  Try to read the response to the bulk message transfer from there
- if option -n is active). Only for testing; the default is to determine
+-if option -n is active). Only for testing; the default is to determine
++if option \-n is active). Only for testing; the default is to determine
  endpoints fro the device data 
 -.IP "\fB-d\fP \fB\-\-detach-only\fP         " 10 
 +.IP "\fB\-d\fP \fB\-\-detach-only\fP         " 10 
@@ -66,9 +73,10 @@ Index: usb-modeswitch.git/usb_modeswitch.1
 +.IP "\fB\-G\fP \fB\-\-gct-mode\fP         " 10 
  Send a special control message used by GCT chipsets 
 -.IP "\fB-O\fP \fB\-\-sony-mode\fP         " 10 
-+.IP "\fB\-O\fP \fB\-\-sony-mode\fP         " 10 
- Apply a special sequence used by Sony Ericsson devices. Implies option -s 
+-Apply a special sequence used by Sony Ericsson devices. Implies option -s 
 -.IP "\fB-R\fP \fB\-\-reset-usb\fP         " 10 
++.IP "\fB\-O\fP \fB\-\-sony-mode\fP         " 10 
++Apply a special sequence used by Sony Ericsson devices. Implies option \-s 
 +.IP "\fB\-R\fP \fB\-\-reset-usb\fP         " 10 
  Send a USB reset command to the device. Can be combined with any switching
  method or stand alone. It is always done as the last step of all device

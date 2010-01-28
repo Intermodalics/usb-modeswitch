@@ -1,3 +1,9 @@
+Description: Some folder are not created before installing files into them:
+ fix that. Also disables the udev rules reload (useless on buildd).
+Author: Didier Raboud <didier@raboud.com>
+Origin: vendor
+Forwarded: yes (private mail)
+Last-Update: 2009-01-28
 Index: usb-modeswitch.git/Makefile
 ===================================================================
 --- usb-modeswitch.git.orig/Makefile	2010-01-25 11:00:24.000000000 +0100
