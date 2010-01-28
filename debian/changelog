@@ -22,7 +22,7 @@ usb-modeswitch (1.1.0-1) unstable; urgency=low
     - 05_move_wrappers_to_usr.patch
        Merged upstream.
 
- -- Didier Raboud <didier@raboud.com>  Thu, 28 Jan 2010 12:00:23 +0100
+ -- Didier Raboud <didier@raboud.com>  Thu, 28 Jan 2010 15:17:38 +0100
 
 usb-modeswitch (1.0.7-1) unstable; urgency=low
 
