@@ -7,6 +7,10 @@ usb-modeswitch (1.1.0-1) UNRELEASED; urgency=low
     - Debian manpage got included.
     - Merge the two wrappers and put them in /lib/udev/.
   * Patches:
+    + 01_mf_install_all_path.patch
+       Add
+         - Ensures that the directories are created before accessing them
+         - Disables the udev rules reload
     - 03_build_system_to_policy.patch
        Merged upstream.
     - 05_move_wrappers_to_usr.patch
