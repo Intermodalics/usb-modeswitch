@@ -1,0 +1,2 @@
+# This script is a polyglot sh-tclsh script that works with a special quirk
+usb-modeswitch: shell-script-fails-syntax-check ./lib/udev/usb_modeswitch
