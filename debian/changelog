@@ -4,7 +4,7 @@ usb-modeswitch (1.1.0-1) unstable; urgency=low
   with upstream on that release. Thanks Josh!
 
   * New 1.1.0 upstream version.
-    - Debian manpage got included.
+    - Debian manpage got included, drop docbook-to-man.
     - Merge the two wrappers and put them in /lib/udev/.
   * Add a lintian override for the polyglot in /lib/udev/
   * Update debian/watch to new upstream tarball naming.
