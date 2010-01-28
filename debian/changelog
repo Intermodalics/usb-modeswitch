@@ -8,6 +8,7 @@ usb-modeswitch (1.1.0-1) UNRELEASED; urgency=low
     - Merge the two wrappers and put them in /lib/udev/.
   * Add a lintian override for the polyglot in /lib/udev/
   * Update debian/watch to new upstream tarball naming.
+  * Bump dependency on -data to 20100127-1.
   * Patches:
     + 01_mf_install_all_path.patch
        Add
