@@ -1,9 +1,9 @@
-usb-modeswitch (1.1.0-2) UNRELEASED; urgency=low
+usb-modeswitch (1.1.0-2) unstable; urgency=low
 
   * Drop the udev rules file (shipped in usb-modeswitch-data). Thanks to
     Sven-Haegar Koch for the report! (Closes: #567438)
 
- -- Didier Raboud <didier@raboud.com>  Fri, 29 Jan 2010 08:39:57 +0100
+ -- Didier Raboud <didier@raboud.com>  Fri, 29 Jan 2010 09:24:41 +0100
 
 usb-modeswitch (1.1.0-1) unstable; urgency=low
 
