@@ -9,6 +9,9 @@ usb-modeswitch (1.1.1-1) UNRELEASED; urgency=low
     - Bug fixed in SuccessCheck logic
     - Minor flow alignments and fixes
 
+  * Now that I am a DM, add DMUA field to debian/control.
+    Thanks go to Patrick Matthäi for the sponsoring!
+
  -- Didier Raboud <didier@raboud.com>  Thu, 18 Mar 2010 10:02:28 +0100
 
 usb-modeswitch (1.1.0-2) unstable; urgency=low
