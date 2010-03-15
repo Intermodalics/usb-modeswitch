@@ -16,7 +16,7 @@ exit
 # mode switching program with the matching parameter file
 # from /etc/usb_modeswitch.d
 #
-# Part of usb-modeswitch-1.1.0 package
+# Part of usb-modeswitch-1.1.1beta package
 # (C) Josua Dietze 2009, 2010
 
 
@@ -24,6 +24,8 @@ exit
 # to /var/log/usb_modeswitch_<device-interface>
 
 set logging 0
+set noswitching 0
+
 
 
 set env(PATH) "/bin:/usr/bin"
@@ -32,7 +34,10 @@ set env(PATH) "/bin:/usr/bin"
 
 proc {Main} {argc argv} {
 
-global scsi usb match wc logging device
+global scsi usb match wc device logging noswitching
+
+
+ParseConfigFile
 
 set dbdir	/etc/usb_modeswitch.d
 set bindir	/usr/sbin
@@ -122,6 +127,13 @@ foreach attr {manufacturer product serial} {
 	Log "  $attr\t$usb($attr)"
 }
 Log "----------------"
+
+if $noswitching {
+	Log "\nSwitching globally disabled. Exiting"
+	catch {exec logger -p syslog.notice "usb_modeswitch: switching disabled, no action for $usb(idVendor):$usb(idProduct)"}
+	exit
+}
+
 
 # Check if there is more than one config file for this USB ID,
 # which would point to a possible ambiguity. If so, check if
@@ -272,7 +284,7 @@ foreach configuration [lsort -decreasing $configList] {
 # If switching was OK we now check for drivers by
 # simply recounting serial devices under /dev
 
-if [regexp {ok:} $report] {
+if [regexp -nocase {ok:[0-9a-f]{4}:[0-9a-f]{4}} $report] {
 	# some settle time in ms
 	after 500
 
@@ -281,7 +293,7 @@ if [regexp {ok:} $report] {
 
 	if {[llength $devList1] >= [llength $devList2]} {
 		Log " no new serial devices found"
-		
+
 		# Backup for unknown target IDs: check sysfs again
 		# as soon as device is back
 		if [regexp {ok:0000:0000} $report] {
@@ -329,6 +341,8 @@ if [regexp {ok:} $report] {
 	} else {
 		Log " new serial devices found, driver has bound"
 	}
+} else {
+	Log "Doing no driver checking or binding for this device"
 }
 
 Log "\nAll done, exiting\n"
@@ -404,6 +418,30 @@ return 1
 
 }
 # end of proc {MatchDevice}
+
+
+proc {ParseConfigFile} {} {
+
+global logging noswitching
+
+if {![file exists /etc/usb_modeswitch.cfg]} {return}
+set rc [open /etc/usb_modeswitch.cfg r]
+while {![eof $rc]} {
+	gets $rc line
+	if [regexp {DisableSwitching\s*=\s*([^\s]+)} $line d val] {
+		if [regexp -nocase {1|yes|true} $val] {
+			set noswitching 1
+		}
+	}
+	if [regexp {EnableLogging\s*=\s*([^\s]+)} $line d val] {
+		if [regexp -nocase {1|yes|true} $val] {
+			set logging 1
+		}
+	}
+}
+
+}
+# end of proc {ParseConfigFile}
 
 
 proc {Log} {msg} {
