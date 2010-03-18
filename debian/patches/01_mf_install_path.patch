@@ -3,11 +3,11 @@ Description: Some folder are not created before installing files into them:
 Author: Didier Raboud <didier@raboud.com>
 Origin: vendor
 Forwarded: yes (private mail)
-Last-Update: 2009-01-28
+Last-Update: 2010-03-18
 Index: usb-modeswitch.git/Makefile
 ===================================================================
---- usb-modeswitch.git.orig/Makefile	2010-03-15 15:55:06.000000000 +0100
-+++ usb-modeswitch.git/Makefile	2010-03-15 15:56:15.000000000 +0100
+--- usb-modeswitch.git.orig/Makefile	2010-03-18 10:01:57.000000000 +0100
++++ usb-modeswitch.git/Makefile	2010-03-18 10:07:11.000000000 +0100
 @@ -22,15 +22,18 @@
  clean:
  	$(RM) usb_modeswitch
@@ -21,7 +21,7 @@ Index: usb-modeswitch.git/Makefile
 +	install -d $(UDEVDIR)
  	install --mode=755 usb_modeswitch.sh $(UDEVDIR)/usb_modeswitch
 +	install -d $(ETCDIR)
- 	install --mode=644 usb_modeswitch.cfg $(ETCDIR)/usb_modeswitch.cfg
+ 	install --mode=644 usb_modeswitch.conf $(ETCDIR)/usb_modeswitch.conf
  	install -d $(ETCDIR)/usb_modeswitch.d
  	install --mode=644 -t $(ETCDIR)/usb_modeswitch.d usb_modeswitch.d/*
 +	install -d $(MANDIR)
