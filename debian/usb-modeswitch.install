@@ -1,3 +1,4 @@
 usr/sbin/usb_modeswitch
 lib/udev/usb_modeswitch
 usr/share/man/*
+etc/usb_modeswitch.conf
