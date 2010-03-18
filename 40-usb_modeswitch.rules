@@ -25,7 +25,7 @@ ATTRS{idVendor}=="0471", ATTRS{idProduct}=="1210", RUN+="usb_modeswitch '%b/%k'"
 ATTRS{idVendor}=="0471", ATTRS{idProduct}=="1237", RUN+="usb_modeswitch '%b/%k'"
 
 # Kyocera W06K CDMA modem
-ATTRS{idVendor}=="0482", ATTRS{idProduct}=="024d", RUN+="usb_modeswitch '%b/%k'"
+ATTRS{idVendor}=="0482", ATTRS{idProduct}=="024d", ATTRS{bConfigurationValue}=="1", RUN+="usb_modeswitch '%b/%k'"
 
 # Samsung U209
 ATTRS{idVendor}=="04e8", ATTRS{idProduct}=="f000", RUN+="usb_modeswitch '%b/%k'"
@@ -255,7 +255,7 @@ ATTRS{idVendor}=="19d2", ATTRS{idProduct}=="0026", RUN+="usb_modeswitch '%b/%k'"
 # ZTE MF110
 ATTRS{idVendor}=="19d2", ATTRS{idProduct}=="0053", RUN+="usb_modeswitch '%b/%k'"
 
-# ZTE MF622 and probably others (WE NEED MORE ID INFO), ZTE MF626 and others (WE NEED MORE ID INFO!), ZTE Devices, ZTE MF626 and others (WE NEED MORE ID INFO!)
+# ZTE devices
 ATTRS{idVendor}=="19d2", ATTRS{idProduct}=="2000", RUN+="usb_modeswitch '%b/%k'"
 
 # ZTE "fff" devices 1
