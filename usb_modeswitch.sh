@@ -16,12 +16,12 @@ exit
 # mode switching program with the matching parameter file
 # from /etc/usb_modeswitch.d
 #
-# Part of usb-modeswitch-1.1.1beta package
+# Part of usb-modeswitch-1.1.1 package
 # (C) Josua Dietze 2009, 2010
 
 
-# Change this to 1 if you want verbose logging
-# to /var/log/usb_modeswitch_<device-interface>
+# Setting of these switches is done by an external config
+# file now
 
 set logging 0
 set noswitching 0
@@ -37,8 +37,6 @@ proc {Main} {argc argv} {
 global scsi usb match wc device logging noswitching
 
 
-ParseConfigFile
-
 set dbdir	/etc/usb_modeswitch.d
 set bindir	/usr/sbin
 
@@ -52,6 +50,8 @@ if [string length [lindex $argList 1]] {
 } else {
 	set device "noname"
 }
+
+ParseConfigFile
 
 Log "raw args from udev: $argv"
 
@@ -129,7 +129,7 @@ foreach attr {manufacturer product serial} {
 Log "----------------"
 
 if $noswitching {
-	Log "\nSwitching globally disabled. Exiting"
+	Log "\nSwitching globally disabled. Exiting\n"
 	catch {exec logger -p syslog.notice "usb_modeswitch: switching disabled, no action for $usb(idVendor):$usb(idProduct)"}
 	exit
 }
@@ -250,8 +250,8 @@ if {$scsiNeeded && $scsi(vendor)==""} {
 #
 # Sorting the configuration file names reverse so that
 # the ones with matching additions are tried first; the
-# common configs without matching are used at the end and
-# provide a kind of fallback
+# common configs without match attributes are used at the
+# end and provide a fallback
 
 set report {}
 set configList [glob -nocomplain $dbdir/$usb(idVendor):$usb(idProduct)*]
@@ -316,7 +316,7 @@ if [regexp -nocase {ok:[0-9a-f]{4}:[0-9a-f]{4}} $report] {
 				set loader /sbin/modprobe
 				Log " loader is: $loader"
 				if [file exists $loader] {
-					set result [exec $loader -v option]
+					catch {set result [exec $loader -v option]}
 					if {[regexp {not found} $result]} {
 						Log " option driver not present as module"
 					}
@@ -326,9 +326,8 @@ if [regexp -nocase {ok:[0-9a-f]{4}:[0-9a-f]{4}} $report] {
 			}
 			if [file exists $idfile] {
 				Log "Trying to add ID to option driver"
-				catch {exec logger -p syslog.notice "usb_modeswitch: adding device ID $usb(idVendor):$usb(idProduct)" to driver \"option\""}
-				#"
-				exec echo "$usb(idVendor) $usb(idProduct)" >$idfile
+				catch {exec logger -p syslog.notice "usb_modeswitch: adding device ID $usb(idVendor):$usb(idProduct) to driver \"option\""}
+				catch {exec echo "$usb(idVendor) $usb(idProduct)" >$idfile}
 				after 600
 				set devList2 [glob -nocomplain /dev/ttyUSB* /dev/ttyACM*]
 				if {[llength $devList1] >= [llength $devList2]} {
@@ -341,8 +340,25 @@ if [regexp -nocase {ok:[0-9a-f]{4}:[0-9a-f]{4}} $report] {
 	} else {
 		Log " new serial devices found, driver has bound"
 	}
-} else {
+}
+if [regexp {ok:$} $report] {
 	Log "Doing no driver checking or binding for this device"
+}
+
+# In newer kernels there is a switch to avoid the use of a device
+# reset (e.g. from usb-storage) which would likely switch back
+# a mode-switching device
+if [regexp {ok:} $report] {
+	Log "Checking for AVOID_RESET_QUIRK attribute"
+	if [file exists $devdir/avoid_reset_quirk] {
+		if [catch {exec echo "1" >$devdir/avoid_reset_quirk} err] {
+			Log " Error setting the attribute: $err"
+		} else {
+			Log " AVOID_RESET_QUIRK activated"
+		}
+	} else {
+		Log " AVOID_RESET_QUIRK not present"
+	}
 }
 
 Log "\nAll done, exiting\n"
@@ -424,8 +440,18 @@ proc {ParseConfigFile} {} {
 
 global logging noswitching
 
-if {![file exists /etc/usb_modeswitch.cfg]} {return}
-set rc [open /etc/usb_modeswitch.cfg r]
+set configFile ""
+set places [list /etc/usb_modeswitch.conf /etc/sysconfig/usb_modeswitch /etc/default/usb_modeswitch]
+foreach cfg $places {
+	if [file exists $cfg] {
+		set configFile $cfg
+		break
+	}
+}
+
+if {$configFile == ""} {return}
+
+set rc [open $configFile r]
 while {![eof $rc]} {
 	gets $rc line
 	if [regexp {DisableSwitching\s*=\s*([^\s]+)} $line d val] {
@@ -438,7 +464,9 @@ while {![eof $rc]} {
 			set logging 1
 		}
 	}
+
 }
+Log "Using global config file: $configFile"
 
 }
 # end of proc {ParseConfigFile}
@@ -451,11 +479,8 @@ if {$logging == 0} {return}
 if {![info exists wc]} {
 	set wc [open /var/log/usb_modeswitch_$device a+]
 	puts $wc "\n\nUSB_ModeSwitch log from [clock format [clock seconds]]\n"
-} else {
-#	set wc [open /var/log/usb_modeswitch_$device a+]
 }
 puts $wc $msg
-#close $wc
 
 }
 # end of proc {Log}
@@ -474,3 +499,4 @@ exit
 
 # The actual entry point
 Main $argc $argv
+

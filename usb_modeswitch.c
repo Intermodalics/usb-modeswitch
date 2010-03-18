@@ -1,6 +1,6 @@
 /*
   Mode switching tool for controlling flip flop (multiple device) USB gear
-  Version 1.1.1beta, 2010/03/14
+  Version 1.1.1, 2010/03/17
 
   Copyright (C) 2007, 2008, 2009, 2010 Josua Dietze (mail to "usb_admin" at the
   domain from the README; please do not post the complete address to the Net!
@@ -52,7 +52,7 @@
 
 /* Recommended tab size: 4 */
 
-char *version="1.1.1beta";
+char *version="1.1.1";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -186,8 +186,6 @@ void printConfig()
 		printf ("TargetProduct=  not set\n");
 	if ( strlen(TargetProductList) )
 		printf ("TargetProductList=%s\n",		TargetProductList);
-//	else
-//		printf ("TargetProduct=  not set\n");
 	if ( TargetClass )
 		printf ("TargetClass=    0x%02x\n",		TargetClass);
 	else
@@ -240,7 +238,7 @@ int readArguments(int argc, char **argv)
 	{
 		c = getopt_long (argc, argv, "heWQDndHSOGRIv:p:V:P:C:m:M:r:c:i:u:a:s:",
 						long_options, &option_index);
-	
+
 		/* Detect the end of the options. */
 		if (c == -1)
 			break;
@@ -272,7 +270,7 @@ int readArguments(int argc, char **argv)
 			case 'i': Interface = strtol(optarg, NULL, 16); break;
 			case 'u': Configuration = strtol(optarg, NULL, 16); break;
 			case 'a': AltSetting = strtol(optarg, NULL, 16); break;
-	
+
 			case 'e':
 				printVersion();
 				exit(0);
@@ -331,7 +329,7 @@ int main(int argc, char **argv)
 	// Check command arguments, use params instead of config file when given
 	switch (readArguments(argc, argv)) {
 		case 0:						// no argument or -W, -q or -s
-			readConfigFile("/etc/usb_modeswitch.conf");
+			readConfigFile("/etc/usb_modeswitch.setup");
 			break;
 		default:					// one or more arguments except -W, -q or -s 
 			if (!config_read)		// if arguments contain -c, the config file was already processed
@@ -388,9 +386,6 @@ int main(int argc, char **argv)
 	SHOW_PROGRESS("Looking for default devices ...\n");
 	dev = search_devices(&numDefaults, DefaultVendor, DefaultProduct, "\0", TargetClass, SEARCH_DEFAULT);
 	if (numDefaults) {
-//		SHOW_PROGRESS(" Found default devices (%d)\n", numDefaults);
-//		if (TargetClass && !(TargetVendor || TargetProduct)) {
-//			if ( dev != NULL ) {
 		SHOW_PROGRESS(" Found devices in default mode or class (%d)\n", numDefaults);
 	} else {
 		SHOW_PROGRESS(" No devices in default mode or class found. Nothing to do. Bye.\n\n");
@@ -419,7 +414,6 @@ int main(int argc, char **argv)
 
 	// Check or get endpoints if needed
 	if (!MessageEndpoint && (strlen(MessageContent) || InquireDevice) ) {
-//		SHOW_PROGRESS(" Finding endpoints ...\n");
 		MessageEndpoint = find_first_bulk_output_endpoint(dev);
 		if (!MessageEndpoint && strlen(MessageContent)) {
 			fprintf(stderr,"Error: message endpoint not given or found. Aborting.\n\n");
@@ -530,7 +524,6 @@ int main(int argc, char **argv)
 	}
 
 	if (CheckSuccess) {
-//		signal(SIGTERM, release_usb_device);
 		if (checkSuccess()) {
 			if (sysmode) {
 				if (NoDriverLoading)
@@ -883,9 +876,6 @@ int switchSonyMode ()
 
 	sleep(1);
 
-//	switchAltSetting();
-//	sleep(1);
-
 	SHOW_PROGRESS("Sending Sony control message again ...\n");
 	ret = usb_control_msg(devh, 0xc0, 0x11, 2, 0, buffer, 3, 100);
 	if (ret < 0) {
@@ -916,7 +906,6 @@ int detachDriver()
 	SHOW_PROGRESS(" OK, driver found (\"%s\")\n", buffer);
 	if (DetachStorageOnly && strcmp(buffer,"usb-storage")) {
 		SHOW_PROGRESS(" Warning: driver is not usb-storage\n");
-//		return 1;
 	}
 
 #ifndef LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP
@@ -928,8 +917,6 @@ int detachDriver()
 	ret = usb_detach_kernel_driver_np(devh, Interface);
 	if (ret == 0) {
 		SHOW_PROGRESS(" OK, driver \"%s\" detached\n", buffer);
-//		usb_clear_halt(devh, MessageEndpoint);
-//		usb_clear_halt(devh, ResponseEndpoint);
 	} else
 		SHOW_PROGRESS(" Driver \"%s\" detach failed with error %d. Trying to continue\n", buffer, ret);
 	return 1;
@@ -940,7 +927,7 @@ int checkSuccess()
 {
 	int i=0, ret;
 	int newTargetCount, success=0;
-	
+
 	SHOW_PROGRESS("\nChecking for mode switch (max. %d times, once per second) ...\n", CheckSuccess);
 	sleep(1);
 
@@ -978,7 +965,7 @@ int checkSuccess()
 		SHOW_PROGRESS(" Original device is gone already, not checking\n");
 
 
-	if ( (TargetVendor && (TargetProduct || strlen(TargetProductList))) || TargetClass )
+	if ( TargetVendor && (TargetProduct || strlen(TargetProductList)) )
 
 		// Recount target devices (compare with previous count) if target data is given.
 		// Target device on the same bus with higher device number is returned,
@@ -1091,7 +1078,7 @@ struct usb_device* search_devices( int *numFound, int vendor, int product, char*
 	char *listcopy, *token, buffer[2];
 	int devClass;
 	struct usb_device* right_dev = NULL;
-	
+
 	if ( targetClass && !(vendor || product) ) {
 		vendor = DefaultVendor;
 		product = DefaultProduct;
@@ -1253,7 +1240,7 @@ char* ReadParseParam(const char* FileName, char *VariableName)
 	char *FirstQuote, *LastQuote, *P1, *P2;
 	int Line=0, Len=0, Pos=0;
 	FILE *file=fopen(FileName, "r");
-	
+
 	if (file==NULL) {
 		fprintf(stderr, "Error: Could not find file %s\n\n", FileName);
 		exit(1);
@@ -1308,7 +1295,7 @@ char* ReadParseParam(const char* FileName, char *VariableName)
 		}
 		Next:;
 	}
-	
+
 	// not found
 //	fprintf(stderr, "Error reading parameter file %s - Variable %s not found.", 
 //				FileName, VariableName);
@@ -1368,3 +1355,4 @@ void printVersion()
 	printf(" * Based on libusb0 (0.1.12 and above)\n\n");
 	printf(" ! PLEASE REPORT NEW CONFIGURATIONS !\n\n");
 }
+
