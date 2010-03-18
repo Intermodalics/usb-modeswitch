@@ -1,3 +1,16 @@
+usb-modeswitch (1.1.1-1) UNRELEASED; urgency=low
+
+  * New 1.1.1 upstream version.
+    - Add separate config file for wrapper (global settings for switching and
+      logging)
+    - Add config file option to disable driver loading
+    - Handling of kernel attribute AVOID_RESET_QUIRK added
+    - Bug fixed in SonyMode
+    - Bug fixed in SuccessCheck logic
+    - Minor flow alignments and fixes
+
+ -- Didier Raboud <didier@raboud.com>  Thu, 18 Mar 2010 10:02:28 +0100
+
 usb-modeswitch (1.1.0-2) unstable; urgency=low
 
   * Drop the udev rules file (shipped in usb-modeswitch-data). Thanks to
