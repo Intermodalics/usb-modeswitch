@@ -1,4 +1,4 @@
-usb-modeswitch (1.1.1-1) UNRELEASED; urgency=low
+usb-modeswitch (1.1.1-1) unstable; urgency=low
 
   * New 1.1.1 upstream version.
     - Add separate config file for wrapper (global settings for switching and
@@ -16,7 +16,7 @@ usb-modeswitch (1.1.1-1) UNRELEASED; urgency=low
   * Now that I am a DM, add DMUA field to debian/control.
     Thanks go to Patrick Matthäi for the sponsoring!
 
- -- Didier Raboud <didier@raboud.com>  Thu, 18 Mar 2010 10:02:28 +0100
+ -- Didier Raboud <didier@raboud.com>  Thu, 18 Mar 2010 11:08:06 +0100
 
 usb-modeswitch (1.1.0-2) unstable; urgency=low
 
