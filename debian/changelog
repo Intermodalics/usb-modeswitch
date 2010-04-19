@@ -6,6 +6,8 @@ usb-modeswitch (1.1.2-1) UNRELEASED; urgency=low
     - generalized driver loading
     - new parameter "DriverModule" and "DriverIDPath"
     - new wrapper facility to add symlink pointing to interrupt port
+    - Debian: 
+      + Update 01_mf_install_path.patch
   * Don't use Debian-specific revisions in debian/control.
 
  -- Didier Raboud <didier@raboud.com>  Sat, 20 Mar 2010 15:37:58 +0100

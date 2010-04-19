@@ -1,39 +1,22 @@
 Description: Some folder are not created before installing files into them:
- fix that. Also disables the udev rules reload (useless on buildd).
+ fix that.
 Author: Didier Raboud <didier@raboud.com>
 Origin: vendor
 Forwarded: yes (private mail)
-Last-Update: 2010-03-18
+Last-Update: 2010-04-19
 Index: usb-modeswitch.git/Makefile
 ===================================================================
---- usb-modeswitch.git.orig/Makefile	2010-03-18 10:01:57.000000000 +0100
-+++ usb-modeswitch.git/Makefile	2010-03-18 10:07:11.000000000 +0100
-@@ -22,15 +22,18 @@
- clean:
- 	$(RM) usb_modeswitch
- 
--install: all files-install rules-reload
-+install: all files-install
- 
- files-install:
+--- usb-modeswitch.git.orig/Makefile	2010-04-19 12:19:53.000000000 +0200
++++ usb-modeswitch.git/Makefile	2010-04-19 12:25:48.000000000 +0200
+@@ -23,8 +23,11 @@
+ install: all
  	install -d $(SBINDIR)
  	install --mode=755 usb_modeswitch $(SBINDIR)/usb_modeswitch
 +	install -d $(UDEVDIR)
- 	install --mode=755 usb_modeswitch.sh $(UDEVDIR)/usb_modeswitch
+ 	install --mode=755 usb_modeswitch.tcl $(UDEVDIR)/usb_modeswitch
 +	install -d $(ETCDIR)
  	install --mode=644 usb_modeswitch.conf $(ETCDIR)/usb_modeswitch.conf
- 	install -d $(ETCDIR)/usb_modeswitch.d
- 	install --mode=644 -t $(ETCDIR)/usb_modeswitch.d usb_modeswitch.d/*
 +	install -d $(MANDIR)
  	install --mode=644 usb_modeswitch.1 $(MANDIR)/usb_modeswitch.1
- 	mkdir -p $(RULESDIR)
- 	install --mode=644 40-usb_modeswitch.rules $(RULESDIR)/40-usb_modeswitch.rules
-@@ -51,7 +54,7 @@
- 		`which udevcontrol` reload_rules; \
- 	fi
  
--uninstall: files-uninstall rules-reload
-+uninstall: files-uninstall
  
- files-uninstall:
- 	$(RM) $(SBINDIR)/usb_modeswitch
