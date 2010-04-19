@@ -1,16 +1,15 @@
-usb-modeswitch (1.1.2-1) UNRELEASED; urgency=low
+usb-modeswitch (1.1.2-1) unstable; urgency=low
 
   * New 1.1.2 upstream version.
     - Added support for two additional bulk messages
-    - wrapper handles special ZTE case
-    - generalized driver loading
-    - new parameter "DriverModule" and "DriverIDPath"
-    - new wrapper facility to add symlink pointing to interrupt port
-    - Debian: 
-      + Update 01_mf_install_path.patch and 02_mp_correct_hyphens.patch
+    - Wrapper handles special ZTE case
+    - Generalized driver loading
+    - New parameter "DriverModule" and "DriverIDPath"
+    - New wrapper facility to add symlink pointing to interrupt port
+  * Update 01_mf_install_path.patch and 02_mp_correct_hyphens.patch
   * Don't use Debian-specific revisions in debian/control.
 
- -- Didier Raboud <didier@raboud.com>  Sat, 20 Mar 2010 15:37:58 +0100
+ -- Didier Raboud <didier@raboud.com>  Mon, 19 Apr 2010 13:49:19 +0200
 
 usb-modeswitch (1.1.1-1) unstable; urgency=low
 
