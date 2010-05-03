@@ -1,9 +1,9 @@
-usb-modeswitch (1.1.2-2) UNRELEASED; urgency=low
+usb-modeswitch (1.1.2-2) unstable; urgency=low
 
   * Add 03_filter_undesired_rules.patch to filter out undesired files
    (Closes: #579981)
 
- -- Didier Raboud <didier@raboud.com>  Mon, 03 May 2010 11:15:20 +0200
+ -- Didier Raboud <didier@raboud.com>  Mon, 03 May 2010 11:37:08 +0200
 
 usb-modeswitch (1.1.2-1) unstable; urgency=low
 
