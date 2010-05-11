@@ -1,0 +1,20 @@
+Description: Fixes bashism in usb_modeswitch.tcl
+Author: Didier Raboud <didier@raboud.com>
+Origin: vendor
+Forwarded: yes (e-mail)
+Bugs: http://bugs.debian.org/581143
+Last-Updated: 2010-05-11
+
+Index: usb-modeswitch.git/usb_modeswitch.tcl
+===================================================================
+--- usb-modeswitch.git.orig/usb_modeswitch.tcl	2010-05-11 09:19:05.000000000 +0200
++++ usb-modeswitch.git/usb_modeswitch.tcl	2010-05-11 09:19:29.000000000 +0200
+@@ -4,7 +4,7 @@
+ if [ ! -e "/usr/bin/tclsh" ]; then \
+ 	logger -p syslog.error "usb_modeswitch: tcl shell not found, install tcl package!"; \
+ fi; \
+-/usr/bin/tclsh "$0" "$@" &>/dev/null & \
++/usr/bin/tclsh "$0" "$@" >/dev/null 2>&1 & \
+ sleep 1; \
+ exit
+ 

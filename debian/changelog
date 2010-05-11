@@ -1,3 +1,10 @@
+usb-modeswitch (1.1.2-3) UNRELEASED; urgency=low
+
+  * Add 04_fix_bashisms.patch to fix bashism in usb_modeswitch.tcl
+    (Closes: #581143)
+
+ -- Didier Raboud <didier@raboud.com>  Tue, 11 May 2010 09:26:50 +0200
+
 usb-modeswitch (1.1.2-2) unstable; urgency=low
 
   * Add 03_filter_undesired_rules.patch to filter out undesired files
