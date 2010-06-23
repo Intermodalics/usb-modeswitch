@@ -1,3 +1,20 @@
+usb-modeswitch (1.1.3-1) UNRELEASED; urgency=low
+
+  * New 1.1.3 upstream version; relevant changes:
+    - Added delay option to separate multiple message transfers by millisecs
+    - Fixed (possibly dangerous) sloppy string handling (thanks to Christophe
+      Fergeau)
+    - Added "clear_halt" for response endpoint
+    - Small additions in Makefile (install with -D)
+    - Changes in option handling (NO MORE DEFAULT CONFIG FILE!) and help text
+    - Symlink feature in wrapper can now cope with devices providing more than
+      one interrupt port
+    - Wrapper now ignores package manager leftovers in config folder
+    - Replaced bash-specific syntax in wrapper; changed ZTE skipping (if
+      existing rules are found) to warning
+
+ -- Didier Raboud <didier@raboud.com>  Wed, 23 Jun 2010 09:30:02 +0200
+
 usb-modeswitch (1.1.2-3) unstable; urgency=low
 
   * Add 04_fix_bashisms.patch to fix bashism in usb_modeswitch.tcl
