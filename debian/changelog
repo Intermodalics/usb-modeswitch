@@ -14,7 +14,10 @@ usb-modeswitch (1.1.3-1) UNRELEASED; urgency=low
     - Replaced bash-specific syntax in wrapper; changed ZTE skipping (if
       existing rules are found) to warning
 
- -- Didier Raboud <didier@raboud.com>  Wed, 23 Jun 2010 09:31:07 +0200
+  * Patches:
+    + 02_mp_correct_hyphens.patch: refresh.
+
+ -- Didier Raboud <didier@raboud.com>  Wed, 23 Jun 2010 09:34:43 +0200
 
 usb-modeswitch (1.1.2-3) unstable; urgency=low
 
