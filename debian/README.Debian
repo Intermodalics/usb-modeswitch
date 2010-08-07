@@ -4,9 +4,9 @@ usb-modeswitch for Debian
 In Debian, usb-modeswitch is supposed to work automagically for all devices
 known to work :
 
-	/lib/udev/rules.d/80-usb_modeswitch is a udev rules file provided by
-	usb-modeswitch-data. Along with the scripts in /usr/share/usb_modeswitch
-	and the usb_modeswitch binary, it should trigger the flip-flop switch
+	/lib/udev/rules.d/40-usb_modeswitch.rules is a udev rules file provided by
+	usb-modeswitch-data. Along with the /lib/udev/usb_modeswitch and the
+        /usr/sbin/usb_modeswitch binary, it should trigger the flip-flop switch
 	when the device is plugged in.
 
 	If this method doesn't work, please go to usb_modeswitch homepage:
