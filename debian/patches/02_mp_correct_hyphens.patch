@@ -5,8 +5,8 @@ Forwarded: yes (private mail)
 Last-Update: 2010-06-23
 Index: usb-modeswitch/usb_modeswitch.1
 ===================================================================
---- usb-modeswitch.orig/usb_modeswitch.1	2010-06-23 10:06:44.000000000 +0200
-+++ usb-modeswitch/usb_modeswitch.1	2010-06-23 10:08:29.000000000 +0200
+--- usb-modeswitch.orig/usb_modeswitch.1	2010-08-18 09:41:41.000000000 +0200
++++ usb-modeswitch/usb_modeswitch.1	2010-08-18 09:48:16.000000000 +0200
 @@ -3,7 +3,7 @@
  usb_modeswitch - switch mode of "multi-state" USB devices 
  .SH "SYNOPSIS" 
@@ -26,7 +26,7 @@ Index: usb-modeswitch/usb_modeswitch.1
  .IP "\fB-P\fP \fB\-\-target-product NUM\fP         " 10 
  Target product ID 
 @@ -75,7 +75,7 @@
- with \fB\-2\fR and \fB\-3\fR, this must be set to avoid transfer errors
+ with \fB\-2\fR and \fB\-3\fR, this may need to be set to avoid transfer errors
  .IP "\fB-r\fP \fB\-\-response-endpoint NUM\fP         " 10 
  Try to read the response to a storage command from there
 -if option -n is active. Only for testing purposes; usually
