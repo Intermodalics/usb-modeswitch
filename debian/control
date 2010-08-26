@@ -3,7 +3,7 @@ Section: comm
 Priority: extra
 Maintainer: Didier Raboud <didier@raboud.com>
 DM-Upload-Allowed: yes
-Build-Depends: debhelper (>= 7.0.50), libusb-dev
+Build-Depends: debhelper (>= 7.0.50), libusb-dev, quilt (>=0.46-7~)
 Standards-Version: 3.8.4
 Homepage: http://www.draisberghof.de/usb_modeswitch/
 Vcs-Git: git://git.debian.org/collab-maint/usb-modeswitch.git
