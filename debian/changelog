@@ -5,7 +5,7 @@ usb-modeswitch (1.1.4-1) unstable; urgency=low
 
   * Release to unstable, thanks to the Release Team approval.
 
- -- Didier Raboud <didier@raboud.com>  Mon, 30 Aug 2010 18:29:05 +0200
+ -- Didier Raboud <didier@raboud.com>  Mon, 30 Aug 2010 18:30:37 +0200
 
 usb-modeswitch (1.1.4-1~exp0) experimental; urgency=high
 
