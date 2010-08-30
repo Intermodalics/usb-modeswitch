@@ -1,3 +1,12 @@
+usb-modeswitch (1.1.4-1) unstable; urgency=low
+
+  * Patches: 
+    + 04_use_var_lib_not_etc.patch : Add to put runtime files in /var/lib.
+
+  * Release to unstable, thanks to the Release Team approval.
+
+ -- Didier Raboud <didier@raboud.com>  Mon, 30 Aug 2010 18:29:05 +0200
+
 usb-modeswitch (1.1.4-1~exp0) experimental; urgency=high
 
   * New 1.1.4 upstream version; relevant changes:
