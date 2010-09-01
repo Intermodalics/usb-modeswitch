@@ -1,0 +1,26 @@
+Description: Use /var/lib/usb_modeswitch instead of /etc/usb_modeswitch.d for 
+ runtime files
+Author: Didier Raboud <didier@raboud.com>
+Last-Update: 2010-08-30
+Index: usb-modeswitch/usb_modeswitch.tcl
+===================================================================
+--- usb-modeswitch.orig/usb_modeswitch.tcl	2010-08-30 18:24:45.000000000 +0200
++++ usb-modeswitch/usb_modeswitch.tcl	2010-08-30 18:26:02.000000000 +0200
+@@ -745,7 +745,7 @@
+ # Add USB ID to list of devices needing driver binding
+ proc {AddLastSeen} {id} {
+ 
+-set lastseen /etc/usb_modeswitch.d/last_seen
++set lastseen /var/lib/usb_modeswitch/last_seen
+ if [file exists $lastseen] {
+ 	set rc [open $lastseen r]
+ 	set buffer [read $rc]
+@@ -768,7 +768,7 @@
+ # Check if USB ID is listed as needing driver binding
+ proc {WasLastSeen} {id} {
+ 
+-set lastseen /etc/usb_modeswitch.d/last_seen
++set lastseen /var/lib/usb_modeswitch/last_seen
+ if {![file exists $lastseen]} {return 0}
+ set rc [open $lastseen r]
+ set buffer [read $rc]

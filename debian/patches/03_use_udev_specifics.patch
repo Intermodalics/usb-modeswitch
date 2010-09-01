@@ -1,0 +1,29 @@
+Description: Use udev-in-Debian specific tools for the waiting script
+ This is inspired from alsa-utils'
+Author: Didier Raboud <didier@raboud.com>
+Origin: vendor
+Last-Update: 2010-08-18
+Index: usb-modeswitch/usb_modeswitch.sh
+===================================================================
+--- usb-modeswitch.orig/usb_modeswitch.sh	2010-08-18 10:15:16.000000000 +0200
++++ usb-modeswitch/usb_modeswitch.sh	2010-08-18 10:17:08.000000000 +0200
+@@ -1,13 +1,8 @@
+-#!/bin/sh
++#!/bin/sh -e
++#
++# udev script for usb-modeswitch
+ (
+-count=120
+-while [ $count != 0 ]; do
+-	if [ ! -e "/usr/bin/tclsh" ]; then
+-		sleep 1
+-		count=$(($count - 1))
+-	else
+-		exec /usr/bin/tclsh /usr/sbin/usb_modeswitch_dispatcher "$@" 2>/dev/null &
+-		exit 0
+-	fi
+-done
++	. /lib/udev/hotplug.functions
++	wait_for_file /usr/sbin/usb_modeswitch_dispatcher
++	exec /usr/sbin/usb_modeswitch_dispatcher "$@" 2>/dev/null &
+ ) &

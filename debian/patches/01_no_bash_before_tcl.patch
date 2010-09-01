@@ -1,0 +1,31 @@
+Description: Avoid to wait once more on /usr/bin/tclsh: its presence is
+ guaranteed by Depends in the package and /usr/bin/env can only be launched
+ when /usr is present.
+Author: Didier Raboud <didier@raboud.com>
+Origin: vendor
+Last-Update: 2010-08-18
+Index: usb-modeswitch/usb_modeswitch.tcl
+===================================================================
+--- usb-modeswitch.orig/usb_modeswitch.tcl	2010-08-18 09:58:56.000000000 +0200
++++ usb-modeswitch/usb_modeswitch.tcl	2010-08-18 09:59:15.000000000 +0200
+@@ -1,19 +1,4 @@
+-#!/bin/sh
+-# next lines for bash, ignored by tclsh, restarting in background \
+-( \
+-count=120; \
+-while [ $count != 0 ]; do \
+-	if [ ! -e "/usr/bin/tclsh" ]; then \
+-		sleep 1; \
+-		count=$(($count - 1)); \
+-	else \
+-		exec /usr/bin/tclsh "$0" "$@" 2>/dev/null & \
+-		exit 0; \
+-	fi; \
+-done; \
+-) & \
+-exit 0
+-
++#!/usr/bin/env tclsh
+ 
+ # Wrapper (tcl) for usb_modeswitch, called from
+ # /lib/udev/rules.d/40-usb_modeswitch.rules
