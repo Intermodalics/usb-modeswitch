@@ -1,0 +1,36 @@
+From bd450d14bde9473a4d413a37092b4fda8184eeca Mon Sep 17 00:00:00 2001
+From: Amit Mendapara <mendapara.amit@gmail.com>
+Date: Wed, 10 Nov 2010 16:38:03 +0530
+Subject: [PATCH] Fixed configuration switching races.
+
+---
+ usb_modeswitch.c |    7 ++++++-
+ 1 files changed, 6 insertions(+), 1 deletions(-)
+
+diff --git a/usb_modeswitch.c b/usb_modeswitch.c
+index 5e6342a..a5f8893 100644
+--- a/usb_modeswitch.c
++++ b/usb_modeswitch.c
+@@ -788,13 +788,18 @@ skip:
+ 	return 2;
+ }
+ 
++#define SWITCH_CONFIG_MAXTRIES   5
+ 
+ int switchConfiguration ()
+ {
++	int count = SWITCH_CONFIG_MAXTRIES; 
+ 	int ret;
+ 
+ 	SHOW_PROGRESS("Changing configuration to %i ...\n", Configuration);
+-	ret = usb_set_configuration(devh, Configuration);
++	while (((ret = usb_set_configuration(devh, Configuration)) < 0) && --count) { 
++		SHOW_PROGRESS(" Device is busy, trying to detach kernel driver\n"); 
++		detachDriver(); 
++	} 
+ 	if (ret == 0 ) {
+ 		SHOW_PROGRESS(" OK, configuration set\n");
+ 		return 1;
+-- 
+1.7.1
+
