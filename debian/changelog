@@ -1,3 +1,9 @@
+usb-modeswitch (1.1.4-2) unstable; urgency=low
+
+  * Fix configuration switching race (LP: #673435)
+
+ -- Didier Raboud <didier@raboud.com>  Thu, 11 Nov 2010 14:52:43 +0100
+
 usb-modeswitch (1.1.4-1) unstable; urgency=low
 
   * Patches: 
