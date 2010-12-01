@@ -1,26 +1,26 @@
 Description: Use /var/lib/usb_modeswitch instead of /etc/usb_modeswitch.d for 
  runtime files
 Author: Didier Raboud <didier@raboud.com>
-Last-Update: 2010-08-30
-Index: usb-modeswitch/usb_modeswitch.tcl
-===================================================================
---- usb-modeswitch.orig/usb_modeswitch.tcl	2010-08-30 18:24:45.000000000 +0200
-+++ usb-modeswitch/usb_modeswitch.tcl	2010-08-30 18:26:02.000000000 +0200
-@@ -745,7 +745,7 @@
- # Add USB ID to list of devices needing driver binding
- proc {AddLastSeen} {id} {
- 
--set lastseen /etc/usb_modeswitch.d/last_seen
-+set lastseen /var/lib/usb_modeswitch/last_seen
- if [file exists $lastseen] {
- 	set rc [open $lastseen r]
- 	set buffer [read $rc]
-@@ -768,7 +768,7 @@
+Last-Update: 2010-12-01
+--- a/usb_modeswitch.tcl
++++ b/usb_modeswitch.tcl
+@@ -826,7 +826,7 @@
  # Check if USB ID is listed as needing driver binding
- proc {WasLastSeen} {id} {
+ proc {InBindList} {id} {
  
--set lastseen /etc/usb_modeswitch.d/last_seen
-+set lastseen /var/lib/usb_modeswitch/last_seen
- if {![file exists $lastseen]} {return 0}
- set rc [open $lastseen r]
+-set listfile /etc/usb_modeswitch.d/bind_list
++set listfile /var/lib/usb_modeswitch/bind_list
+ if {![file exists $listfile]} {return 0}
+ set rc [open $listfile r]
  set buffer [read $rc]
+@@ -845,8 +845,8 @@
+ # Add USB ID to list of devices needing later treatment
+ proc {AddToList} {name id} {
+ 
+-if [file exists /etc/usb_modeswitch.d/last_seen] {
+-	if [catch {file rename /etc/usb_modeswitch.d/last_seen /etc/usb_modeswitch.d/bind_list} err] {
++if [file exists /var/lib/usb_modeswitch/last_seen] {
++	if [catch {file rename /var/lib/usb_modeswitch/last_seen /var/lib/usb_modeswitch/bind_list} err] {
+ 		Log "Error renaming the old bind list file ($err)"
+ 		return
+ 	}
