@@ -3,10 +3,8 @@ Author: Didier Raboud <didier@raboud.com>
 Origin: vendor
 Forwarded: yes (private mail)
 Last-Update: 2010-06-23
-Index: usb-modeswitch/usb_modeswitch.1
-===================================================================
---- usb-modeswitch.orig/usb_modeswitch.1	2010-08-18 09:41:41.000000000 +0200
-+++ usb-modeswitch/usb_modeswitch.1	2010-08-18 09:48:16.000000000 +0200
+--- a/usb_modeswitch.1
++++ b/usb_modeswitch.1
 @@ -3,7 +3,7 @@
  usb_modeswitch - switch mode of "multi-state" USB devices 
  .SH "SYNOPSIS" 
@@ -34,9 +32,9 @@ Index: usb-modeswitch/usb_modeswitch.1
  endpoints are determined from the device attributes
  .IP "\fB-d\fP \fB\-\-detach-only\fP         " 10
  Detach the storage driver as the only action. This is sufficient for some
-@@ -87,7 +87,7 @@
- .IP "\fB-G\fP \fB\-\-gct-mode\fP         " 10 
- Send a special control message used by GCT chipsets 
+@@ -89,7 +89,7 @@
+ .IP "\fB-T\fP \fB\-\-kobil-mode\fP         " 10 
+ Send a special control message used by Kobil devices 
  .IP "\fB-O\fP \fB\-\-sony-mode\fP         " 10 
 -Apply a special sequence used by Sony Ericsson devices. Implies option -s 
 +Apply a special sequence used by Sony Ericsson devices. Implies option \-s
