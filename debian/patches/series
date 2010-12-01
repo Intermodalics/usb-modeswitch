@@ -1,4 +1,3 @@
-01_no_bash_before_tcl.patch
 02_mp_correct_hyphens.patch
 03_use_udev_specifics.patch
 04_use_var_lib_not_etc.patch
