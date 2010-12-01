@@ -1,6 +1,6 @@
 /*
   Mode switching tool for controlling flip flop (multiple device) USB gear
-  Version 1.1.4, 2010/08/21
+  Version 1.1.5, 2010/11/28
 
   Copyright (C) 2007, 2008, 2009, 2010 Josua Dietze (mail to "usb_admin" at the
   domain from the README; please do not post the complete address to the Net!
@@ -42,7 +42,7 @@
 
 /* Recommended tab size: 4 */
 
-#define VERSION "1.1.4"
+#define VERSION "1.1.5"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -76,13 +76,13 @@ char *TempPP=NULL;
 struct usb_device *dev;
 struct usb_dev_handle *devh;
 
-int DefaultVendor=0, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;
-int MessageEndpoint=0, ResponseEndpoint=0, defaultClass=0, MessageDelay=0;
+int DefaultVendor=0, DefaultProduct=0, TargetVendor=0, TargetProduct=-1, TargetClass=0;
+int MessageEndpoint=0, ResponseEndpoint=0, MessageDelay=0;
 int targetDeviceCount=0;
 int devnum=-1, busnum=-1;
 int ret;
 
-char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;
+char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0, KobilMode=0;
 char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;
 char NeedResponse=0, NoDriverLoading=0, InquireDevice=1, sysmode=0;
 
@@ -117,6 +117,7 @@ static struct option long_options[] = {
 	{"huawei-mode",			no_argument, 0, 'H'},
 	{"sierra-mode",			no_argument, 0, 'S'},
 	{"sony-mode",			no_argument, 0, 'O'},
+	{"kobil-mode",			no_argument, 0, 'T'},
 	{"gct-mode",			no_argument, 0, 'G'},
 	{"need-response",		no_argument, 0, 'n'},
 	{"reset-usb",			no_argument, 0, 'R'},
@@ -147,6 +148,7 @@ void readConfigFile(const char *configFilename)
 	ParseParamBool(configFilename, SierraMode);
 	ParseParamBool(configFilename, SonyMode);
 	ParseParamBool(configFilename, GCTMode);
+	ParseParamBool(configFilename, KobilMode);
 	ParseParamBool(configFilename, NoDriverLoading);
 	ParseParamHex(configFilename, MessageEndpoint);
 	ParseParamString(configFilename, MessageContent);
@@ -163,9 +165,8 @@ void readConfigFile(const char *configFilename)
 	ParseParamHex(configFilename, AltSetting);
 
 	/* TargetProductList has priority over TargetProduct */
-	if (strlen(TargetProductList))
-	{
-		TargetProduct = 0;
+	if (TargetProductList[0] != '\0') {
+		TargetProduct = -1;
 		SHOW_PROGRESS("Warning: TargetProductList overrides TargetProduct!\n");
 	}
 
@@ -187,7 +188,7 @@ void printConfig()
 		printf ("TargetVendor=   0x%04x\n",		TargetVendor);
 	else
 		printf ("TargetVendor=   not set\n");
-	if ( TargetProduct )
+	if ( TargetProduct > -1 )
 		printf ("TargetProduct=  0x%04x\n",		TargetProduct);
 	else
 		printf ("TargetProduct=  not set\n");
@@ -201,6 +202,7 @@ void printConfig()
 	printf ("SierraMode=%i\n",			(int)SierraMode);
 	printf ("SonyMode=%i\n",			(int)SonyMode);
 	printf ("GCTMode=%i\n",			(int)GCTMode);
+	printf ("KobilMode=%i\n",		(int)KobilMode);
 	if ( MessageEndpoint )
 		printf ("MessageEndpoint=0x%02x\n",	MessageEndpoint);
 	else
@@ -248,7 +250,7 @@ int readArguments(int argc, char **argv)
 
 	while (1)
 	{
-		c = getopt_long (argc, argv, "heWQDndHSOGRIv:p:V:P:C:m:M:2:3:w:r:c:i:u:a:s:",
+		c = getopt_long (argc, argv, "heWQDndHSOGTRIv:p:V:P:C:m:M:2:3:w:r:c:i:u:a:s:",
 						long_options, &option_index);
 
 		/* Detect the end of the options. */
@@ -275,6 +277,7 @@ int readArguments(int argc, char **argv)
 			case 'S': SierraMode = 1; break;
 			case 'O': SonyMode = 1; break;
 			case 'G': GCTMode = 1; break;
+			case 'T': KobilMode = 1; break;
 			case 'c': readConfigFile(optarg); break;
 			case 'W': verbose = 1; show_progress = 1; count--; break;
 			case 'Q': show_progress = 0; verbose = 0; count--; break;
@@ -309,7 +312,8 @@ int readArguments(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	int numDefaults = 0, specialMode = 0, sonySuccess = 0;
+	int numDefaults=0, specialMode=0, sonySuccess=0;
+	int currentConfig=0, defaultClass=0, interfaceClass=0;
 
 	/* Make sure we have empty strings even if not set by config */
 	TargetProductList[0] = '\0';
@@ -365,7 +369,7 @@ int main(int argc, char **argv)
 	SHOW_PROGRESS("\n");
 
 	if (show_progress)
-		if (CheckSuccess && !(TargetVendor || TargetProduct || strlen(TargetProductList)) && !TargetClass)
+		if (CheckSuccess && !(TargetVendor || TargetProduct > -1 || TargetProductList[0] != '\0') && !TargetClass)
 			printf("Note: target parameter missing; success check limited\n");
 
 	/* Count existing target devices, remember for success check */
@@ -397,12 +401,21 @@ int main(int argc, char **argv)
 		exit(0);
 	}
 
+	/* Get current configuration of default device */
+	currentConfig = get_current_configuration();
+
 	/* Get class of default device/interface */
 	defaultClass = dev->descriptor.bDeviceClass;
+	interfaceClass = get_interface0_class(dev, currentConfig);
+	if (interfaceClass == -1) {
+		fprintf(stderr, "Error: getting the interface class failed. Aborting.\n\n");
+		exit(1);
+	}
+
 	if (defaultClass == 0)
-		defaultClass = dev->config[0].interface[0].altsetting[0].bInterfaceClass;
-	else 
-		if (dev->config[0].interface[0].altsetting[0].bInterfaceClass == 8 && defaultClass != 8) {
+		defaultClass = interfaceClass;
+	else
+		if (interfaceClass == 8 && defaultClass != 8) {
 			/* Weird device with default class other than 0 and differing interface class */
 			SHOW_PROGRESS("Ambiguous Class/InterfaceClass: 0x%02x/0x08\n", defaultClass);
 			defaultClass = 8;
@@ -454,7 +467,7 @@ int main(int argc, char **argv)
 	}
 
 	/* Some scenarios are exclusive, so check for unwanted combinations */
-	specialMode = DetachStorageOnly + HuaweiMode + SierraMode + SonyMode;
+ 	specialMode = DetachStorageOnly + HuaweiMode + SierraMode + SonyMode + KobilMode;
 	if ( specialMode > 1 ) {
 		SHOW_PROGRESS("Invalid mode combination. Check your configuration. Aborting.\n\n");
 		exit(1);
@@ -493,6 +506,10 @@ int main(int argc, char **argv)
 		detachDriver();
 		switchGCTMode();
 	}
+	if(KobilMode) {
+		detachDriver();
+		switchKobilMode();
+	}
 	if (SonyMode) {
 		if (CheckSuccess)
 			SHOW_PROGRESS("Note: ignoring CheckSuccess. Separate checks for Sony mode\n");
@@ -517,8 +534,16 @@ int main(int argc, char **argv)
 		switchAltSetting();
 	}
 
+	/* No "removal" check if these are set */
+	if ((Configuration != -1 || AltSetting != -1) && !ResetUSB) {
+		usb_close(devh);
+		devh = 0;
+	}
+
 	if (ResetUSB) {
 		resetUSB();
+		usb_close(devh);
+		devh = 0;
 	}
 
 	if (CheckSuccess) {
@@ -527,7 +552,10 @@ int main(int argc, char **argv)
 				if (NoDriverLoading)
 					printf("ok:\n");
 				else
-					printf("ok:%04x:%04x\n", TargetVendor, TargetProduct);
+					if (TargetProduct < 1)
+						printf("ok:no_data\n");
+					else
+						printf("ok:%04x:%04x\n", TargetVendor, TargetProduct);
 			}
 		} else
 			if (sysmode)
@@ -869,6 +897,20 @@ void switchGCTMode ()
 }
 
 
+int switchKobilMode() {
+	int ret;
+
+	SHOW_PROGRESS("Sending Kobil control message ...\n");
+	ret = usb_control_msg(devh, USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN, 0x88, 0, 0, buffer, 8, 1000);
+	if (ret != 0) {
+		fprintf(stderr, "Error: sending Kobil control message failed (error %d). Aborting.\n\n", ret);
+		exit(1);
+	} else
+		SHOW_PROGRESS(" OK, Kobil control message sent\n");
+	return 1;
+}
+
+
 int switchSonyMode ()
 {
 	int i, found, ret;
@@ -922,7 +964,6 @@ int switchSonyMode ()
 		SHOW_PROGRESS(" device still gone, cancelling\n");
 		return 0;
 	}
-
 	sleep(1);
 
 	SHOW_PROGRESS("Sending Sony control message again ...\n");
@@ -934,7 +975,6 @@ int switchSonyMode ()
 	SHOW_PROGRESS(" OK, control message sent\n");
 	return 1;
 }
-
 
 /* Detach driver either as the main action or as preparation for other
  * switching methods
@@ -1022,6 +1062,7 @@ int checkSuccess()
 			SHOW_PROGRESS(" Waiting for original device to vanish ...\n");
 
 			ret = usb_claim_interface(devh, Interface);
+			usb_release_interface(devh, Interface);
 			if (ret < 0) {
 				SHOW_PROGRESS(" Original device can't be accessed anymore. Good.\n");
 				if (i == CheckSuccess-1)
@@ -1029,19 +1070,15 @@ int checkSuccess()
 				usb_close(devh);
 				devh = 0;
 				break;
-			} else
-				usb_release_interface(devh, Interface);
-
+			}
 			if (i == CheckSuccess-1) {
 				SHOW_PROGRESS(" Original device still present after the timeout\n\nMode switch most likely failed. Bye.\n\n");
 			} else
 				sleep(1);
 		}
-	else
-		SHOW_PROGRESS(" Original device is gone already, not checking\n");
 
 
-	if ( TargetVendor && (TargetProduct || strlen(TargetProductList)) )
+	if ( TargetVendor && (TargetProduct > -1 || TargetProductList[0] != '\0') ) {
 
 		/* Recount target devices (compare with previous count) if target data is given.
 		 * Target device on the same bus with higher device number is returned,
@@ -1049,9 +1086,17 @@ int checkSuccess()
 		 */
 		for (i=i; i < CheckSuccess; i++) {
 			SHOW_PROGRESS(" Searching for target devices ...\n");
-			usb_find_devices();
+			ret = usb_find_busses();
+			if (ret >= 0)
+				ret = usb_find_devices();
+			if (ret < 0) {
+				SHOW_PROGRESS("Error: libusb1 bug, no more searching, try to work around\n");
+				success = 3;
+				break;
+			}
 			dev = search_devices(&newTargetCount, TargetVendor, TargetProduct, TargetProductList, TargetClass, SEARCH_TARGET);
 			if (dev && (newTargetCount > targetDeviceCount)) {
+				printf("\nFound target device, now opening\n");
 				devh = usb_open(dev);
 				deviceDescription();
 				usb_close(devh);
@@ -1075,7 +1120,7 @@ int checkSuccess()
 			} else
 				sleep(1);
 		}
-	else
+	} else
 		/* No target data given, rely on the vanished device */
 		if (!devh) {
 			SHOW_PROGRESS(" (For a better success check provide target IDs or class)\n");
@@ -1084,6 +1129,12 @@ int checkSuccess()
 		}
 
 	switch (success) {
+		case 3: 
+			if (sysmode)
+				syslog(LOG_NOTICE, "switched to new device, but hit libusb1 bug");
+			TargetProduct = -1;
+			success = 1;
+			break;
 		case 2: 
 			if (sysmode)
 				syslog(LOG_NOTICE, "switched to %04x:%04x (%s: %s)", TargetVendor, TargetProduct, imanufact, iproduct);
@@ -1167,7 +1218,7 @@ struct usb_device* search_devices( int *numFound, int vendor, int product, char*
 	/* Sanity check */
 	if (!vendor || (!product && productList == '\0') )
 		return NULL;
-		
+
 	if (productList != '\0')
 		listcopy = malloc(strlen(productList)+1);
 
@@ -1312,6 +1363,30 @@ int find_first_bulk_input_endpoint(struct usb_device *dev)
 	return 0;
 }
 
+int get_current_configuration()
+{
+	int ret;
+
+	SHOW_PROGRESS("Getting the current device configuration ...\n");
+	ret = usb_control_msg(devh, USB_DIR_IN + USB_TYPE_STANDARD + USB_RECIP_DEVICE, USB_REQ_GET_CONFIGURATION, 0, 0, buffer, 1, 1000);
+	if (ret < 0) {
+		fprintf(stderr, "Error: getting the current configuration failed (error %d). Aborting.\n\n", ret);
+		exit(1);
+	} else {
+		SHOW_PROGRESS(" OK, got current device configuration (%d)\n", buffer[0]);
+		return buffer[0];
+	}
+}
+
+
+int get_interface0_class(struct usb_device *dev, int devconfig)
+{
+	int i;
+	for (i=0; i<dev->descriptor.bNumConfigurations; i++)
+		if (dev->config[i].bConfigurationValue == devconfig)
+			return dev->config[i].interface[0].altsetting[0].bInterfaceClass;
+	return -1;
+}
 
 
 /* Parameter parsing */
@@ -1453,6 +1528,7 @@ void printHelp()
 	printf (" -S, --sierra-mode             apply a special procedure\n");
 	printf (" -O, --sony-mode               apply a special procedure\n");
 	printf (" -G, --gct-mode                apply a special procedure\n");
+	printf (" -T, --kobil-mode              apply a special procedure\n");
 	printf (" -R, --reset-usb               reset the device after all other actions\n");
 	printf (" -Q, --quiet                   don't show progress or error messages\n");
 	printf (" -W, --verbose                 print all settings and debug output\n");
