@@ -1,9 +1,9 @@
-usb-modeswitch (1.1.4-2~bpo50+1) UNRELEASED-lenny-backports; urgency=low
+usb-modeswitch (1.1.4-2~bpo50+1) lenny-backports; urgency=low
 
   * Rebuild for lenny-backports.
   * Switch back to source format 1.0.
 
- -- Didier Raboud <didier@raboud.com>  Thu, 26 Aug 2010 13:40:29 +0200
+ -- Didier Raboud <didier@raboud.com>  Thu, 02 Dec 2010 17:17:56 +0100
 
 usb-modeswitch (1.1.4-2) unstable; urgency=low
 
