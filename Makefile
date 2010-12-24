@@ -1,5 +1,5 @@
 PROG        = usb_modeswitch
-VERS        = 1.1.4
+VERS        = 1.1.6
 CC          = gcc
 CFLAGS      += -Wall
 LIBS        = -l usb
@@ -36,4 +36,3 @@ uninstall:
 	$(RM) $(MANDIR)/usb_modeswitch.1
 
 .PHONY:    clean install uninstall
-
