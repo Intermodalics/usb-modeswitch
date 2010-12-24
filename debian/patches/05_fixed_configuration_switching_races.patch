@@ -9,7 +9,7 @@ Subject: [PATCH] Fixed configuration switching races.
 
 --- a/usb_modeswitch.c
 +++ b/usb_modeswitch.c
-@@ -816,13 +816,18 @@
+@@ -812,13 +812,18 @@
  	return 2;
  }
  

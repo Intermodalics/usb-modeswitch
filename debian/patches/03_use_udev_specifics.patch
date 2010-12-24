@@ -5,16 +5,10 @@ Origin: vendor
 Last-Update: 2010-12-01
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -1,4 +1,4 @@
--#!/bin/sh
-+#!/bin/sh -e
+@@ -66,14 +66,7 @@
+ 		;;
+ esac
  (
- device_in()
- {
-@@ -35,14 +35,7 @@
- if [ $need_run != 1 ]; then
- 	exit 0
- fi
 -count=120
 -while [ $count != 0 ]; do
 -	if [ ! -e "/usr/bin/tclsh" ]; then

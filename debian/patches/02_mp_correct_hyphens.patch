@@ -23,7 +23,7 @@ Last-Update: 2010-06-23
  providing target IDs (vendor/product) or target class is recommended
  .IP "\fB-P\fP \fB\-\-target-product NUM\fP         " 10 
  Target product ID 
-@@ -75,7 +75,7 @@
+@@ -74,7 +74,7 @@
  with \fB\-2\fR and \fB\-3\fR, this may need to be set to avoid transfer errors
  .IP "\fB-r\fP \fB\-\-response-endpoint NUM\fP         " 10 
  Try to read the response to a storage command from there
@@ -32,7 +32,7 @@ Last-Update: 2010-06-23
  endpoints are determined from the device attributes
  .IP "\fB-d\fP \fB\-\-detach-only\fP         " 10
  Detach the storage driver as the only action. This is sufficient for some
-@@ -89,7 +89,7 @@
+@@ -88,7 +88,7 @@
  .IP "\fB-T\fP \fB\-\-kobil-mode\fP         " 10 
  Send a special control message used by Kobil devices 
  .IP "\fB-O\fP \fB\-\-sony-mode\fP         " 10 

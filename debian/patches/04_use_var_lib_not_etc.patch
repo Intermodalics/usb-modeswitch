@@ -4,7 +4,7 @@ Author: Didier Raboud <didier@raboud.com>
 Last-Update: 2010-12-01
 --- a/usb_modeswitch.tcl
 +++ b/usb_modeswitch.tcl
-@@ -826,7 +826,7 @@
+@@ -797,7 +797,7 @@
  # Check if USB ID is listed as needing driver binding
  proc {InBindList} {id} {
  
@@ -13,7 +13,7 @@ Last-Update: 2010-12-01
  if {![file exists $listfile]} {return 0}
  set rc [open $listfile r]
  set buffer [read $rc]
-@@ -845,8 +845,8 @@
+@@ -816,8 +816,8 @@
  # Add USB ID to list of devices needing later treatment
  proc {AddToList} {name id} {
  
