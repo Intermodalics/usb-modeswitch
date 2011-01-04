@@ -1,3 +1,18 @@
+usb-modeswitch (1.1.6-1) experimental; urgency=low
+
+  * New 1.1.6 upstream version.
+
+  * Add a prerm maintainer script to remove leftover runtime files.
+  * Update package relationships to allow the install of usb-modeswitch-
+    data-packed.
+  * Patches:
+    + 06_umdp_archive_in_usr.patch: Add to search for the compressed archive
+      in /usr/share/usb-modeswitch-data/
+    x Refresh all others.
+  * Bump Standards to 3.9.1 without changes needed.
+
+ -- Didier Raboud <didier@raboud.com>  Tue, 04 Jan 2011 17:22:40 +0100
+
 usb-modeswitch (1.1.5-1) experimental; urgency=low
 
   * New 1.1.5 upstream version.
