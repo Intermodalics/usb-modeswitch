@@ -1,3 +1,7 @@
+Description: Handle having the compressed data file in /usr/share instead of /etc
+Author: Didier Raboud <odyx@debian.org>
+Origin: vendor
+Last-Update: 2011-01-04
 --- a/usb_modeswitch.tcl
 +++ b/usb_modeswitch.tcl
 @@ -46,6 +46,7 @@
