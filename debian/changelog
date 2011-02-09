@@ -1,3 +1,15 @@
+usb-modeswitch (1.1.6-2) unstable; urgency=low
+
+  * Upload to unstable.
+  * Use new dh_installdeb maintscript possibility:
+    - Bump debhelper Build-Depends to 8.1.0.
+    - Add Pre-Depends on ${misc:Pre-Depends} to usb-modeswitch.
+    - Remove usb-modeswitch.preinst.
+    - Add usb-modeswitch.maintscript.
+  * Use my @d.o address and remove the DMUA flag.
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 09 Feb 2011 14:11:13 +0100
+
 usb-modeswitch (1.1.6-1) experimental; urgency=low
 
   * New 1.1.6 upstream version.
