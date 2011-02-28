@@ -1,4 +1,3 @@
 03_use_udev_specifics.patch
-04_use_var_lib_not_etc.patch
 05_fixed_configuration_switching_races.patch
 06_umdp_archive_in_usr.patch
