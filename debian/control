@@ -11,7 +11,7 @@ Vcs-Browser: http://git.debian.org/?p=collab-maint/usb-modeswitch.git
 Package: usb-modeswitch
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends}, tcl | tclsh, usb-modeswitch-data-packed | usb-modeswitch-data
+Depends: ${shlibs:Depends}, ${misc:Depends}, tcl | tclsh, usb-modeswitch-data (>= 20110227-1~)
 Breaks: usb-modeswitch-data (<< 20100127)
 Suggests: comgt, wvdial
 Description: mode switching tool for controlling "flip flop" USB devices
