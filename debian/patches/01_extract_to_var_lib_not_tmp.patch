@@ -1,0 +1,23 @@
+Description: Extract the temporary file to /var/lib/usb_modeswitch and not to /tmp.
+Author: Didier Raboud <odyx@debian.org>
+Last-Update: 2011-03-15
+--- a/usb_modeswitch.tcl
++++ b/usb_modeswitch.tcl
+@@ -296,7 +296,7 @@
+ 		Log $report
+ 		Log "--------------------------------"
+ 		Log "(end of usb_modeswitch output)\n"
+-		if [regexp {/tmp/} $settings(tmpConfig)] {
++		if [regexp {/var/lib/usb_modeswitch/} $settings(tmpConfig)] {
+ 			file delete  $settings(tmpConfig)
+ 		}
+ 		break
+@@ -576,7 +576,7 @@
+ 	}
+ 	config {
+ 		if [file exists $settings(dbdir)/configPack.tar.gz] {
+-			set settings(tmpConfig) /tmp/usb_modeswitch.current_cfg
++			set settings(tmpConfig) /var/lib/usb_modeswitch/current_cfg
+ 			Log "Extracting config $config from collection $settings(dbdir)/configPack.tar.gz"
+ 			set wc [open $settings(tmpConfig) w]
+ 			puts -nonewline $wc [exec tar -xzOf $settings(dbdir)/configPack.tar.gz $config 2>/dev/null]
