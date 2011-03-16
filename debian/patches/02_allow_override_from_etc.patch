@@ -1,3 +1,7 @@
+Description: Allow tarball database entries overriding from /etc/usb_modeswitch.d
+Author: Didier Raboud <odyx@debian.org>
+Forwarded: pending
+Last-Update: 2011-03-16
 --- a/usb_modeswitch.tcl
 +++ b/usb_modeswitch.tcl
 @@ -54,6 +54,9 @@
