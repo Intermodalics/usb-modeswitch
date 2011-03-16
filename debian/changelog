@@ -1,3 +1,25 @@
+usb-modeswitch (1.1.7-1) unstable; urgency=low
+
+  * New 1.1.7 upstream version.
+
+  * Patches:
+    + Add 01_extract_to_var_lib_not_tmp.patch to extract
+      temporary files to /var/lib/usb_modeswitch instead of /tmp.
+    + Add 02_allow_override_from_etc.patch to permit overriding
+      packed configurations with files within /etc/usb_modeswitch.d/.
+    - Remove 02_mp_correct_hyphens.patch: merged upstream.
+    - Remove 04__use_var_lib_not_etc.patch: merged upstream.
+    - Remove 05_fixed_configuration_switching_races.patch: was an upstream
+      backport.
+    - Remove 06_umdp_archive_in_usr.patch: Obsoleted by upstream.
+  * Replace usb-modeswitch-data-packed dependency by a versioned dependency on
+    usb-modeswitch-data (copes with -packed package removal).
+  * Add a postinst maintainer script to move past runtime files to their new
+    (and correct) location under /var/lib/.
+  * Also bump debhelper compat (was forgotten).
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 15 Mar 2011 17:57:00 +0100
+
 usb-modeswitch (1.1.6-2) unstable; urgency=low
 
   * Upload to unstable.
