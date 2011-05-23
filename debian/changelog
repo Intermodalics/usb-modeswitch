@@ -1,3 +1,9 @@
+usb-modeswitch (1.1.7-1~bpo60+1) squeeze-backports; urgency=low
+
+  * Rebuild for squeeze-backports.
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 23 May 2011 16:07:13 +0200
+
 usb-modeswitch (1.1.7-1) unstable; urgency=low
 
   * New 1.1.7 upstream version.
