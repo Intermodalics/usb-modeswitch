@@ -1,7 +1,8 @@
 Description: Allow tarball database entries overriding from /etc/usb_modeswitch.d
 Author: Didier Raboud <odyx@debian.org>
-Forwarded: pending
-Last-Update: 2011-03-16
+Author: Alex Hermann <alex@speakup.nl>
+Reviewed-by: Didier Raboud <odyx@debian.org>
+Last-Update: 2011-06-14
 --- a/usb_modeswitch.tcl
 +++ b/usb_modeswitch.tcl
 @@ -54,6 +54,9 @@
@@ -19,7 +20,7 @@ Last-Update: 2011-03-16
  			}
  			set configList [split $configList \n]
 +			Log "Searching overriding entries named: $settings(dbdir_etc)/$config*"
-+			append configList [glob -nocomplain $settings(dbdir_etc)/$config*]
++			append configList " " [glob -nocomplain -tails -directory $settings(dbdir_etc) $config*]
  			set configList [lsearch -glob -all -inline $configList $config*]
  		} else {
  			set configList [glob -nocomplain $settings(dbdir)/$config*]

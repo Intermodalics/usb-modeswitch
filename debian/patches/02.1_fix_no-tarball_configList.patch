@@ -1,0 +1,16 @@
+Description: Fix the configList variable initialisation when there is no
+ tarball available (in coherence with 02_allow_override_from_etc.patch).
+Bug-Debian: 630081
+Author: Alex Hermann <alex@speakup.nl>
+Last-Update: 2011-06-14
+--- a/usb_modeswitch.tcl
++++ b/usb_modeswitch.tcl
+@@ -574,7 +574,7 @@
+ 			append configList " " [glob -nocomplain -tails -directory $settings(dbdir_etc) $config*]
+ 			set configList [lsearch -glob -all -inline $configList $config*]
+ 		} else {
+-			set configList [glob -nocomplain $settings(dbdir)/$config*]
++			set configList [glob -nocomplain -tails -directory $settings(dbdir) $config*]
+ 		}
+ 
+ 		return $configList
