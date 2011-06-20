@@ -1,4 +1,1 @@
-01_extract_to_var_lib_not_tmp.patch
-02_allow_override_from_etc.patch
-02.1_fix_no-tarball_configList.patch
 03_use_udev_specifics.patch
