@@ -1,3 +1,19 @@
+usb-modeswitch (1.1.8-1) unstable; urgency=low
+
+  * New 1.1.8 upstream version:
+    - Rewrite Debian's "override from /etc" code
+      (Closes: #630081, thanks to Alex Hermann).
+    - Fix boot-time switching regression
+      (Closes: #629371, thanks to Christian Kastner).
+
+  * Drop patches obsoleted by 1.1.8:
+    - 01_extract_to_var_lib_not_tmp
+    - 02_allow_override_from_etc
+  * Drop device_reference.txt from docs as upstream dropped it.
+  * Bump Standards-Version to 3.9.2 without changes needed.
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 20 Jun 2011 10:12:34 +0200
+
 usb-modeswitch (1.1.7-1~bpo60+1) squeeze-backports; urgency=low
 
   * Rebuild for squeeze-backports.
