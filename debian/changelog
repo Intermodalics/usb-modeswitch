@@ -1,3 +1,10 @@
+usb-modeswitch (1.1.9-1) unstable; urgency=low
+
+  * New 1.1.9 upstream version:
+    × Refresh 03_use_udev_specifics.patch.
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 07 Aug 2011 16:59:11 +0200
+
 usb-modeswitch (1.1.8-1) unstable; urgency=low
 
   * New 1.1.8 upstream version:
