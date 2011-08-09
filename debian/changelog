@@ -1,3 +1,10 @@
+usb-modeswitch (1.1.9-1ubuntu2) oneiric; urgency=low
+
+  * Drop the dependency on tcl, which was the whole point of the C rewriting
+    exercise! :)
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Tue, 09 Aug 2011 13:13:06 -0700
+
 usb-modeswitch (1.1.9-1ubuntu1) oneiric; urgency=low
 
   * debian/patches/dispatcher-c-rewrite.patch: rewrite the dispatcher
