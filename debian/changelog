@@ -1,3 +1,14 @@
+usb-modeswitch (1.1.9-1+exp0) experimental; urgency=low
+
+  * Upload to experimental.
+
+  * Merge from Ubuntu:
+    - Rewrite the dispatcher binary in C.
+    - Add libudev-dev and libpipeline-dev to Build-Depends.
+    - Drop dependency on tcl.
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 10 Aug 2011 14:25:42 +0200
+
 usb-modeswitch (1.1.9-1ubuntu2) oneiric; urgency=low
 
   * Drop the dependency on tcl, which was the whole point of the C rewriting
