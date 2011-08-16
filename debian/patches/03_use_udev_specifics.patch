@@ -1,11 +1,23 @@
 Description: Use udev-in-Debian specific tools for the waiting script
  This is inspired from alsa-utils'
+ Also call /usr/sbin/usb_modeswitch_dispatcher directly in --symlink-name.
 Author: Didier Raboud <didier@raboud.com>
 Origin: vendor
-Last-Update: 2010-12-01
+Last-Update: 2011-08-11
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -73,15 +73,8 @@
+@@ -64,24 +64,16 @@
+ 	--symlink-name)
+ 		device_in "link_list" $v_id $p_id
+ 		if [ "$?" = "1" ]; then
+-			if [ -e "/usr/bin/tclsh" ]; then
+-				exec /usr/bin/tclsh /usr/sbin/usb_modeswitch_dispatcher $1 $2 $v_id $p_id 2>/dev/null
+-			fi
++			wait_for_file /usr/sbin/usb_modeswitch_dispatcher
++			exec /usr/sbin/usb_modeswitch_dispatcher $1 $2 $v_id $p_id 2>/dev/null
+ 		fi
+ 		exit 0
+ 		;;
  esac
  exec 1<&- 2<&- 5<&- 7<&-
  (
