@@ -1,3 +1,17 @@
+usb-modeswitch (1.1.9-2) unstable; urgency=low
+
+  * Patch the tcl dispatcher to wait some time with non-scsi-needing
+    devices. (Closes: #637972)
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 16 Aug 2011 23:04:57 +0200
+
+usb-modeswitch (1.1.9-1) unstable; urgency=low
+
+  * New 1.1.9 upstream version:
+    × Refresh 03_use_udev_specifics.patch.
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 07 Aug 2011 16:59:11 +0200
+
 usb-modeswitch (1.1.8-1~bpo60+1) squeeze-backports; urgency=low
 
   * Rebuild for squeeze-backports.

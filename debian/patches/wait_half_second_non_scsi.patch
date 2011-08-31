@@ -1,0 +1,18 @@
+Description: Waiting some time is needed for some devices to modeswitch
+ correctly on "hot-plugging" (second plug after boot). 
+Author: Josua Dietze <digidietze@draisberghof.de>
+Forwarded: from upstream
+Bugs-Debian: 637972
+Last-Update: 2011-08-16
+--- a/usb_modeswitch.tcl
++++ b/usb_modeswitch.tcl
+@@ -241,7 +241,8 @@
+ 	Log "Waiting 3 secs. after SCSI device was added"
+ 	after 3000
+ } else {
+-#	after 500
++	Log "Waiting 1/2 sec. when SCSI is not needed."
++	after 500
+ }
+ 
+ # If SCSI tree in sysfs was not identified, try and get the values

@@ -5,9 +5,9 @@ Origin: vendor
 Last-Update: 2010-12-01
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -66,14 +66,7 @@
- 		;;
+@@ -73,15 +73,8 @@
  esac
+ exec 1<&- 2<&- 5<&- 7<&-
  (
 -count=120
 -while [ $count != 0 ]; do
@@ -23,3 +23,4 @@ Last-Update: 2010-12-01
 +	wait_for_file /usr/sbin/usb_modeswitch_dispatcher
 +	exec /usr/sbin/usb_modeswitch_dispatcher "$@" 2>/dev/null &
  ) &
+ exit 0
