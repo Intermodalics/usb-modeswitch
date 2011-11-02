@@ -1,3 +1,27 @@
+usb-modeswitch (1.2.0+repack0-1) unstable; urgency=low
+
+  * New 1.2.0 upstream release:
+    - added command line options for binary program to accept configuration
+      data via stdin or as a long string parameter - this fixes the bug with
+      non-writable temporary file during boot (Closes: #629371);
+
+  * Repack the upstream tarball:
+    - Drop the code copy of jimtcl.
+
+  * Refresh patches:
+    × 03_use_udev_specifics.patch: Refresh.
+    + 04_cope_with_repack.patch: Add.
+    - wait_half_second_non_scsi.patch: was from upstream; drop.
+  * Link usb-modeswitch-dispatcher against libjim.
+    - Add Build-Depends on jimtcl and libjim-dev.
+    - Drop Depends on tcl/tclsh.
+    - Use explicit makefile targets.
+  * Bump debhelper compat to 9, for auto- buildflags.
+    - Bump debhelper B-D to 8.9.0~.
+    - Add source lintian override.
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 24 Oct 2011 09:50:41 +0200
+
 usb-modeswitch (1.1.9-2~bpo60+1) squeeze-backports; urgency=low
 
   * Rebuild for squeeze-backports.

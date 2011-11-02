@@ -2,7 +2,7 @@ Source: usb-modeswitch
 Section: comm
 Priority: extra
 Maintainer: Didier Raboud <odyx@debian.org>
-Build-Depends: debhelper (>= 8.1.0), libusb-dev
+Build-Depends: debhelper (>= 8.9.0~), libusb-dev, jimsh, libjim-dev
 Standards-Version: 3.9.2
 Homepage: http://www.draisberghof.de/usb_modeswitch/
 Vcs-Git: git://git.debian.org/collab-maint/usb-modeswitch.git
@@ -11,7 +11,7 @@ Vcs-Browser: http://git.debian.org/?p=collab-maint/usb-modeswitch.git
 Package: usb-modeswitch
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends}, tcl | tclsh, usb-modeswitch-data (>= 20110227-1~)
+Depends: ${shlibs:Depends}, ${misc:Depends}, usb-modeswitch-data (>= 20110227-1~)
 Breaks: usb-modeswitch-data (<< 20100127)
 Suggests: comgt, wvdial
 Description: mode switching tool for controlling "flip flop" USB devices

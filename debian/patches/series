@@ -1,2 +1,2 @@
-wait_half_second_non_scsi.patch
 03_use_udev_specifics.patch
+04_cope_with_repack.patch
