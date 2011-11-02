@@ -1,3 +1,13 @@
+usb-modeswitch (1.2.0+repack0-1~bpo60+1) squeeze-backports; urgency=low
+
+  * Rebuild for squeeze-backports.
+  * Revert "Link usb-modeswitch-dispatcher against libjim."
+    - Drop Build-Depends on jimtcl and libjim-dev.
+    - Re-add depends on tcl/tclsh.
+    - Don't use explicit makefile targets.
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 02 Nov 2011 16:45:14 +0100
+
 usb-modeswitch (1.2.0+repack0-1) unstable; urgency=low
 
   * New 1.2.0 upstream release:
