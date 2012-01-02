@@ -47,6 +47,11 @@ for information purposes. If success checking (option \-s) is active,
 providing target IDs (vendor/product) or target class is recommended
 .IP "\fB-P\fP \fB\-\-target-product NUM\fP         " 10
 Target product ID
+.IP "\fB-b\fP \fB\-\-busnum NUM\fP         " 10
+.IP "\fB-g\fP \fB\-\-devnum NUM\fP         " 10
+If bus and device number are provided, the handling of a specific device on
+a specific USB port is guaranteed, in contrast to using only the USB ID. This
+is important if there are multiple similar devices on a system
 .IP "\fB-C\fP \fB\-\-target-class NUM\fP         " 10
 Target Device Class according to the USB specification. Some devices keep
 their original vendor/product ID after successful switching. To prevent
