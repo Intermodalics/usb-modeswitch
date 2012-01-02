@@ -1,3 +1,15 @@
+usb-modeswitch (1.2.1+repack0-1) unstable; urgency=low
+
+  * New 1.2.1 upstream release.
+
+  * Repack the upstream tarball:
+    - Drop the code copy of jimtcl.
+
+  * Refresh patches.
+    × 03_use_udev_specifics.patch: Refresh.
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 02 Jan 2012 21:27:00 +0100
+
 usb-modeswitch (1.2.0+repack0-1) unstable; urgency=low
 
   * New 1.2.0 upstream release:
