@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		sprintf(arg,"{%s} ",argv[i]);
-		strncat(arglist,arg,MAX_ARGSIZE);
+		strncat(arglist,arg,MAX_ARGSIZE-1);
 	}
 
     char code[sizeof(RAW) + sizeof(arglist)];
