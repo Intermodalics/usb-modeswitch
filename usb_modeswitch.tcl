@@ -9,8 +9,8 @@
 # the mode switching program with the matching parameter
 # file from /usr/share/usb_modeswitch
 #
-# Part of usb-modeswitch-1.2.1 package
-# (C) Josua Dietze 2009, 2010, 2011
+# Part of usb-modeswitch-1.2.2 package
+# (C) Josua Dietze 2009-2012
 
 set arg0 [lindex $argv 0]
 if [regexp {\.tcl$} $arg0] {
@@ -256,7 +256,12 @@ if [regexp {ok:busdev} $report] {
 		set syslog_text "usb_modeswitch: switched to $usb(idVendor):$usb(idProduct) on [format %03d $usb(busnum)]/[format %03d $usb(devnum)]"
 		catch {exec logger -p syslog.notice $syslog_text}
 	} else {
-		Log "Mode switching may have failed. Exiting"
+		Log "\nTarget config not matching - current values are"
+		set attrList {idVendor idProduct bConfigurationValue manufacturer product serial}
+		foreach attr [lsort [array names usb]] {
+			Log "    [format %-26s $attr:] $usb($attr)"
+		}
+		Log "\nMode switching may have failed. Exiting\n"
 		SafeExit
 	}
 } else {
@@ -434,7 +439,8 @@ foreach attr $attrList {
 		if {[lsearch $mandatoryList $attr] > -1} {
 			set result 0
 		}
-		Log "Warning: USB attribute \"$attr\" not found."
+		if {$attr == "serial"} {continue}
+		Log "   Warning: USB attribute \"$attr\" not found"
 	}
 }
 return $result
@@ -942,7 +948,7 @@ for {set i 1} {$i <= $config(checkSuccess)} {incr i} {
 		Log " Waiting for device file system ($i sec.) ..."
 		continue
 	} else {
-		Log " Device file system is up, reading attributes ..."
+		Log " Reading attributes ..."
 	}
 	if {![ReadUSBAttrs $devdir $ifdir]} {
 		Log " Essential attributes are missing, continue wait ..."
