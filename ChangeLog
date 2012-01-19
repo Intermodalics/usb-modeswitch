@@ -2,6 +2,9 @@
 History of USB_ModeSwitch
 =========================
 
+Version 1.2.2, 2012/01/19
+    Fixed bad bug preventing mode switch for devices using TargetClass;
+    improved logging in case of negative success check
 Version 1.2.1, 2011/12/26
     Fixed possible ambiguities when multiple identical modems are plugged
     synchronously; this is achieved by adding -b and -g parameter (busnum

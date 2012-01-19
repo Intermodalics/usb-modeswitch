@@ -1,8 +1,8 @@
 /*
   Mode switching tool for controlling flip flop (multiple device) USB gear
-  Version 1.2.1, 2011/12/26
+  Version 1.2.2, 2012/01/19
 
-  Copyright (C) 2007 - 2011 Josua Dietze (mail to "usb_admin" at the domain
+  Copyright (C) 2007 - 2012 Josua Dietze (mail to "usb_admin" at the domain
   of the home page; or write a personal message through the forum to "Josh".
   NO SUPPORT VIA E-MAIL - please use the forum for that)
 
@@ -1538,7 +1538,7 @@ struct usb_device* search_devices( int *numFound, int vendor, int product, char*
 							} else {
 								if (verbose)
 									fprintf (output,"   target class %02x not matching\n", targetClass);
-								if (mode == SEARCH_DEFAULT) {
+								if (mode == SEARCH_DEFAULT || mode == SEARCH_BUSDEV) {
 									(*numFound)++;
 									right_dev = dev;
 									if (verbose)
