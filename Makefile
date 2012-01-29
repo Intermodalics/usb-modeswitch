@@ -1,5 +1,5 @@
 PROG        = usb_modeswitch
-VERS        = 1.2.2
+VERS        = 1.2.3
 CC          = gcc
 CFLAGS      += -Wall
 LIBS        = -l usb
@@ -65,7 +65,7 @@ install-script:
 	install -D --mode=755 usb_modeswitch_dispatcher $(SBINDIR)/usb_modeswitch_dispatcher
 
 install-binary:
-	install -D --mode=755 usb_modeswitch_dispatcher $(SBINDIR)/usb_modeswitch_dispatcher
+	install -D -s --mode=755 usb_modeswitch_dispatcher $(SBINDIR)/usb_modeswitch_dispatcher
 
 install: all install-common install-script
 
