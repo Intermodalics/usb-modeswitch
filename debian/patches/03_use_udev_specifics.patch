@@ -5,16 +5,16 @@ Origin: vendor
 Last-Update: 2012-01-02
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -65,24 +65,17 @@
+@@ -66,24 +66,18 @@
  	--symlink-name)
  		device_in "link_list" $v_id $p_id
  		if [ "$?" = "1" ]; then
 -			if [ -e "/usr/sbin/usb_modeswitch_dispatcher" ]; then
--				exec /usr/sbin/usb_modeswitch_dispatcher $1 $2 2>>/dev/null
+-				exec usb_modeswitch_dispatcher $1 $2 2>>/dev/null
 -			fi
 +			. /lib/udev/hotplug.functions
 +			wait_for_file /usr/sbin/usb_modeswitch_dispatcher
-+			exec /usr/sbin/usb_modeswitch_dispatcher $1 $2 2>>/dev/null
++			exec usb_modeswitch_dispatcher $1 $2 2>>/dev/null
  		fi
  		exit 0
  		;;
@@ -27,12 +27,13 @@ Last-Update: 2012-01-02
 -		sleep 1
 -		count=$(($count - 1))
 -	else
--		exec /usr/sbin/usb_modeswitch_dispatcher --switch-mode $1 $0 &
+-		exec usb_modeswitch_dispatcher --switch-mode $1 $0 &
 -		exit 0
 -	fi
 -done
 +	. /lib/udev/hotplug.functions
 +	wait_for_file /usr/sbin/usb_modeswitch_dispatcher
-+	exec /usr/sbin/usb_modeswitch_dispatcher --switch-mode $1 $0 &
++	exec usb_modeswitch_dispatcher --switch-mode $1 $0 &
++	exit 0
  ) &
  exit 0
