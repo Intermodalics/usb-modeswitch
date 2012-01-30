@@ -1,3 +1,20 @@
+usb-modeswitch (1.2.3+repack0-1) unstable; urgency=medium
+
+  * New 1.2.3 upstream release.
+    - Fixed two bugs both causing the embedded-jimsh install variant of the
+      dispatcher crash;
+      (Closes: #656688)
+    - Fixed some "regexp" incompatibilities with Debian's libjim.
+      (Closes: #656063)
+
+  * Repack the upstream tarball:
+    - Drop the code copy of jimtcl.
+
+  * Rise urgency to medium as this new upstream release fixes two RC bugs.
+  * Add patch to disable logging as enabled in 1.2.3 upstream release.
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 30 Jan 2012 18:16:11 +0100
+
 usb-modeswitch (1.2.2+repack0-1) unstable; urgency=low
 
   * New 1.2.2 upstream release.
