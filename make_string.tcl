@@ -1,6 +1,6 @@
 #!/usr/bin/env tclsh
 
-# (c) Josua Dietze 2011
+# (c) Josua Dietze 2012
 #
 # Usage: mk_script_string.tcl source.tcl >jim-source.c
 
@@ -28,4 +28,4 @@ while {[gets $f buf] >= 0} {
 	}
 }
 close $f
-puts "#define RAW \"set argv {%s}\\nset argc %d\\n[join $sourcelines ""]\""
+puts "#define RAW \"[join $sourcelines ""]\""
