@@ -1,3 +1,9 @@
+usb-modeswitch (1.2.3+repack0-1~bpo60+1) squeeze-backports; urgency=low
+
+  * Rebuild for squeeze-backports without new changes needed.
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 21 Feb 2012 08:54:30 +0100
+
 usb-modeswitch (1.2.3+repack0-1) unstable; urgency=medium
 
   * New 1.2.3 upstream release.
