@@ -1,3 +1,21 @@
+usb-modeswitch (1.2.4+repack0-1) experimental; urgency=low
+
+  * New 1.2.4 upstream release
+    - Additional interface checks to prevent sending UFI commands to
+      non-storage interfaces (prompted by more ambiguous device IDs
+      popping up);
+    - Change in SierraMode for handling newer devices which caused an
+      error abort before;
+    - Makefile fix for parallelized make runs.
+
+  * Repack the upstream tarball:
+    - Drop the code copy of jimtcl.
+
+  * Drop patch to disable logging as was (temporarily) enabled in 1.2.3.
+  * Refresh patches.
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 28 Aug 2012 11:13:00 +0200
+
 usb-modeswitch (1.2.3+repack0-1) unstable; urgency=medium
 
   * New 1.2.3 upstream release.
