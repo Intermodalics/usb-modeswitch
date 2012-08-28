@@ -7,5 +7,5 @@
 -	cd jim && $(MAKE) distclean
 +	- cd jim && $(MAKE) distclean
  
- install-common:
+ install-common: all
  	install -D -s --mode=755 usb_modeswitch $(SBINDIR)/usb_modeswitch
