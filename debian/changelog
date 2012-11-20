@@ -1,3 +1,23 @@
+usb-modeswitch (1.2.5+repack0-1) experimental; urgency=low
+
+  * New 1.2.5 upstream release
+    - Initial support for MBIM devices, use with data package >= 20121109;
+    - checking for these is the automatic default, new parameter
+      NoMBIMCheck prevents the check per device in case of problems; new
+      global option to set "delay_use" of usb-storage (as low values may
+      prevent mode-switching);
+    - fix for handling multi-configuration devices (thanks to Bjørn Mork
+      for advice).
+
+  * Repack the upstream tarball:
+    - Drop the code copy of jimtcl.
+
+  * Bump usb-modeswitch-data depends to 20121109.
+  * Bump Standards-Version to 3.9.4 and debhelper B-D to 9 without
+    changes needed.
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 20 Nov 2012 10:45:07 +0100
+
 usb-modeswitch (1.2.4+repack0-1) experimental; urgency=low
 
   * New 1.2.4 upstream release
