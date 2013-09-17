@@ -1,9 +1,9 @@
 Description: Use the package-provided jimsh and libjim
 Author: Didier Raboud <odyx@debian.org>
-Last-Update: 2013-06-08
+Last-Update: 2013-09-17
 --- a/Makefile
 +++ b/Makefile
-@@ -12,12 +12,8 @@
+@@ -13,12 +13,8 @@
  SBINDIR     = $(PREFIX)/sbin
  MANDIR      = $(PREFIX)/share/man/man1
  VPATH       = jimtcl
@@ -15,10 +15,10 @@ Last-Update: 2013-06-08
 -endif
 +HOST_TCL   := /usr/bin/jimsh
 +TCL	   := /usr/bin/jimsh
- JIM_CONFIGURE_OPTS =--disable-lineedit \
+ JIM_CONFIGURE_OPTS = --disable-lineedit \
  	--with-out-jim-ext="stdlib posix load signal syslog" --prefix=/usr
  
-@@ -48,7 +44,7 @@
+@@ -49,7 +45,7 @@
  dispatcher-script: usb_modeswitch.tcl
  	sed 's_!/usr/bin/tclsh_!'"$(TCL)"'_' < usb_modeswitch.tcl > usb_modeswitch_dispatcher
  
