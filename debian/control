@@ -3,7 +3,8 @@ Section: comm
 Priority: extra
 Maintainer: Didier Raboud <odyx@debian.org>
 Build-Depends: debhelper (>= 9),
- libusb-dev,
+ libusb-1.0-0-dev,
+ pkg-config,
  jimsh, libjim-dev
 Standards-Version: 3.9.4
 Homepage: http://www.draisberghof.de/usb_modeswitch/
