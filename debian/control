@@ -2,7 +2,9 @@ Source: usb-modeswitch
 Section: comm
 Priority: extra
 Maintainer: Didier Raboud <odyx@debian.org>
-Build-Depends: debhelper (>= 9), libusb-dev, jimsh, libjim-dev
+Build-Depends: debhelper (>= 9),
+ libusb-dev,
+ jimsh, libjim-dev
 Standards-Version: 3.9.4
 Homepage: http://www.draisberghof.de/usb_modeswitch/
 Vcs-Git: git://git.debian.org/collab-maint/usb-modeswitch.git
