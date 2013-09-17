@@ -27,8 +27,8 @@ Last-Update: 2013-09-17
 -		sleep 1
 -		count=$(($count - 1))
 -	else
-+. /lib/udev/hotplug.functions
-+wait_for_file /usr/sbin/usb_modeswitch_dispatcher
++		. /lib/udev/hotplug.functions
++		wait_for_file /usr/sbin/usb_modeswitch_dispatcher
  		if [ -e "/etc/init/usb-modeswitch-upstart.conf" ]; then
  			exec /sbin/initctl emit --no-wait usb-modeswitch-upstart UMS_PARAM=$1
  		elif [ -e "/etc/systemd/system/usb_modeswitch@.service" ]; then
