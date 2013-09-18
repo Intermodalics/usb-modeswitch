@@ -1,3 +1,22 @@
+usb-modeswitch (2.0.1+repack0-1) unstable; urgency=low
+
+  * New 2.0.1 upstream release
+    - Switched to libusb1.0
+    - Major code and debug output cleanup
+    - Man page corrections and additions
+    - Experimental systemd and upstart integration
+
+  * Repack the upstream tarball:
+    - Drop the code copy of jimtcl.
+
+  * Refresh patches for 2.0.1
+  * Update Build-Depends to add libusb-1.0-0-dev and pkg-config
+  * Incorporate support for upstart and systemd
+    - patch the dispatcher to correctly check if upstart or systemd are running
+    - install the upstart init file and the systemd service file
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 18 Sep 2013 19:53:11 +0200
+
 usb-modeswitch (1.2.6+repack0-1) unstable; urgency=low
 
   * New 1.2.6 upstream release
