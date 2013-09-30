@@ -1,10 +1,12 @@
 Description: Detect if upstart or systemd are running, not if their corresponding configfiles are installed
+ Also change the systemctl path to fit Debian's
 Author: Didier Raboud <odyx@debian.org>
 Origin: vendor
-Last-Update: 2013-09-17
+Bug-Debian: http://bugs.debian.org/725394
+Last-Update: 2013-10-07
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -77,9 +77,9 @@
+@@ -77,10 +77,10 @@
  (
  		. /lib/udev/hotplug.functions
  		wait_for_file /usr/sbin/usb_modeswitch_dispatcher
@@ -12,7 +14,9 @@ Last-Update: 2013-09-17
 +		if [ -x /sbin/initctl ] && /sbin/initctl version 2>/dev/null | /bin/grep -q upstart; then # Test if upstart is running
  			exec /sbin/initctl emit --no-wait usb-modeswitch-upstart UMS_PARAM=$1
 -		elif [ -e "/etc/systemd/system/usb_modeswitch@.service" ]; then
+-			exec /usr/bin/systemctl --no-block start usb_modeswitch@$1.service
 +		elif [ -d "/run/systemd/system/" ]; then # Test if systemd is running
- 			exec /usr/bin/systemctl --no-block start usb_modeswitch@$1.service
++			exec /bin/systemctl --no-block start usb_modeswitch@$1.service
  		else
  			exec /usr/sbin/usb_modeswitch_dispatcher --switch-mode $1 &
+ 		fi
