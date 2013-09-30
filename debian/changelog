@@ -1,3 +1,10 @@
+usb-modeswitch (2.0.1+repack0-2) unstable; urgency=low
+
+  * Update the systemd patch to change the systemctl path to fit
+    Debian's (Closes: #725394) - thanks to Ralf Jung
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 30 Sep 2013 10:57:27 +0200
+
 usb-modeswitch (2.0.1+repack0-1) unstable; urgency=low
 
   * New 2.0.1 upstream release
