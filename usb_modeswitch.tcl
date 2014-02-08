@@ -9,8 +9,8 @@
 # the mode switching program with the matching parameter
 # file from /usr/share/usb_modeswitch
 #
-# Part of usb-modeswitch-2.0.1 package
-# (C) Josua Dietze 2009-2013
+# Part of usb-modeswitch-2.1.0 package
+# (C) Josua Dietze 2009-2014
 
 set arg0 [lindex $argv 0]
 if [regexp {\.tcl$} $arg0] {
@@ -250,7 +250,7 @@ foreach configuration $configList {
 		ParseDeviceConfig $configBuffer
 		if {$config(waitBefore) == ""} {
 		} else {
-			Log " delay time set to $config(waitBefore) seconds"
+			Log "Delay time of $config(waitBefore) seconds"
 			append config(waitBefore) "000"
 			after $config(waitBefore)
 			Log " wait is over, start mode switch"
