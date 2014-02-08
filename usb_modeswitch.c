@@ -1,8 +1,8 @@
 /*
-  Mode switching tool for controlling flip flop (multiple device) USB gear
-  Version 2.0.1, 2013/09/03
+  Mode switching tool for controlling flip flop (multiple mode) USB devices
+  Version 2.1.0, 2014/01/28
 
-  Copyright (C) 2007 - 2013 Josua Dietze (mail to "usb_admin" at the domain
+  Copyright (C) 2007 - 2014 Josua Dietze (mail to "usb_admin" at the domain
   of the home page; or write a personal message through the forum to "Josh".
   NO SUPPORT VIA E-MAIL - please use the forum for that)
 
@@ -45,7 +45,7 @@
 
 /* Recommended tab size: 4 */
 
-#define VERSION "2.0.1"
+#define VERSION "2.1.0"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -137,7 +137,8 @@ unsigned int ModeMap = 0;
 #define PANTECH_MODE		0x00001000
 
 char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;
-char NeedResponse=0, NoDriverLoading=0, InquireDevice=1, sysmode=0, mbim=0;
+char NeedResponse=0, NoDriverLoading=0, InquireDevice=0, sysmode=0, mbim=0;
+char StandardEject=0;
 
 char imanufact[DESCR_MAX], iproduct[DESCR_MAX], iserial[DESCR_MAX];
 
@@ -185,13 +186,14 @@ static struct option long_options[] = {
 	{"cisco-mode",	        no_argument, 0, 'L'},
 	{"blackberry-mode",		no_argument, 0, 'Z'},
 	{"pantech-mode",		no_argument, 0, 'F'},
+	{"std-eject",			no_argument, 0, 'K'},
 	{"need-response",		no_argument, 0, 'n'},
 	{"reset-usb",			no_argument, 0, 'R'},
 	{"config-file",			required_argument, 0, 'c'},
 	{"verbose",				no_argument, 0, 'W'},
 	{"quiet",				no_argument, 0, 'Q'},
 	{"sysmode",				no_argument, 0, 'D'},
-	{"no-inquire",			no_argument, 0, 'I'},
+	{"inquire",				no_argument, 0, 'I'},
 	{"stdinput",			no_argument, 0, 't'},
 	{"find-mbim",			no_argument, 0, 'j'},
 	{"long-config",			required_argument, 0, 'f'},
@@ -224,6 +226,7 @@ void readConfigFile(const char *configFilename)
 	ParseParamBoolMap(configFilename, QuantaMode, ModeMap, QUANTA_MODE);
 	ParseParamBoolMap(configFilename, BlackberryMode, ModeMap, BLACKBERRY_MODE);
 	ParseParamBoolMap(configFilename, PantechMode, ModeMap, PANTECH_MODE);
+	ParseParamBool(configFilename, StandardEject);
 	ParseParamBool(configFilename, NoDriverLoading);
 	ParseParamHex(configFilename, MessageEndpoint);
 	ParseParamString(configFilename, MessageContent);
@@ -263,6 +266,8 @@ void printConfig()
 		fprintf (output,"TargetClass=    0x%02x\n",		TargetClass);
 	if ( strlen(TargetProductList) )
 		fprintf (output,"TargetProductList=\"%s\"\n",		TargetProductList);
+	if (StandardEject)
+		fprintf (output,"\nStandardEject=1\n");
 	if (ModeMap & DETACHONLY_MODE)
 		fprintf (output,"\nDetachStorageOnly=1\n");
 	if (ModeMap & HUAWEI_MODE)
@@ -307,9 +312,7 @@ void printConfig()
 	if ( AltSetting > -1 )
 		fprintf (output,"AltSetting=0x%02x\n",	AltSetting);
 	if ( InquireDevice )
-		fprintf (output,"\nInquireDevice enabled (default)\n");
-	else
-		fprintf (output,"\nInquireDevice disabled\n");
+		fprintf (output,"\nInquireDevice=1\n");
 	if ( CheckSuccess )
 		fprintf (output,"Success check enabled, max. wait time %d seconds\n", CheckSuccess);
 	if ( sysmode )
@@ -330,7 +333,7 @@ int readArguments(int argc, char **argv)
 
 	while (1)
 	{
-		c = getopt_long (argc, argv, "hejWQDndHSOBEGTNALZFRItv:p:V:P:C:m:M:2:3:w:r:c:i:u:a:s:f:b:g:",
+		c = getopt_long (argc, argv, "hejWQDndKHSOBEGTNALZFRItv:p:V:P:C:m:M:2:3:w:r:c:i:u:a:s:f:b:g:",
 						long_options, &option_index);
 
 		/* Detect the end of the options. */
@@ -352,6 +355,7 @@ int readArguments(int argc, char **argv)
 			case 'w': ReleaseDelay = strtol(optarg, NULL, 10); break;
 			case 'n': NeedResponse = 1; break;
 			case 'r': ResponseEndpoint = strtol(optarg, NULL, 16); break;
+			case 'K': StandardEject = 1; break;
 			case 'd': ModeMap = ModeMap + DETACHONLY_MODE; break;
 			case 'H': ModeMap = ModeMap + HUAWEI_MODE; break;
 			case 'S': ModeMap = ModeMap + SIERRA_MODE; break;
@@ -369,9 +373,9 @@ int readArguments(int argc, char **argv)
 			case 't': readConfigFile("stdin"); break;
 			case 'W': verbose = 1; show_progress = 1; count--; break;
 			case 'Q': show_progress = 0; verbose = 0; count--; break;
-			case 'D': sysmode = 1; InquireDevice = 0; count--; break;
+			case 'D': sysmode = 1; count--; break;
 			case 's': CheckSuccess = strtol(optarg, NULL, 10); count--; break;
-			case 'I': InquireDevice = 0; break;
+			case 'I': InquireDevice = 1; break;
 			case 'b': busnum = strtol(optarg, NULL, 10); break;
 			case 'g': devnum = strtol(optarg, NULL, 10); break;
 
@@ -578,7 +582,7 @@ int main(int argc, char **argv)
 		}
 
 	/* Check or get endpoints */
-	if (strlen(MessageContent) || InquireDevice || ModeMap & CISCO_MODE) {
+	if (strlen(MessageContent) || StandardEject || InquireDevice || ModeMap & CISCO_MODE) {
 		if (!MessageEndpoint)
 			MessageEndpoint = find_first_bulk_output_endpoint(dev);
 		if (!MessageEndpoint) {
@@ -622,12 +626,17 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	if (strlen(MessageContent) && ModeMap ) {
+	if ((strlen(MessageContent) || StandardEject) && ModeMap ) {
 		MessageContent[0] = '\0';
-		SHOW_PROGRESS(output,"Warning: MessageContent ignored; can't combine with special mode\n");
+		StandardEject = 0;
+		fprintf(output,"Warning: MessageContent/StandardEject ignored; can't combine with special mode\n");
 	}
 
-	if ( !ModeMap && !strlen(MessageContent) && AltSetting == -1 && Configuration == 0 )
+	if (StandardEject && (strlen(MessageContent2) || strlen(MessageContent3))) {
+		fprintf(output,"Warning: MessageContent2/3 ignored; only one allowed with StandardEject\n");
+	}
+
+	if ( !ModeMap && !strlen(MessageContent) && AltSetting == -1 && !Configuration && !StandardEject )
 		SHOW_PROGRESS(output,"Warning: no switching method given. See documentation\n");
 
 	/*
@@ -695,7 +704,19 @@ int main(int argc, char **argv)
 		sonySuccess = switchSonyMode();
 	}
 
-	if (strlen(MessageContent) && MessageEndpoint) {
+	if (StandardEject) {
+		SHOW_PROGRESS(output,"Sending standard EJECT sequence\n");
+		detachDriver();
+		if (MessageContent[0] != '\0')
+			strcpy(MessageContent3, MessageContent);
+		else
+			MessageContent3[0] = '\0';
+
+		strcpy(MessageContent,"5553424312345678000000000000061e000000000000000000000000000000");
+		strcpy(MessageContent2,"5553424312345679000000000000061b000000020000000000000000000000");
+		NeedResponse = 1;
+		switchSendMessage();
+	} else if (strlen(MessageContent)) {
 		if (InquireDevice != 2)
 			detachDriver();
 		switchSendMessage();
@@ -889,6 +910,7 @@ out:
 }
 
 
+/* Auxiliary function used by the wrapper */
 int findMBIMConfig(int vendor, int product, int mode)
 {
 	struct libusb_device **devs;
@@ -1387,6 +1409,9 @@ int switchSonyMode ()
 int detachDriver()
 {
 
+	// Driver already detached during SCSI inquiry ?
+	if (InquireDevice == 2)
+		return 1;
 	SHOW_PROGRESS(output,"Looking for active driver ...\n");
 	ret = libusb_kernel_driver_active(devh, 0);
 	if (ret == LIBUSB_ERROR_NOT_SUPPORTED) {
@@ -1572,7 +1597,6 @@ int write_bulk(int endpoint, char *message, int length)
 int read_bulk(int endpoint, char *buffer, int length)
 {
 	ret = usb_bulk_io(devh, endpoint, buffer, length, 3000);
-	usb_bulk_io(devh, endpoint, buffer, 13, 100);
 	if (ret >= 0 ) {
 		SHOW_PROGRESS(output," Response successfully read (%d bytes).\n", ret);
 	} else
@@ -1986,6 +2010,7 @@ void printHelp()
 	" -2 <msg>, -3 <msg>            additional messages to send (-n recommended)\n"
 	" -n, --need-response           read response to the message transfer (CSW)\n"
 	" -r, --response-endpoint NUM   read response from there (optional)\n"
+	" -K, --std-eject               send standard EJECT sequence\n"
 	" -d, --detach-only             detach the active driver, no further action\n"
 	" -H, --huawei-mode             apply a special procedure\n"
 	" -S, --sierra-mode             apply a special procedure\n"
@@ -2002,7 +2027,7 @@ void printHelp()
 	" -W, --verbose                 print all settings and debug output\n"
 	" -D, --sysmode                 specific result and syslog message\n"
 	" -s, --success <seconds>       switching result check with timeout\n"
-	" -I, --no-inquire              do not get SCSI attributes (default on)\n\n"
+	" -I, --inquire                 retrieve SCSI attributes initially\n\n"
 	" -c, --config-file <filename>  load long configuration from file\n\n"
 	" -t, --stdinput                read long configuration from stdin\n\n"
 	" -f, --long-config <text>      get long configuration from string\n\n"
