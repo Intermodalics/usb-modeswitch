@@ -1,3 +1,17 @@
+usb-modeswitch (2.1.0+repack0-1) unstable; urgency=medium
+
+  * New 2.1.0 upstream release
+    - -I flag meaning reversed, default is to skip SCSI inquiry
+
+  * Repack the upstream tarball:
+    - Drop the code copy of jimtcl.
+
+  * Bump usb-modeswitch-data depends to 20140129
+  * Bump Standards-Version to 3.9.5 without changes needed
+  * Add get-orig-source target to do the automatic repacking
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 10 Feb 2014 12:58:03 +0100
+
 usb-modeswitch (2.0.1+repack0-2) unstable; urgency=low
 
   * Update the systemd patch to change the systemctl path to fit
