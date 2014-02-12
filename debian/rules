@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+export DEB_CFLAGS_MAINT_APPEND = $(shell dpkg-buildflags --get CPPFLAGS)
+
 %:
 	dh $@
 
