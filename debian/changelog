@@ -1,3 +1,17 @@
+usb-modeswitch (2.1.1+repack0-1) unstable; urgency=medium
+
+  * New 2.1.1 upstream release
+    - "Interface" parameter was not working as expected, fixed
+      (LP: #1261923)
+
+  * Repack the upstream tarball:
+    - Drop the code copy of jimtcl.
+
+  * Bump usb-modeswitch-data depends to 20140327
+  * Append CPPFLAGS to CFLAGS
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 01 Apr 2014 13:28:36 +0200
+
 usb-modeswitch (2.1.0+repack0-1) unstable; urgency=medium
 
   * New 2.1.0 upstream release
