@@ -9,8 +9,8 @@
 # the mode switching program with the matching parameter
 # file from /usr/share/usb_modeswitch
 #
-# Part of usb-modeswitch-2.0.1 package
-# (C) Josua Dietze 2009-2013
+# Part of usb-modeswitch-2.1.1 package
+# (C) Josua Dietze 2009-2014
 
 set arg0 [lindex $argv 0]
 if [regexp {\.tcl$} $arg0] {
@@ -139,10 +139,10 @@ if $ifChk {
 		Log " No access to interface 0. Exit"
 		SafeExit
 	}
-	if {$iclass == 8} {
-		Log " Device is in install mode."
+	Log " Interface class is $iclass."
+	if {$iclass == 8 || $iclass == 3} {
 	} else {
-		# No install mode, so no logging at all
+		Log "No install mode found. Aborting"
 		exit
 	}
 }
@@ -150,8 +150,6 @@ set ifdir [file tail [IfDir $iface]]
 regexp {:([0-9]+\.[0-9]+)$} $ifdir d iface
 
 set flags(logwrite) 1
-Log "Use interface $iface"
-
 
 # Mapping of the short string identifiers (in the config
 # file names) to the long name used here
@@ -224,7 +222,7 @@ if $scsiNeeded {
 	Log "SCSI attributes not needed, move on"
 }
 
-# General wait - this is important
+# General wait - some devices need this
 after 500
 
 # Now check for a matching config file. Matching is done
@@ -250,7 +248,7 @@ foreach configuration $configList {
 		ParseDeviceConfig $configBuffer
 		if {$config(waitBefore) == ""} {
 		} else {
-			Log " delay time set to $config(waitBefore) seconds"
+			Log "Delay time of $config(waitBefore) seconds"
 			append config(waitBefore) "000"
 			after $config(waitBefore)
 			Log " wait is over, start mode switch"
@@ -693,14 +691,11 @@ proc {Log} {msg} {
 global flags device loginit
 
 if {$flags(logging) == 0} {return}
-#puts $msg
-#return
 
 if $flags(logwrite) {
 	if [string length $loginit] {
 		exec echo "\nUSB_ModeSwitch log from [clock format [clock seconds]]" >/var/log/usb_modeswitch_$device
 		exec echo "$loginit" >>/var/log/usb_modeswitch_$device
-#"
 		set loginit ""
 	}
 	exec echo $msg >>/var/log/usb_modeswitch_$device
