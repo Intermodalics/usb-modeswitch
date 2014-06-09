@@ -1,3 +1,19 @@
+usb-modeswitch (2.2.0+repack0-1) unstable; urgency=medium
+
+  * New 2.2.0 upstream release
+    - Introduction of parameter "HuaweiNewMode", wrapping the standard bulk
+      message for all newer Huawei devices;
+    - Support for generic fallback config files, combined with OS switch (per
+      vendor ID);
+
+  * Repack the upstream tarball:
+    - Drop the code copy of jimtcl.
+
+  * Bump usb-modeswitch-data depends to 20140529
+  * Update VCS-* fields to canonical form
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 09 Jun 2014 11:21:08 +0200
+
 usb-modeswitch (2.1.1+repack0-1) unstable; urgency=medium
 
   * New 2.1.1 upstream release
