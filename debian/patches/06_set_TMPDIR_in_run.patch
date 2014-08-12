@@ -1,0 +1,26 @@
+--- a/usb-modeswitch-upstart.conf
++++ b/usb-modeswitch-upstart.conf
+@@ -1,5 +1,6 @@
+ start on usb-modeswitch-upstart
+ task
++env TMPDIR=/run
+ script
+ 	exec /usr/sbin/usb_modeswitch_dispatcher --switch-upstart $UMS_PARAM
+ end script
+--- a/usb_modeswitch.sh
++++ b/usb_modeswitch.sh
+@@ -82,6 +82,7 @@
+ 		elif [ -d "/run/systemd/system/" ]; then # Test if systemd is running
+ 			exec /bin/systemctl --no-block start usb_modeswitch@$1.service
+ 		else
++			export TMPDIR=/run
+ 			exec /usr/sbin/usb_modeswitch_dispatcher --switch-mode $1 &
+ 		fi
+ 		exit 0
+--- a/usb_modeswitch@.service
++++ b/usb_modeswitch@.service
+@@ -4,3 +4,4 @@
+ [Service]
+ Type=oneshot
+ ExecStart=/usr/sbin/usb_modeswitch_dispatcher --switch-systemd %I
++Environment="TMPDIR=/run"
