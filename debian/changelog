@@ -1,3 +1,10 @@
+usb-modeswitch (2.2.0+repack0-2) unstable; urgency=medium
+
+  * Add patch to set TMPDIR to /run, add Build-Depends version constraint to
+    pull a libjim supporting the setting of TMPDIR (Closes: #751271)
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 12 Aug 2014 12:59:22 +0200
+
 usb-modeswitch (2.2.0+repack0-1) unstable; urgency=medium
 
   * New 2.2.0 upstream release
