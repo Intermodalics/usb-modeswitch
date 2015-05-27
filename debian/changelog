@@ -1,3 +1,11 @@
+usb-modeswitch (2.2.1+repack0-1) unstable; urgency=low
+
+  * New 2.2.1 upstream release
+    - Fixed unreliable switching function for Cisco AM10
+  * Bump Standards-Version to 3.9.6 without changes needed
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 27 May 2015 08:09:32 +0200
+
 usb-modeswitch (2.2.0+repack0-2) unstable; urgency=medium
 
   * Add patch to set TMPDIR to /run, add Build-Depends version constraint to
