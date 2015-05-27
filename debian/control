@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 9),
  libusb-1.0-0-dev,
  pkg-config,
  jimsh, libjim-dev (>= 0.75-1~)
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 Homepage: http://www.draisberghof.de/usb_modeswitch/
 Vcs-Git: https://alioth.debian.org/anonscm/git/collab-maint/usb-modeswitch.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/usb-modeswitch.git
