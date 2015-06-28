@@ -5,7 +5,7 @@ Origin: vendor
 Last-Update: 2013-09-17
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -66,21 +66,17 @@
+@@ -66,9 +66,9 @@
  	--symlink-name)
  		device_in "link_list" $v_id $p_id
  		if [ "$?" = "1" ]; then
@@ -18,9 +18,10 @@ Last-Update: 2013-09-17
  		fi
  		exit 0
  		;;
- esac
- exec 1<&- 2<&- 5<&- 7<&-
- (
+@@ -79,12 +79,8 @@
+ $1
+ EOF
+ PATH=/bin:/sbin:/usr/bin:/usr/sbin
 -count=20
 -while [ $count != 0 ]; do
 -	if [ ! -e "/usr/sbin/usb_modeswitch_dispatcher" ]; then
@@ -29,11 +30,11 @@ Last-Update: 2013-09-17
 -	else
 +		. /lib/udev/hotplug.functions
 +		wait_for_file /usr/sbin/usb_modeswitch_dispatcher
- 		if [ -e "/etc/init/usb-modeswitch-upstart.conf" ]; then
- 			exec /sbin/initctl emit --no-wait usb-modeswitch-upstart UMS_PARAM=$1
- 		elif [ -e "/etc/systemd/system/usb_modeswitch@.service" ]; then
-@@ -89,7 +85,5 @@
- 			exec /usr/sbin/usb_modeswitch_dispatcher --switch-mode $1 &
+ 		if [ -e "/etc/systemd/system/usb_modeswitch@.service" ]; then
+ 			exec systemctl --no-block start usb_modeswitch@$p1'_'$p2.service
+ 		elif [ -e "/etc/init/usb-modeswitch-upstart.conf" ]; then
+@@ -93,7 +89,5 @@
+ 			exec usb_modeswitch_dispatcher --switch-mode $1 &
  		fi
  		exit 0
 -	fi
