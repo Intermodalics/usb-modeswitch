@@ -16,13 +16,13 @@ get-orig-source:
 	set -e;\
 	quilt pop -af || true ;\
 	rm -Rf .pc ;\
-	git import-orig --no-pristine-tar --no-merge --uscan ;\
-	git checkout upstream-repack ;\
-	utag=`git describe --exact-match heads/upstream | sed -e 's#^upstream/##'` ;\
+	gbp import-orig --no-pristine-tar --no-merge --uscan --upstream-branch=upstream/latest;\
+	git checkout upstream/latest-repack ;\
+	utag=`git describe --exact-match heads/upstream/latest | sed -e 's#^upstream/##'` ;\
 	git merge upstream/$$utag -m "Merge upstream $$utag version" ;\
 	urtag=$$utag+repack0 ;\
 	git tag upstream/$$urtag -m "Upstream repacked $$utag version" ;\
 	git archive --format=tar --prefix=usb-modeswitch-$$urtag/ upstream/$$urtag | xz -6e > ../usb-modeswitch_$$urtag.orig.tar.xz ;\
 	pristine-tar commit ../usb-modeswitch_$$urtag.orig.tar.xz upstream/$$urtag ;\
-	git checkout master ;\
+	git checkout debian/master ;\
 	git merge upstream/$$urtag -m "Merge upstream-repacked $$urtag version"
