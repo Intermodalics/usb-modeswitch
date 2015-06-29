@@ -1,3 +1,14 @@
+usb-modeswitch (2.2.2+repack0-1) unstable; urgency=medium
+
+  * New 2.2.2 upstream release
+    - Changed systemd template unit parameter to avoid escaping problems
+      (Closes: #787842)
+  * Refresh patches
+  * Update debian/rules to new branch names and gbp
+  * Add gbp.conf for dch and import-orig
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 29 Jun 2015 08:37:14 +0200
+
 usb-modeswitch (2.2.1+repack0-1) unstable; urgency=low
 
   * New 2.2.1 upstream release
