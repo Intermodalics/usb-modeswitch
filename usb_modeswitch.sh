@@ -73,11 +73,11 @@ case "$1" in
 		exit 0
 		;;
 esac
-exec 1<&- 2<&- 5<&- 7<&-
 (
 IFS='/' read -r p1 p2 <<EOF
 $1
 EOF
+#sleep 10
 PATH=/bin:/sbin:/usr/bin:/usr/sbin
 count=20
 while [ $count != 0 ]; do
@@ -96,4 +96,5 @@ while [ $count != 0 ]; do
 	fi
 done
 ) &
+# >/dev/null 2>/dev/null
 exit 0
