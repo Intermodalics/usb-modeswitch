@@ -1,3 +1,11 @@
+usb-modeswitch (2.2.3+repack0-1) unstable; urgency=medium
+
+  * New 2.2.3 upstream release
+    - Resolve systemd v221 incompatibility (Closes: #790652)
+  * Refresh patches
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 01 Jul 2015 21:24:07 +0200
+
 usb-modeswitch (2.2.2+repack0-1) unstable; urgency=medium
 
   * New 2.2.2 upstream release
