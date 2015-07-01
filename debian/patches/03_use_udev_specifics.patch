@@ -19,8 +19,8 @@ Last-Update: 2013-09-17
  		exit 0
  		;;
 @@ -79,12 +79,8 @@
- $1
  EOF
+ #sleep 10
  PATH=/bin:/sbin:/usr/bin:/usr/sbin
 -count=20
 -while [ $count != 0 ]; do
@@ -33,11 +33,12 @@ Last-Update: 2013-09-17
  		if [ -e "/etc/systemd/system/usb_modeswitch@.service" ]; then
  			exec systemctl --no-block start usb_modeswitch@$p1'_'$p2.service
  		elif [ -e "/etc/init/usb-modeswitch-upstart.conf" ]; then
-@@ -93,7 +89,5 @@
+@@ -93,8 +89,6 @@
  			exec usb_modeswitch_dispatcher --switch-mode $1 &
  		fi
  		exit 0
 -	fi
 -done
  ) &
+ # >/dev/null 2>/dev/null
  exit 0
