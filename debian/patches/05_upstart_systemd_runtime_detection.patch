@@ -6,7 +6,7 @@ Bug-Debian: http://bugs.debian.org/725394
 Last-Update: 2013-10-07
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -81,9 +81,9 @@
+@@ -80,9 +80,9 @@
  PATH=/bin:/sbin:/usr/bin:/usr/sbin
  		. /lib/udev/hotplug.functions
  		wait_for_file /usr/sbin/usb_modeswitch_dispatcher
