@@ -1,3 +1,9 @@
+usb-modeswitch (2.2.6+repack0-1) unstable; urgency=medium
+
+  * New 2.2.6 upstream release
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 16 Dec 2015 13:00:52 +0100
+
 usb-modeswitch (2.2.5+repack0-1) unstable; urgency=medium
 
   * New 2.2.5 upstream release
