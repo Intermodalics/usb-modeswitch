@@ -1,3 +1,13 @@
+usb-modeswitch (2.3.0+repack0-1) unstable; urgency=medium
+
+  * New 2.3.0 upstream release
+    - Fixed bug which prevented early logging
+  * Remove patch to use udev-specific code to wait on /usr mount
+    (Closes: #810104)
+  * Update gbp.conf
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 13 Jan 2016 15:56:26 +0100
+
 usb-modeswitch (2.2.6+repack0-1) unstable; urgency=medium
 
   * New 2.2.6 upstream release
