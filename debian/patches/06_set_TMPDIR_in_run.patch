@@ -9,8 +9,8 @@
  end script
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -85,6 +85,7 @@
-  		elif [ -x /sbin/initctl ] && /sbin/initctl version 2>/dev/null | /bin/grep -q upstart; then # Test if upstart is running
+@@ -89,6 +89,7 @@
+ 		elif [ -x /sbin/initctl ] && /sbin/initctl version 2>/dev/null | /bin/grep -q upstart; then # Test if upstart is running
  			exec initctl emit --no-wait usb-modeswitch-upstart UMS_PARAM=$1
  		else
 +			export TMPDIR=/run
