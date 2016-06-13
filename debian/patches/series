@@ -1,3 +1,4 @@
+01_fix_typo_in_manpage.patch
 04_use_system_libjim.patch
 05_upstart_systemd_runtime_detection.patch
 06_set_TMPDIR_in_run.patch

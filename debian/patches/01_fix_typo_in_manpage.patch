@@ -1,0 +1,15 @@
+Description: Fix official{,l}y typo
+Author: Didier Raboud <odyx@debian.org>
+Last-Update: 2016-06-13
+
+--- a/usb_modeswitch.1
++++ b/usb_modeswitch.1
+@@ -40,7 +40,7 @@
+ .IP "\fB-v\fP \fB\-\-default-vendor NUM\fP         " 10
+ Vendor ID to look for (mandatory), usually given as hex number (example: 0x12d1).
+ Each USB device is identified by a number
+-officialy assigned to the vendor by the USB association and a number for the
++officially assigned to the vendor by the USB association and a number for the
+ respective model (product ID) chosen by the vendor
+ .IP "\fB-p\fP \fB\-\-default-product NUM\fP         " 10
+ Product ID to look for (mandatory)
