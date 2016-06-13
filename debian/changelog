@@ -1,3 +1,14 @@
+usb-modeswitch (2.4.0+repack0-1) unstable; urgency=medium
+
+  * New 2.4.0 upstream release
+  * Refresh patches
+  * Bump S-V to 3.9.8 without changes needed
+  * Set hardening=+all in DEB_BUILD_MAINT_OPTIONS
+  * Use the https alternative in VCS-Browser
+  * Add patch to fix official{,l}y typo
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 13 Jun 2016 08:52:09 +0200
+
 usb-modeswitch (2.3.0+repack0-1) unstable; urgency=medium
 
   * New 2.3.0 upstream release
