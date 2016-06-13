@@ -2,19 +2,20 @@ Description: Detect if upstart or systemd are running, not if their correspondin
  Also change the systemctl path to fit Debian's
 Author: Didier Raboud <odyx@debian.org>
 Origin: vendor
-Bug-Debian: http://bugs.debian.org/725394
-Last-Update: 2016-01-13
+Bug-Debian: https://bugs.debian.org/725394
+Last-Update: 2016-06-13
+
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -84,9 +84,9 @@
- 		sleep 1
- 		count=$(($count - 1))
- 	else
--		if [ -e "/etc/systemd/system/usb_modeswitch@.service" ]; then
-+		if [ -d "/run/systemd/system/" ]; then # Test if systemd is running
- 			exec systemctl --no-block start usb_modeswitch@$p1'_'$p2.service
--		elif [ -e "/etc/init/usb-modeswitch-upstart.conf" ]; then
-+		elif [ -x /sbin/initctl ] && /sbin/initctl version 2>/dev/null | /bin/grep -q upstart; then # Test if upstart is running
- 			exec initctl emit --no-wait usb-modeswitch-upstart UMS_PARAM=$1
- 		else
- 			exec usb_modeswitch_dispatcher --switch-mode $1 &
+@@ -60,9 +60,9 @@
+ 
+ PATH=/bin:/sbin:/usr/bin:/usr/sbin
+ init_path=`readlink /sbin/init`
+-if [ `basename $init_path` = "systemd" ]; then
++if [ `basename $init_path` = "systemd" ] && [ -d "/run/systemd/system/" ]; then # Test if systemd is running
+ 	systemctl --no-block start usb_modeswitch@$p1'_'$p2.service
+-elif [ -e "/etc/init/usb-modeswitch-upstart.conf" ]; then
++elif [ -e "/etc/init/usb-modeswitch-upstart.conf" ] && [ -x /sbin/initctl ] && /sbin/initctl version 2>/dev/null | /bin/grep -q upstart; then # Test if upstart is running
+ 	initctl emit --no-wait usb-modeswitch-upstart UMS_PARAM=$1
+ else
+ 	# only old distros, new udev will kill all subprocesses

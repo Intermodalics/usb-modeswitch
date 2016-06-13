@@ -1,3 +1,7 @@
+Description: Export TMPDIR=/run before running the usb_modeswitch_dispatcher,
+ that might be run before /tmp/ is available
+Author: Didier Raboud <odyx@debian.org>
+Last-Update: 2016-06-13
 --- a/usb-modeswitch-upstart.conf
 +++ b/usb-modeswitch-upstart.conf
 @@ -1,5 +1,6 @@
@@ -9,14 +13,14 @@
  end script
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -89,6 +89,7 @@
- 		elif [ -x /sbin/initctl ] && /sbin/initctl version 2>/dev/null | /bin/grep -q upstart; then # Test if upstart is running
- 			exec initctl emit --no-wait usb-modeswitch-upstart UMS_PARAM=$1
- 		else
-+			export TMPDIR=/run
- 			exec usb_modeswitch_dispatcher --switch-mode $1 &
+@@ -47,6 +47,7 @@
+ 		device_in "link_list" $v_id $p_id
+ 		if [ "$?" = "1" ]; then
+ 			if [ -e "/usr/sbin/usb_modeswitch_dispatcher" ]; then
++				export TMPDIR=/run
+ 				exec usb_modeswitch_dispatcher $1 $2 2>>/dev/null
+ 			fi
  		fi
- 		exit 0
 --- a/usb_modeswitch@.service
 +++ b/usb_modeswitch@.service
 @@ -5,4 +5,5 @@
