@@ -1,3 +1,9 @@
+usb-modeswitch (2.4.0+repack0-1~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports (Closes: #829638)
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 05 Jul 2016 11:01:50 +0200
+
 usb-modeswitch (2.4.0+repack0-1) unstable; urgency=medium
 
   * New 2.4.0 upstream release
