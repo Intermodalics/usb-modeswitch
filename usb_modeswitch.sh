@@ -60,9 +60,9 @@ EOF
 
 PATH=/bin:/sbin:/usr/bin:/usr/sbin
 init_path=`readlink /sbin/init`
-if [ `basename $init_path` = "systemd" ]; then
+if [ `basename $init_path` = "systemd" ] && [ -d "/run/systemd/system/" ]; then # Test if systemd is running
 	systemctl --no-block start usb_modeswitch@$p1'_'$p2.service
-elif [ -e "/etc/init/usb-modeswitch-upstart.conf" ]; then
+elif [ -e "/etc/init/usb-modeswitch-upstart.conf" ] && [ -x /sbin/initctl ] && /sbin/initctl version 2>/dev/null | /bin/grep -q upstart; then # Test if upstart is running
 	initctl emit --no-wait usb-modeswitch-upstart UMS_PARAM=$1
 else
 	# only old distros, new udev will kill all subprocesses
