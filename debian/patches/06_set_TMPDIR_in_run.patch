@@ -1,7 +1,19 @@
-Description: Export TMPDIR=/run before running the usb_modeswitch_dispatcher,
- that might be run before /tmp/ is available
-Author: Didier Raboud <odyx@debian.org>
-Last-Update: 2016-06-13
+From af2d032209cb9fb44d8969fc2aa28f7f0bbb5e00 Mon Sep 17 00:00:00 2001
+From: Didier Raboud <odyx@debian.org>
+Date: Tue, 30 Aug 2016 14:24:06 +0200
+Subject: Set TMPDIR=/run for usb_modeswitch_dispatcher
+
+It might be run before /tmp/ is available.
+
+Patch-Name: 06_set_TMPDIR_in_run.patch
+---
+ usb-modeswitch-upstart.conf | 1 +
+ usb_modeswitch.sh           | 1 +
+ usb_modeswitch@.service     | 1 +
+ 3 files changed, 3 insertions(+)
+
+diff --git a/usb-modeswitch-upstart.conf b/usb-modeswitch-upstart.conf
+index 570ca65..8264e87 100644
 --- a/usb-modeswitch-upstart.conf
 +++ b/usb-modeswitch-upstart.conf
 @@ -1,5 +1,6 @@
@@ -11,9 +23,11 @@ Last-Update: 2016-06-13
  script
  	exec /usr/sbin/usb_modeswitch_dispatcher --switch-upstart $UMS_PARAM
  end script
+diff --git a/usb_modeswitch.sh b/usb_modeswitch.sh
+index 5c57561..7c24839 100755
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -47,6 +47,7 @@
+@@ -47,6 +47,7 @@ case "$1" in
  		device_in "link_list" $v_id $p_id
  		if [ "$?" = "1" ]; then
  			if [ -e "/usr/sbin/usb_modeswitch_dispatcher" ]; then
@@ -21,9 +35,11 @@ Last-Update: 2016-06-13
  				exec usb_modeswitch_dispatcher $1 $2 2>>/dev/null
  			fi
  		fi
+diff --git a/usb_modeswitch@.service b/usb_modeswitch@.service
+index 91e5ac0..748e814 100644
 --- a/usb_modeswitch@.service
 +++ b/usb_modeswitch@.service
-@@ -5,4 +5,5 @@
+@@ -5,4 +5,5 @@ Description=USB_ModeSwitch_%i
  Type=oneshot
  ExecStart=/usr/sbin/usb_modeswitch_dispatcher --switch-systemd %i
  #ExecStart=/bin/echo %i

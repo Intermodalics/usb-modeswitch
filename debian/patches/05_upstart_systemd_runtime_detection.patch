@@ -1,13 +1,24 @@
-Description: Detect if upstart or systemd are running, not if their corresponding configfiles are installed
+From c1e7967376786ff8dfc572e32d05a9457fbeae8c Mon Sep 17 00:00:00 2001
+From: Didier Raboud <odyx@debian.org>
+Date: Tue, 30 Aug 2016 14:24:05 +0200
+Subject: Detect if upstart or systemd are running, not if their corresponding
+ configfiles are installed
+
  Also change the systemctl path to fit Debian's
-Author: Didier Raboud <odyx@debian.org>
+
 Origin: vendor
 Bug-Debian: https://bugs.debian.org/725394
-Last-Update: 2016-06-13
 
+Patch-Name: 05_upstart_systemd_runtime_detection.patch
+---
+ usb_modeswitch.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/usb_modeswitch.sh b/usb_modeswitch.sh
+index b126ec3..5c57561 100755
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
-@@ -60,9 +60,9 @@
+@@ -60,9 +60,9 @@ EOF
  
  PATH=/bin:/sbin:/usr/bin:/usr/sbin
  init_path=`readlink /sbin/init`

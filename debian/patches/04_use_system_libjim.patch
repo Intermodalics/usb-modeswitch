@@ -1,9 +1,18 @@
-Description: Use the package-provided jimsh and libjim
-Author: Didier Raboud <odyx@debian.org>
-Last-Update: 2013-09-17
+From 88772d6aebe53901b44ea33a1b3213ed83daa210 Mon Sep 17 00:00:00 2001
+From: Didier Raboud <odyx@debian.org>
+Date: Tue, 30 Aug 2016 14:24:04 +0200
+Subject: Use package-provided jimsh and libjim
+
+Patch-Name: 04_use_system_libjim.patch
+---
+ Makefile | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 47ed794..7d44c96 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -13,12 +13,8 @@
+@@ -13,12 +13,8 @@ UDEVDIR     = $(DESTDIR)/lib/udev
  SBINDIR     = $(PREFIX)/sbin
  MANDIR      = $(PREFIX)/share/man/man1
  VPATH       = jimtcl
@@ -14,11 +23,11 @@ Last-Update: 2013-09-17
 -TCL        ?= /usr/bin/tclsh
 -endif
 +HOST_TCL   := /usr/bin/jimsh
-+TCL	   := /usr/bin/jimsh
++TCL        := /usr/bin/jimsh
  JIM_CONFIGURE_OPTS = --disable-lineedit \
  	--with-out-jim-ext="stdlib posix load signal syslog" --prefix=/usr
  
-@@ -49,7 +45,7 @@
+@@ -49,7 +45,7 @@ jim/libjim.a:
  dispatcher-script: usb_modeswitch.tcl
  	sed 's_!/usr/bin/tclsh_!'"$(TCL)"'_' < usb_modeswitch.tcl > usb_modeswitch_dispatcher
  

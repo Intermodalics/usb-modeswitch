@@ -47,6 +47,7 @@ case "$1" in
 		device_in "link_list" $v_id $p_id
 		if [ "$?" = "1" ]; then
 			if [ -e "/usr/sbin/usb_modeswitch_dispatcher" ]; then
+				export TMPDIR=/run
 				exec usb_modeswitch_dispatcher $1 $2 2>>/dev/null
 			fi
 		fi
@@ -60,9 +61,9 @@ EOF
 
 PATH=/bin:/sbin:/usr/bin:/usr/sbin
 init_path=`readlink /sbin/init`
-if [ `basename $init_path` = "systemd" ]; then
+if [ `basename $init_path` = "systemd" ] && [ -d "/run/systemd/system/" ]; then # Test if systemd is running
 	systemctl --no-block start usb_modeswitch@$p1'_'$p2.service
-elif [ -e "/etc/init/usb-modeswitch-upstart.conf" ]; then
+elif [ -e "/etc/init/usb-modeswitch-upstart.conf" ] && [ -x /sbin/initctl ] && /sbin/initctl version 2>/dev/null | /bin/grep -q upstart; then # Test if upstart is running
 	initctl emit --no-wait usb-modeswitch-upstart UMS_PARAM=$1
 else
 	# only old distros, new udev will kill all subprocesses
