@@ -63,7 +63,7 @@ fi
 
 PATH=/bin:/sbin:/usr/bin:/usr/sbin
 init_path=`readlink -f /sbin/init`
-if [ `basename $init_path` = "systemd" ]; then
+if [ `basename $init_path` = "systemd" ] && [ -d "/run/systemd/system/" ]; then # Test if systemd is running
 	systemctl --no-block start usb_modeswitch@$p2.service
 elif [ -e "/etc/init/usb-modeswitch-upstart.conf" ]; then
 	initctl emit --no-wait usb-modeswitch-upstart UMS_PARAM=$p2
