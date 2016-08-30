@@ -47,6 +47,7 @@ case "$1" in
 		device_in "link_list" $v_id $p_id
 		if [ "$?" = "1" ]; then
 			if [ -e "/usr/sbin/usb_modeswitch_dispatcher" ]; then
+				export TMPDIR=/run
 				exec usb_modeswitch_dispatcher $1 $2 2>>/dev/null
 			fi
 		fi
