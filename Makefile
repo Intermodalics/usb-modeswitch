@@ -13,12 +13,8 @@ UDEVDIR     = $(DESTDIR)/lib/udev
 SBINDIR     = $(PREFIX)/sbin
 MANDIR      = $(PREFIX)/share/man/man1
 VPATH       = jimtcl
-HOST_TCL   := $(shell cd jim && ./autosetup/find-tclsh)
-ifeq (,$(findstring jimsh0,$(HOST_TCL)))
-TCL        ?= $(HOST_TCL)
-else
-TCL        ?= /usr/bin/tclsh
-endif
+HOST_TCL   := /usr/bin/jimsh
+TCL        := /usr/bin/jimsh
 JIM_CONFIGURE_OPTS = --disable-lineedit \
 	--with-out-jim-ext="stdlib posix load signal syslog" --prefix=/usr
 
@@ -49,7 +45,7 @@ jim/libjim.a:
 dispatcher-script: usb_modeswitch.tcl
 	sed 's_!/usr/bin/tclsh_!'"$(TCL)"'_' < usb_modeswitch.tcl > usb_modeswitch_dispatcher
 
-dispatcher-shared: jim/libjim.so dispatcher.c usb_modeswitch.string
+dispatcher-shared: dispatcher.c usb_modeswitch.string
 	$(CC) dispatcher.c $(LDFLAGS) -Ljim -ljim -Ijim -o usb_modeswitch_dispatcher $(CFLAGS)
 
 dispatcher-static: jim/libjim.a dispatcher.c usb_modeswitch.string
