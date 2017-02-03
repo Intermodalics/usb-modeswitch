@@ -1,10 +1,18 @@
-Description: Fix official{,l}y typo
-Author: Didier Raboud <odyx@debian.org>
-Last-Update: 2016-06-13
+From 55bbe180aae9f111d9e27e4e501aa2b3f0c0b01f Mon Sep 17 00:00:00 2001
+From: Didier Raboud <odyx@debian.org>
+Date: Tue, 30 Aug 2016 14:24:03 +0200
+Subject: Fix official{,l}y typo
 
+Patch-Name: 01_fix_typo_in_manpage.patch
+---
+ usb_modeswitch.1 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/usb_modeswitch.1 b/usb_modeswitch.1
+index fecac7c..59bf106 100644
 --- a/usb_modeswitch.1
 +++ b/usb_modeswitch.1
-@@ -40,7 +40,7 @@
+@@ -40,7 +40,7 @@ Print version information and exit
  .IP "\fB-v\fP \fB\-\-default-vendor NUM\fP         " 10
  Vendor ID to look for (mandatory), usually given as hex number (example: 0x12d1).
  Each USB device is identified by a number
