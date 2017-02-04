@@ -1,3 +1,11 @@
+usb-modeswitch (2.5.0+repack0-1~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports
+  * Revert "Use triplet-prefixed gcc and pkg-config to ease cross-building" as
+    that doesn't work in jessie
+
+ -- Didier Raboud <odyx@debian.org>  Sat, 04 Feb 2017 17:13:11 +0100
+
 usb-modeswitch (2.5.0+repack0-1) unstable; urgency=medium
 
   * New 2.5.0 upstream release
