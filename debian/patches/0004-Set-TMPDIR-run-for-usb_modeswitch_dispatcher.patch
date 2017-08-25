@@ -1,11 +1,9 @@
-From f886d151f60ee68e6e28c4d7555a36fff9825d3c Mon Sep 17 00:00:00 2001
+From 6a9aa4b9df8ce0f0779b0e573b82b386f5a2e503 Mon Sep 17 00:00:00 2001
 From: Didier Raboud <odyx@debian.org>
 Date: Tue, 30 Aug 2016 14:24:06 +0200
 Subject: Set TMPDIR=/run for usb_modeswitch_dispatcher
 
 It might be run before /tmp/ is available.
-
-Patch-Name: 06_set_TMPDIR_in_run.patch
 ---
  usb-modeswitch-upstart.conf | 1 +
  usb_modeswitch.sh           | 1 +
@@ -24,7 +22,7 @@ index 0d82b69..1fda4ba 100644
  	exec /usr/sbin/usb_modeswitch_dispatcher --switch-mode $UMS_PARAM
  end script
 diff --git a/usb_modeswitch.sh b/usb_modeswitch.sh
-index 74cfc0f..bc7c6eb 100755
+index b3eb59b..4005632 100755
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
 @@ -47,6 +47,7 @@ case "$1" in

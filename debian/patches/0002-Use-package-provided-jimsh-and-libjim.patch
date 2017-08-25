@@ -1,9 +1,8 @@
-From 1d8f9557e8b94f93b34a05231b31bb5453bb000c Mon Sep 17 00:00:00 2001
+From f83bbd55d5ae6023c61f8d1a37fa60069797e1b7 Mon Sep 17 00:00:00 2001
 From: Didier Raboud <odyx@debian.org>
 Date: Tue, 30 Aug 2016 14:24:04 +0200
 Subject: Use package-provided jimsh and libjim
 
-Patch-Name: 04_use_system_libjim.patch
 ---
  Makefile | 10 +++-------
  1 file changed, 3 insertions(+), 7 deletions(-)

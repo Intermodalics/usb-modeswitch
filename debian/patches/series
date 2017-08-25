@@ -1,5 +1,6 @@
-01_fix_typo_in_manpage.patch
-04_use_system_libjim.patch
-05_upstart_systemd_runtime_detection.patch
-06_set_TMPDIR_in_run.patch
+0001-Fix-official-l-y-typo.patch
+0002-Use-package-provided-jimsh-and-libjim.patch
+0003-Detect-if-systemd-is-running-not-only-if-its-corresp.patch
+0004-Set-TMPDIR-run-for-usb_modeswitch_dispatcher.patch
 0005-Allow-replacing-pkg-config-with-triplet-pkg-config.patch
+0006-Add-Documentation-pointer-in-systemd-service-unit.patch

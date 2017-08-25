@@ -1,9 +1,8 @@
-From 9cd947fc98497115e3d286dd0bc1fc5dc0f2ba9c Mon Sep 17 00:00:00 2001
+From 7dfc32c182174be26cf0cdcac71dd724b40dd906 Mon Sep 17 00:00:00 2001
 From: Didier Raboud <odyx@debian.org>
 Date: Tue, 30 Aug 2016 14:24:03 +0200
 Subject: Fix official{,l}y typo
 
-Patch-Name: 01_fix_typo_in_manpage.patch
 ---
  usb_modeswitch.1 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)

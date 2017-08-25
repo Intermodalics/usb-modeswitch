@@ -1,4 +1,4 @@
-From fa267e45043bbc2fe69fb89c8997a43cd7cf70c1 Mon Sep 17 00:00:00 2001
+From 492f8e5bfa4e0ae37e258e0d4ee6d74e2616a688 Mon Sep 17 00:00:00 2001
 From: Helmut Grohne <helmut@subdivi.de>
 Date: Tue, 30 Aug 2016 14:27:55 +0200
 Subject: Allow replacing pkg-config with <triplet>-pkg-config
