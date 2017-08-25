@@ -1,4 +1,4 @@
-From 50063072749c25582f169e322aeebe57a4b4b20e Mon Sep 17 00:00:00 2001
+From 0f69071dbda1da204cdf1bdac2c0bc374333693e Mon Sep 17 00:00:00 2001
 From: Didier Raboud <odyx@debian.org>
 Date: Tue, 30 Aug 2016 14:24:05 +0200
 Subject: Detect if upstart or systemd are running, not if their corresponding
@@ -15,7 +15,7 @@ Patch-Name: 05_upstart_systemd_runtime_detection.patch
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/usb_modeswitch.sh b/usb_modeswitch.sh
-index 25c4d95..89e2f98 100755
+index 999ca4c..74cfc0f 100755
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
 @@ -63,9 +63,9 @@ fi
