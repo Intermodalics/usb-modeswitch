@@ -4,4 +4,3 @@ lib/udev/usb_modeswitch
 usr/share/man/*
 etc/usb_modeswitch.conf
 usb_modeswitch@.service lib/systemd/system/
-usb-modeswitch-upstart.conf etc/init
