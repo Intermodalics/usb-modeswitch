@@ -1,3 +1,18 @@
+usb-modeswitch (2.5.1+repack0-1) unstable; urgency=medium
+
+  * New upstream version 2.5.1
+  * Bump debhelper compat to 10
+  * Bump S-V to 4.1.0 without changes needed
+  * Cleanup patch-suite:
+    - Remove upstart-specific enhancements
+    - Drop patch naming
+    - Add Documentation pointer in systemd service unit
+  * Stop installing the upstart conffile
+  * Drop all postinst code managing versions before the current
+    oldoldstable (wheezy, 1.2.3)
+
+ -- Didier Raboud <odyx@debian.org>  Fri, 25 Aug 2017 09:41:39 +0200
+
 usb-modeswitch (2.5.0+repack0-1) unstable; urgency=medium
 
   * New 2.5.0 upstream release
