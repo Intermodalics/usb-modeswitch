@@ -1,5 +1,6 @@
 [Unit]
 Description=USB_ModeSwitch_%i
+Documentation=man:usb_modeswitch_dispatcher(1)
 
 [Service]
 Type=oneshot
