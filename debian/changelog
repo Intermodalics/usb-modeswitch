@@ -366,7 +366,7 @@ usb-modeswitch (1.1.6-1) experimental; urgency=low
 usb-modeswitch (1.1.5-1) experimental; urgency=low
 
   * New 1.1.5 upstream version.
-  
+
   * Patches:
     - 01_no_bash_before_tcl.patch: remove, included upstream.
     x Refresh all others.
@@ -381,7 +381,7 @@ usb-modeswitch (1.1.4-2) unstable; urgency=low
 
 usb-modeswitch (1.1.4-1) unstable; urgency=low
 
-  * Patches: 
+  * Patches:
     + 04_use_var_lib_not_etc.patch : Add to put runtime files in /var/lib.
 
   * Release to unstable, thanks to the Release Team approval.
@@ -486,7 +486,7 @@ usb-modeswitch (1.1.0-2) unstable; urgency=low
 
 usb-modeswitch (1.1.0-1) unstable; urgency=low
 
-  The "All your base are belong to us" release. It was great to collaborate 
+  The "All your base are belong to us" release. It was great to collaborate
   with upstream on that release. Thanks Josh!
 
   * New 1.1.0 upstream version.
@@ -546,7 +546,7 @@ usb-modeswitch (1.0.5-1) unstable; urgency=low
     - Drop mkrules.py and thus python B-D (Closes: #535445).
     - Update manpage to 1.0.5 (add --version)
   * Patches:
-    - 01_correct_broken_huawei_conf.patch : refresh. 
+    - 01_correct_broken_huawei_conf.patch : refresh.
     - 02_umconf_is_no_exec.patch          : remove, merged upstream.
     - 03_build_system_to_policy.patch     : refresh.
     - 04_convert_umconf_to_unicode.patch  : Add to get everything in utf-8.
