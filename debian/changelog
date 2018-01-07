@@ -1,3 +1,16 @@
+usb-modeswitch (2.5.2+repack0-1) unstable; urgency=medium
+
+  * New upstream version 2.5.2
+  * Set priority optional
+  * Drop unused source lintian override
+  * Bump debhelper compat to 11
+  * Mangle version in debian/watch
+  * Drop trailing whitespace in debian/changelog
+  * Rewrite debian/copyright with CF1.0
+  * Bump S-V to 4.1.3
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 07 Jan 2018 12:32:11 +0100
+
 usb-modeswitch (2.5.1+repack0-1) unstable; urgency=medium
 
   * New upstream version 2.5.1
