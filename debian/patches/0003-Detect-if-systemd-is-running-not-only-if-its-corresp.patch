@@ -1,4 +1,4 @@
-From 8104381f789927ee31588d74e2d04e6b4256c36c Mon Sep 17 00:00:00 2001
+From 84a4b792609cb4c8012c2ee167c503bef3d025b4 Mon Sep 17 00:00:00 2001
 From: Didier Raboud <odyx@debian.org>
 Date: Tue, 30 Aug 2016 14:24:05 +0200
 Subject: Detect if systemd is running, not only if its corresponding
@@ -13,13 +13,13 @@ Bug-Debian: https://bugs.debian.org/725394
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/usb_modeswitch.sh b/usb_modeswitch.sh
-index 999ca4c..b3eb59b 100755
+index eb3fa3e..f5f2f70 100755
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
 @@ -63,7 +63,7 @@ fi
  
  PATH=/bin:/sbin:/usr/bin:/usr/sbin
- init_path=`readlink /sbin/init`
+ init_path=`readlink -f /sbin/init`
 -if [ `basename $init_path` = "systemd" ]; then
 +if [ `basename $init_path` = "systemd" ] && [ -d "/run/systemd/system/" ]; then # Test if systemd is running
  	systemctl --no-block start usb_modeswitch@$p2.service

@@ -1,4 +1,4 @@
-From 492f8e5bfa4e0ae37e258e0d4ee6d74e2616a688 Mon Sep 17 00:00:00 2001
+From ee66b303471dd66435e1531ef19f2b32f12845f4 Mon Sep 17 00:00:00 2001
 From: Helmut Grohne <helmut@subdivi.de>
 Date: Tue, 30 Aug 2016 14:27:55 +0200
 Subject: Allow replacing pkg-config with <triplet>-pkg-config
@@ -9,11 +9,11 @@ Bug-Debian: https://bugs.debian.org/836018
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index 1b33817..7f120dd 100644
+index 4f3634a..5007881 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -2,7 +2,8 @@ PROG        = usb_modeswitch
- VERS        = 2.5.1
+ VERS        = 2.5.2
  CC          ?= gcc
  CFLAGS      += -Wall
 -LIBS        = `pkg-config --libs --cflags libusb-1.0`

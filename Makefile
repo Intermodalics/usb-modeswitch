@@ -1,5 +1,5 @@
 PROG        = usb_modeswitch
-VERS        = 2.5.1
+VERS        = 2.5.2
 CC          ?= gcc
 CFLAGS      += -Wall
 PKG_CONFIG  ?= pkg-config

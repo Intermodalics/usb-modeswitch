@@ -1,4 +1,4 @@
-From f83bbd55d5ae6023c61f8d1a37fa60069797e1b7 Mon Sep 17 00:00:00 2001
+From 1d2a7a7a7f3e031e7ef05075d491655de345fc9a Mon Sep 17 00:00:00 2001
 From: Didier Raboud <odyx@debian.org>
 Date: Tue, 30 Aug 2016 14:24:04 +0200
 Subject: Use package-provided jimsh and libjim
@@ -8,7 +8,7 @@ Subject: Use package-provided jimsh and libjim
  1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index a6dd5f4..1b33817 100644
+index 463a11f..4f3634a 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -13,12 +13,8 @@ UDEVDIR     = $(DESTDIR)/lib/udev

@@ -1,4 +1,4 @@
-From 6a9aa4b9df8ce0f0779b0e573b82b386f5a2e503 Mon Sep 17 00:00:00 2001
+From e481cac2dd04ac19546dfd48ac6d58c52df0512a Mon Sep 17 00:00:00 2001
 From: Didier Raboud <odyx@debian.org>
 Date: Tue, 30 Aug 2016 14:24:06 +0200
 Subject: Set TMPDIR=/run for usb_modeswitch_dispatcher
@@ -22,7 +22,7 @@ index 0d82b69..1fda4ba 100644
  	exec /usr/sbin/usb_modeswitch_dispatcher --switch-mode $UMS_PARAM
  end script
 diff --git a/usb_modeswitch.sh b/usb_modeswitch.sh
-index b3eb59b..4005632 100755
+index f5f2f70..1f0c57e 100755
 --- a/usb_modeswitch.sh
 +++ b/usb_modeswitch.sh
 @@ -47,6 +47,7 @@ case "$1" in

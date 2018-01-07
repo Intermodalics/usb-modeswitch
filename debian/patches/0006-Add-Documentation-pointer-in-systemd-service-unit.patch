@@ -1,4 +1,4 @@
-From 4af1e8fe67dbda2d8bf30cc5551cac5236d271d6 Mon Sep 17 00:00:00 2001
+From 52511ac77b0c4d97d6c52b8a27868f93bc6417c8 Mon Sep 17 00:00:00 2001
 From: Didier Raboud <odyx@debian.org>
 Date: Fri, 25 Aug 2017 09:24:12 +0200
 Subject: Add Documentation pointer in systemd service unit
