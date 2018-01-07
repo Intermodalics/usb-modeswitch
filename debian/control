@@ -3,7 +3,7 @@ Section: comm
 Priority: optional
 Maintainer: Didier Raboud <odyx@debian.org>
 Build-Depends:
- debhelper (>= 10.2.5~),
+ debhelper (>= 11~),
  libusb-1.0-0-dev,
  pkg-config,
  jimsh, libjim-dev (>= 0.75-1~)
