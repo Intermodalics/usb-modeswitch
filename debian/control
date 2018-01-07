@@ -1,6 +1,6 @@
 Source: usb-modeswitch
 Section: comm
-Priority: extra
+Priority: optional
 Maintainer: Didier Raboud <odyx@debian.org>
 Build-Depends:
  debhelper (>= 10.2.5~),
