@@ -1,23 +1,26 @@
 Source: usb-modeswitch
+Maintainer: Didier Raboud <odyx@debian.org>
 Section: comm
 Priority: optional
-Maintainer: Didier Raboud <odyx@debian.org>
-Build-Depends:
- debhelper (>= 11~),
- libusb-1.0-0-dev,
- pkg-config,
- jimsh, libjim-dev (>= 0.75-1~)
+Build-Depends: debhelper (>= 11~),
+               libusb-1.0-0-dev,
+               pkg-config,
+               jimsh,
+               libjim-dev (>= 0.75-1~)
 Standards-Version: 4.1.3
+Vcs-Browser: https://salsa.debian.org/debian/usb-modeswitch
+Vcs-Git: https://salsa.debian.org/debian/usb-modeswitch.git
 Homepage: http://www.draisberghof.de/usb_modeswitch/
-Vcs-Git: https://alioth.debian.org/anonscm/git/collab-maint/usb-modeswitch.git
-Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/usb-modeswitch.git
 
 Package: usb-modeswitch
 Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         usb-modeswitch-data (>= 20140529)
+Suggests: comgt,
+          wvdial
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends}, usb-modeswitch-data (>= 20140529)
 Breaks: usb-modeswitch-data (<< 20100127)
-Suggests: comgt, wvdial
 Description: mode switching tool for controlling "flip flop" USB devices
  Several new USB devices have their proprietary Windows drivers onboard,
  especially WAN dongles. When plugged in for the first time, they act
