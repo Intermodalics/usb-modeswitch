@@ -2,7 +2,7 @@ Source: usb-modeswitch
 Maintainer: Didier Raboud <odyx@debian.org>
 Section: comm
 Priority: optional
-Build-Depends: debhelper (>= 11~),
+Build-Depends: debhelper (>= 9~),
                libusb-1.0-0-dev,
                pkg-config,
                jimsh,

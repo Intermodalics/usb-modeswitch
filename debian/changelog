@@ -1,3 +1,9 @@
+usb-modeswitch (2.5.2+repack0-2a) unstable; urgency=medium
+
+  * Downgrade debian files to allow building for xenial
+
+ -- Ruben Smits <ruben@intermodalics.eu>  Fri, 5 Oct 2018 11:39:02 +0200
+
 usb-modeswitch (2.5.2+repack0-2) unstable; urgency=medium
 
   * Update Vcs-* for the move to Salsa
